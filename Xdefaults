@@ -1,0 +1,50 @@
+xcursor.theme: neutral
+
+! == COLOR SCHEMES ==
+!#include "/home/aj/.config/xrdb/oxygen.xrdb"
+#include "/home/aj/.config/xrdb/zenburn.xrdb"
+
+! == FONT SETTINGS ==
+!*font:	xft:Envy\ Code\ R-10
+!*font: xft:Terminus-8
+*font: xft:Liberation\ Mono:pixelsize=12
+!xft.dpi: 128.65
+Xft.dpi: 96
+!Xft.antialias: true
+!Xft.hinting: false
+!Xft.hintstyle: hintfull
+!Xft.rgba: rgb
+
+! == URXVT SETTINGS ==
+urxvt*externalBorder:	0
+urxvt*internalBorder:	2
+urxvt*scrollBar:	false
+urxvt*depth:	32
+urxvt*cursorBlink:	true
+urxvt*inheritPixmap:	false
+urxvt*termName:	xterm
+urxvt*saveLines:	10000
+urxvt*scrollTtyOutput:	false
+urxvt*scrollTtyKeypress:	true
+urxvt*mouseWheelScrollPage:	false
+urxvt*urlLauncher:	uzbl
+urxvt.urgentOnBell:	true
+urxvt.background:	COLOR_BG
+urxvt.foreground:	COLOR_FG
+
+*color0:  COLOR_TERM_BLACK
+*color1:  COLOR_TERM_DARK_RED 
+*color2:  COLOR_TERM_DARK_GREEN 
+*color3:  COLOR_TERM_DARK_YELLOW 
+*color4:  COLOR_TERM_DARK_BLUE
+*color5:  COLOR_TERM_DARK_MAGENTA
+*color6:  COLOR_TERM_DARK_CYAN
+*color7:  COLOR_TERM_DARK_GRAY
+*color8:  COLOR_TERM_DARK_GRAY
+*color9:  COLOR_TERM_LIGHT_RED
+*color10: COLOR_TERM_LIGHT_GREEN
+*color11: COLOR_TERM_LIGHT_YELLOW
+*color12: COLOR_TERM_LIGHT_BLUE
+*color13: COLOR_TERM_LIGHT_MAGENTA 
+*color14: COLOR_TERM_LIGHT_CYAN
+*color15: COLOR_TERM_WHITE
