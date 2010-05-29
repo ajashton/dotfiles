@@ -32,7 +32,7 @@ parse_svn_url() {
 parse_svn_repository_root() {
   svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
 }
-export PS1="\[\033[00m\]\u@\h\[\033[01;34m\] \w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch) \[\033[00m\]$\[\033[00m\] "
+export PS1="┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
 
 shopt -s checkwinsize
 
@@ -108,10 +108,16 @@ alias ffeh='feh -FZ'
 
 # == FUNCTIONS =================================================================
 
-function mcd {
-  # make a directory & cd into it in one step
-  mkdir -p $1 && cd $1
-}
+# Follow copied and moved files to destination directory (via jwr)
+
+goto() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
+
+cpf() { cp "$@" && goto "$_"; }
+
+mvf() { mv "$@" && goto "$_"; }
+
+# Make one or more directories, and cd to the last one in the list
+mcd() { mkdir -p "$@" && goto "$_"; }
 
 function cnik {
   # compiles a Cascadenik file into a map.xml
@@ -211,7 +217,6 @@ function _apparix_aliases () {
 # command to register the above to expand when the 'to' command's args are
 # being expanded
 complete -F _apparix_aliases to
-
 
 # == Local Config ==============================================================
 
