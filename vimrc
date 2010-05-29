@@ -42,8 +42,7 @@ autocmd FileType php setlocal shiftwidth=2 tabstop=2
 
 if has("gui_running")
     :colorscheme zenburn
-    set guifont=Liberation\ Mono\ 9
-"    set guifont=Terminus\ 8
+    set guifont=Envy\ Code\ R\ 9
     set guioptions=aegimrLt
 endif
 
