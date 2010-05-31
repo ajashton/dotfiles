@@ -1,9 +1,9 @@
 " == BASIC INTERFACE PREFERENCES ==========================
 
+set nocompatible
 "" backspace/delete like I'm used to
 set backspace=indent,eol,start
 set history=100
-set nocompatible
 "" show line numbers
 "set number
 set ruler
