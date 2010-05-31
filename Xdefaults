@@ -2,18 +2,15 @@ xcursor.theme: neutral
 
 ! == COLOR SCHEMES ==
 !#include "/home/aj/.config/xrdb/oxygen.xrdb"
-#include "/home/aj/.config/xrdb/zenburn.xrdb"
+!#include "/home/aj/.config/xrdb/zenburn.xrdb"
 
 ! == FONT SETTINGS ==
-!*font:	xft:Envy\ Code\ R-10
-!*font: xft:Terminus-8
-*font: xft:Liberation\ Mono:pixelsize=12
-!xft.dpi: 128.65
+*font:	xft:Envy\ Code\ R-9
 Xft.dpi: 96
-!Xft.antialias: true
-!Xft.hinting: false
-!Xft.hintstyle: hintfull
-!Xft.rgba: rgb
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
 
 ! == URXVT SETTINGS ==
 urxvt*externalBorder:	0
