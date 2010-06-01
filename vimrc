@@ -62,6 +62,10 @@ augroup mkd
   autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
+"" == PLUGIN OPTIONS =======================================
+
+let g:miniBufExplMapWindowNavVim = 1
+
 "" == KEYBINDINGS ==========================================
 
 " navigate apparent lines, not actual ones
