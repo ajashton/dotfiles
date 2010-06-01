@@ -64,6 +64,10 @@ augroup END
 
 "" == KEYBINDINGS ==========================================
 
+" navigate apparent lines, not actual ones
+nmap <silent> j gj
+nmap <silent> k gk
+
 "" Common file operations like every other desktop app
 "" CTRL-N = New Tab
 "map <C-n> <silent> <ESC>:tabnew<CR>
