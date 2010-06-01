@@ -1,0 +1,11 @@
+"2.3.1 (created: 2010/04/07 18:56:53)
+
+" Select all, copy, paste like I'm used to
+noremap <C-a> <C-v><C-a>
+noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
+
+set runtimepath=/home/aj/.vimperator
+source! /home/aj/.vimperatorrc.local
+
+" vim: set ft=vimperator:
