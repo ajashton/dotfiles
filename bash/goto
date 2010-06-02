@@ -1,0 +1,236 @@
+#!/bin/bash
+# goto -- "go to" a directory that fits the pattern given
+# goto_range -- limit the directories searched
+
+# See usage messages on both (run with "-h" argument) for more details
+
+# version 0.7
+# revision history
+# 0.7 -- now bypasses the locate db and uses find+grep (where it makes sense)
+#        when used with, example, fuse-mounted directories, which are
+#        invisible to root (and therefore to slocate).  This also applies to
+#        new trees that didn't make it into the locate db yet.
+# 0.6 -- added the "shortcut" for setting a temporary range
+# 0.5 -- simplification of the large changes in 0.4; no user-specific db
+#        created now.
+# 0.4 -- now you can make goto() behave like wcd -- use a user-specific
+#        database instead of the system's locate database.  I thought of this
+#        when I suddenly inherited a whole tree of files from elsewhere for
+#        some quick local editing, and needed to navigate within this without
+#        getting distracted by the rest of the system.
+#     -- Run the new function "goto_setdb" without arguments to see how to use
+#        this.
+#     -- Code changes: 3 new functions, an alias and changing the two "locate
+#        -i -r" commands in goto() to use the alias instead
+# 0.3 -- if you specify "f" as the second argument, then goto a directory
+#        containing a file with the pattern given.  That is, the pattern will
+#        match files, not directories!
+# 0.2 -- now works with directories with spaces in their names
+# 0.1 -- first release
+
+# startup defaults
+_goto_limited=UNlimited
+_goto_range_invert=''
+
+function goto_range ()
+{
+    [ "$1" == "-h" ] && {
+        cat <<EOF >&2
+
+Usage: goto_range s|a|l|u|e|i
+
+Sometimes "goto" returns results from directories you don't care about, and
+you want to restrict the searches to a set of directories only
+
+  s = SET the current directory as the search range
+  a = ADD the current directory to the search range
+
+  l = LIMIT searches to the search range
+      the search range is set to the current directory if it is undefined
+      using the "s" or the "a" option automatically sets this also
+  u = UNlimited; use the entire locate database
+      the search range is not used even if it is defined
+      this is the default behaviour
+
+Sometimes you want to say "search everywhere except in these directories"
+
+  e = EXCLUDE directories; search everywhere EXCEPT in search range
+  i = INCLUDE directories; search only in search range
+      this is the default behaviour
+
+EOF
+        return
+    }
+
+    case $1 in
+    s)  _goto_limited='limited'
+        _goto_range="^$PWD"
+        ;;
+    a)  _goto_limited='limited'
+        [ "$_goto_range" != "" ] && _goto_range="$_goto_range\|"
+        _goto_range="$_goto_range^$PWD"
+        ;;
+    l)  _goto_limited='limited'
+        [ "$_goto_range" == "" ] && _goto_range="^$PWD"
+        ;;
+    u)  _goto_limited='UNlimited'
+        ;;
+    e)  _goto_range_invert=-v
+        ;;
+    i)  _goto_range_invert=''
+        ;;
+    esac
+    {
+        echo "range status: goto is currently $_goto_limited"
+        if [ "$_goto_range" != "" ]
+        then
+            [ "$_goto_limited" == "UNlimited" ] && echo -n "however, "
+            echo -e "the range is defined to be\n\t$_goto_range"
+            [ "$_goto_range_invert" == "-v" ] && echo "and it is INVERTED (excludes the directories above)"
+        fi
+        echo run \"goto_range -h\" for usage
+        echo
+    } >&2
+}
+
+function _mylocate ()
+{
+    # fuse-mounted directories are not visible to root, and so don't make it
+    # into the locate db.  Similarly there may be directories which haven't
+    # made it into the locate db yet.
+
+    # This function is only called when running with a range (it is
+    # meaningless to bypass the locate db otherwise).
+
+    # It is also meaningless to bypass the locate db if the range criteria is
+    # inverted, or if we find that the directory in the range condition exists
+    # in the locate db
+
+    if [[ $_goto_range_invert == '-v' || $(locate -r $_goto_range -n 2 -c) == 2 ]]
+    then
+        locate -i -r "$1" | grep $_goto_range_invert $_goto_range
+    else
+        echo $_goto_range not in locate db, dropping to find... >&2
+        # chop "^" in $goto_range, and convert "|" to spaces
+        find $(echo $_goto_range|sed -e 's/\^//g' -e 's/\\|/\n/g') | grep -i "$1"
+    fi
+}
+
+# _goto_isdir: read "candidate" pathnames from stdin and return any that are
+# files (if the argument is "f") or any that are directories (if there is no
+# argument or it is not "f")
+function _goto_isdir ()
+{
+    if [ "$1" == "f" ]
+    then
+        while read _goto_dir_cand
+        do
+            [ -f "$_goto_dir_cand" ] && echo "${_goto_dir_cand%/*}" && continue
+        done
+    else
+        while read _goto_dir_cand
+        do
+            [ -d "$_goto_dir_cand" ] && echo "$_goto_dir_cand" && continue
+        done
+    fi
+}
+
+function goto ()
+{
+    [[ "$1" == "" ]] && {
+        cat <<EOF >&2
+run "goto -h" for usage
+
+EOF
+        goto_range
+        return
+    }
+    [[ "$1" == "-h" ]] && {
+        cat <<EOF >&2
+
+Usage: goto dir_pattern
+       fgoto file_pattern
+
+Uses the locate database to find a directory (i) matching the dir_pattern OR
+(ii) containing a file matching the file_pattern
+
+The patterns use locate's "-r" option, except that we're only interested in
+matching the last component of each candidate path.
+
+argument        matches what part of last path component?
+------------    -----------------------------------------
+path            anywhere
+/path           starts with
+path$           ends with
+/path$          exact
+
+IMPORTANT: You can restrict the search to one or more directories.  Run
+"goto_range -h" to learn how to use the search range effectively.
+
+SHORTCUT: "goto . pattern" or "fgoto . pattern" TEMPORARILY sets the search
+range to the current directory and then does the goto/fgoto, REGARDLESS of
+what the current range settings are!  You can do this with any directory
+instead of "." -- I usually do this to ".", "..", "~", "/var" etc., as needed.
+
+EOF
+        return
+    }
+
+    # special case: if the first param is a directory (typical example will be
+    # ".", "..", "~", "/etc" or something like that), then set the range to
+    # the directory specified and then do the goto
+    [[ -d "$1" ]] && [[ "$2" != "" ]] && {
+        pushd "$1" >/dev/null
+        shift
+        local _goto_range
+        local _goto_limited
+        local _goto_range_invert=''
+        goto_range s
+        popd >/dev/null
+    }
+
+    # XXX note hardcoding (-20) in the "head" commands
+
+    # minor adjustment -- if there was no trailing $, we have to add [^/]*$,
+    # to force locate to restrict its matching to just the last component
+    [[ $1 == *\$ ]] || set -- "$1[^/]*$" "$2"
+
+    unset _goto_dir_array
+    local IFS=$'\n'
+
+    for _goto_candidate in $(
+        if [ "$_goto_limited" == "limited" ]
+        then
+            echo -e "search range:\t$_goto_range" >&2
+            _mylocate    "$1" | _goto_isdir $2 | uniq | head -20
+        else
+            locate -i -r "$1" | _goto_isdir $2 | uniq | head -20
+        fi
+    )
+    do
+        # what a way to say "push @array, $_goto_candidate" :-)
+        _goto_dir_array=(${_goto_dir_array[@]} $_goto_candidate)
+    done
+
+    # only one hit -- go straight there!
+    if [ ${#_goto_dir_array[@]} == "1" ]
+    then
+        cd ${_goto_dir_array[0]}
+        pwd
+    else
+        select _goto_dir in ${_goto_dir_array[@]}
+        do
+            if [ "$_goto_dir" != "" ]
+            then
+                cd $_goto_dir
+                pwd
+            fi
+            break
+        done
+    fi
+}
+
+function fgoto ()
+{
+    goto "$@" f
+}

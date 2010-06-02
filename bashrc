@@ -1,6 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+[ -r $HOME/.bash/goto ] && . $HOME/.bash/goto
 
 # == ENVIRONMENT ===============================================================
 
@@ -12,7 +13,7 @@ export GREP_COLOR="1;33"
 shopt -s histappend
 export PROMPT_COMMAND="history -w;$PROMPT_COMMAND"
 export HISTCONTROL=erasedups
-export HISTFILE=$HOME/.history
+export HISTFILE=$HOME/.bash/history
 export HISTSIZE=50000
 export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
@@ -32,7 +33,7 @@ parse_svn_url() {
 parse_svn_repository_root() {
   svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
 }
-export PS1="┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
+export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
 
 shopt -s checkwinsize
 
@@ -110,11 +111,11 @@ alias ffeh='feh -FZ'
 
 # Follow copied and moved files to destination directory (via jwr)
 
-goto() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
+follow() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
 
-cpf() { cp "$@" && goto "$_"; }
+cpf() { cp "$@" && follow "$_"; }
 
-mvf() { mv "$@" && goto "$_"; }
+mvf() { mv "$@" && follow "$_"; }
 
 # Make one or more directories, and cd to the last one in the list
 mcd() { mkdir -p "$@" && goto "$_"; }
@@ -220,4 +221,4 @@ complete -F _apparix_aliases to
 
 # == Local Config ==============================================================
 
-[ -r $HOME/.bashrc.local ] && . $HOME.bashrc.local
+[ -r $HOME/.bashrc.local ] && . $HOME/.bashrc.local
