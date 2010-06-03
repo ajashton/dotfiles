@@ -1,9 +1,6 @@
 # shut up
 set bell-style none
 
-# no need to tab twice
-set show-all-if-ambiguous on
-
 # Page Up & Down for history search completion
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
