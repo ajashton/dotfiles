@@ -40,9 +40,9 @@ export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse
 
 # ---- Alternatives ------------------------------------------------------------
 
-test -x `which colordiff` && alias diff='colordiff'
-test -x `which most` && alias less='most'
-text -x `which pacman-color` && alias pacman='pacman-color'
+test -x /usr/bin/colordiff && alias diff='colordiff'
+test -x /usr/bin/most && alias less='most'
+test -x /usr/bin/pacman-color && alias pacman='pacman-color'
 alias vi='vim'
 
 # ---- Preferred Default Options -----------------------------------------------
