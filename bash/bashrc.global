@@ -5,9 +5,6 @@ export GREP_COLOR="1;33"
 
 shopt -s checkwinsize
 
-# no need to hit tab twice
-set show-all-if-ambiguous on
-
 # ---- History -----------------------------------------------------------------
 
 shopt -s histappend

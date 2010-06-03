@@ -1,6 +1,13 @@
+## Shell prompt auto-completion options
+
 # shut up
 set bell-style none
-
 # Page Up & Down for history search completion
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
+# no need to tab twice
+set show-all-if-ambiguous on
+# show me plenty
+set completion-query-items 350
+# I can scroll fine (don't page me, bro!)
+set page-completions off

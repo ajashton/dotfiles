@@ -6,11 +6,11 @@ xcursor.theme: neutral
 
 ! == FONT SETTINGS ==
 *font:	xft:Envy\ Code\ R-9
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting: true
-Xft.hintstyle: hintfull
-Xft.rgba: rgb
+!Xft.dpi: 96
+!Xft.antialias: true
+!Xft.hinting: true
+!Xft.hintstyle: hintfull
+!Xft.rgba: rgb
 
 ! == URXVT SETTINGS ==
 urxvt*externalBorder:	0
