@@ -19,8 +19,7 @@ export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
 # ---- Shell Prompt ------------------------------------------------------------
 
-# If I am in a git or svn working copy, tell me what branch in the prompt. ie:
-# 'user@host : ~/git/repo (git::branch) $'
+# Functions to tell me whether I am in a git or svn working copy, + which branch
 
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'
@@ -35,6 +34,9 @@ parse_svn_repository_root() {
   svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
 }
 
+# PS1 looks like this:
+# ┌─[ aj@macbook : ~/src/dotfiles (git::master) ]
+# └─╼ 
 export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
 
 # == ALIASES ===================================================================
