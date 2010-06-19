@@ -38,12 +38,14 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType php setlocal shiftwidth=2 tabstop=2
 
 
-"" == GUI OPTIONS ==========================================
+"" == GVIM/MACVIM ONLY ====================================
 
 if has("gui_running")
-    :colorscheme zenburn
+    :colorscheme wombat
     set guifont=Envy\ Code\ R\ 9
-    set guioptions=aegimrLt
+    set guioptions=aegimLt
+    set columns=90
+    set lines=40
 endif
 
 
