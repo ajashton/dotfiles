@@ -74,28 +74,6 @@ let g:miniBufExplMapWindowNavVim = 1
 nmap <silent> j gj
 nmap <silent> k gk
 
-"" Common file operations like every other desktop app
-"" CTRL-N = New Tab
-"map <C-n> <silent> <ESC>:tabnew<CR>
-"" CTRL-O = Open File (with browser, in new tab)
-"map <C-O> <silent> <ESC>:browse tabnew<CR>
-"" CTRL-X = Cut
-"vnoremap <C-x> "+x
-"" CTRL-C = Copy
-"vnoremap <C-c> "+y
-"" CTRL-V = Paste
-"map <C-v> "+gP
-"" CTRL-Z = Undo
-"noremap <C-z> u
-"inoremap <C-z> <C-O> u
-"" CTRL-A = Select All
-"noremap <C-a> gggH<C-O>G
-"inoremap <C-a> <C-O>gg<C-O>gH<C-O>G
-"cnoremap <C-a> <C-C>gggH<C-O>G
-"onoremap <C-a> <C-C>gggH<C-O>G
-"snoremap <C-a> <C-C>gggH<C-O>G
-"xnoremap <C-a> <C-C>ggVG
-
 "" Quote/Unquote a word consisting of letters from iskeyword.
 nnoremap <silent> qw :call Quote('"')<CR>
 nnoremap <silent> qs :call Quote("'")<CR>
