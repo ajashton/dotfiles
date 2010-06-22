@@ -89,14 +89,6 @@ alias cups='sudo /etc/rc.d/cups start'
 alias lamp='sudo /etc/rc.d/httpd start && sudo /etc/rc.d/mysqld start'
 alias pgsql='sudo /etc/rc.d/postgresql start'
 
-# ssh et al
-alias rsynci='rsync -e "ssh -i $HOME/.ssh/id_rsa"'
-alias scpi='scp -i ~/.ssh/id_rsa'
-alias sshi='ssh -i ~/.ssh/id_rsa'
-alias scpe='scp -i ~/.ssh/ec2-keypair.pem'
-alias sshe='ssh -i ~/.ssh/ec2-keypair.pem'
-alias rsynce='rsync --progress -h -e "ssh -i $HOME/.ssh/ec2-keypair.pem"'
-
 alias ffeh='feh -FZ'
 
 
