@@ -105,6 +105,10 @@ mvf() { mv "$@" && follow "$_"; }
 # Make one or more directories, and cd to the last one in the list
 mcd() { mkdir -p "$@" && goto "$_"; }
 
+function hide() { for file in "$@"; do mv -i "$file" ".$file"; done }
+
+function unhide() { for file in "$@"; do mv -i "$file" "`echo $file | sed 's/^\.//'`"; done }
+
 function cnik {
   # compiles a Cascadenik file into a map.xml
   # @TODO: 
