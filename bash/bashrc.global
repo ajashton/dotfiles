@@ -57,6 +57,7 @@ alias vlc='vlc --extraintf http'
 
 # ---- Shortcuts  --------------------------------------------------------------
 
+# ls
 alias ls='ls -F --color=auto'            # a couple good defaults
 alias l='ls -F --color=auto'             # 50% less typing!
 alias ll='ls -Fhl --color=auto'          # long list
@@ -67,12 +68,16 @@ alias llr='ls -FlR --color=auto'         # long list recursive
 alias lx='ls -lXB --color=auto'          # sort by extension
 alias lm='ls -Fl --color=always | most'  # pipe to most, with color
 
+# cd
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+
+# drush
+alias dfu='drush features-update'
 
 alias mp3name='eyeD3 --rename="%n. %t"'
 
@@ -105,6 +110,7 @@ mvf() { mv "$@" && follow "$_"; }
 # Make one or more directories, and cd to the last one in the list
 mcd() { mkdir -p "$@" && goto "$_"; }
 
+# TODO: Make these more robust, ie, work on files in subdirs
 function hide() { for file in "$@"; do mv -i "$file" ".$file"; done }
 
 function unhide() { for file in "$@"; do mv -i "$file" "`echo $file | sed 's/^\.//'`"; done }
