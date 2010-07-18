@@ -8,4 +8,6 @@
 set runtimepath=/home/aj/.vimperator
 source! /home/aj/.vimperatorrc.local
 
+set guioptions=Nr
+
 " vim: set ft=vimperator:
