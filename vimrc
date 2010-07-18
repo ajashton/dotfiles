@@ -5,17 +5,16 @@ set nocompatible
 set backspace=indent,eol,start
 set history=100
 "" show line numbers
-"set number
+set number
 set ruler
 set showcmd
 "" show matching braces/parens
 set showmatch
+set showtabline=1
 " set spell
 set title
 "" visual bell
 set vb
-"" hide ~'s
-hi NonText guifg=bg
 
 "" wrap like I'm used to
 set wrap
@@ -26,7 +25,7 @@ set lbr
 filetype plugin indent on
 
 
-"" == INDENTATION =========================================
+"" == TABS & FORMATTING ===================================
 
 "" default options
 set shiftwidth=4
@@ -34,20 +33,44 @@ set tabstop=4
 set expandtab
 
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
+
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
+
 autocmd FileType map setlocal shiftwidth=2 tabstop=2
+autocmd FileType map setlocal noexpandtab
+
 autocmd FileType php setlocal shiftwidth=2 tabstop=2
+
+set list
+"set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
+"set lcs=tab:└─,trail:·,extends:>,precedes:<,nbsp:&
+set lcs=tab:│┈,trail:·,extends:>,precedes:<,nbsp:&
+
+" formatoptions:
+" c - autowrap COMMENTS using textwidth
+" r - insert comment leader (?) on <enter>
+" o - insert comment leader on 'o' or 'O'
+" q - gq formats comments (?)
+" n - recon numbered lists
+" v - wrap on blanks
+" t - autowrap TEXT using textwidth
+set fo=croqnvt
+
 
 
 "" == GVIM/MACVIM ONLY ====================================
 
 if has("gui_running")
-    :colorscheme wombat
-    set guifont=Envy\ Code\ R\ 9
-    set guioptions=aegimLt
-    set columns=90
-    set lines=40
+    :colorscheme pyte-straight
+    set guifont=Terminus\ 8
+    set guioptions=aegi
+    set columns=115
+    set lines=45
 endif
+
+"" == PLUGIN OPTIONS =======================================
+
+let g:NERDTreeWinSize=40
 
 
 "" == SEARCH (AND REPLACE) OPTIONS =========================
@@ -90,3 +113,4 @@ function! UnQuote()
     normal `z
 endfunction
 
+inoremap <Tab> <C-R>=SuperCleverTab()<cr>
