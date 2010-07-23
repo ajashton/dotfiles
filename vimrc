@@ -62,21 +62,22 @@ set fo=croqnvt
 
 if has("gui_running")
     :colorscheme pyte-straight
-    set guifont=Terminus\ 8
-    set guioptions=aegi
+    set guifont=Dina\ 8
+    set guioptions=egi
     set columns=115
     set lines=45
 endif
 
 "" == PLUGIN OPTIONS =======================================
 
-let g:NERDTreeWinSize=40
+let g:NERDTreeWinSize=36
 
 
 "" == SEARCH (AND REPLACE) OPTIONS =========================
 
 "" F5 toggles highlighted search
 map <F5> :set hls!<bar>set hls?<CR>
+set ignorecase
 set smartcase
 
 
