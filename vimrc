@@ -41,10 +41,10 @@ autocmd FileType map setlocal noexpandtab
 
 autocmd FileType php setlocal shiftwidth=2 tabstop=2
 
-set list
+set nolist
 "set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
 "set lcs=tab:└─,trail:·,extends:>,precedes:<,nbsp:&
-set lcs=tab:│┈,trail:·,extends:>,precedes:<,nbsp:&
+set lcs=tab:│┈,trail:·,extends:»,precedes:«,nbsp:&
 
 " formatoptions:
 " c - autowrap COMMENTS using textwidth
@@ -61,16 +61,16 @@ set fo=croqnvt
 "" == GVIM/MACVIM ONLY ====================================
 
 if has("gui_running")
-    :colorscheme pyte-straight
-    set guifont=Dina\ 8
-    set guioptions=egi
-    set columns=115
-    set lines=45
+    :colorscheme ir_black
+    set guifont=Liberation\ Mono\ 8
+    set guioptions=i
+    set columns=100
+    set lines=52
 endif
 
 "" == PLUGIN OPTIONS =======================================
 
-let g:NERDTreeWinSize=36
+let g:NERDTreeWinSize=30
 
 
 "" == SEARCH (AND REPLACE) OPTIONS =========================
