@@ -1,47 +1,46 @@
 xcursor.theme: neutral
 
-! == COLOR SCHEMES ==
-!#include "/home/aj/.config/xrdb/oxygen.xrdb"
-!#include "/home/aj/.config/xrdb/zenburn.xrdb"
-
 ! == FONT SETTINGS ==
-*font:	xft:Envy\ Code\ R-9
-!Xft.dpi: 96
-!Xft.antialias: true
-!Xft.hinting: true
-!Xft.hintstyle: hintfull
-!Xft.rgba: rgb
+!*.font: -*-proggytinysz-medium-r-normal-*-10-*-96-*-*-*-*-*
+!*.font: -*-proggysquaresz-medium-r-*-*-11-*-96-*-*-*-*-*
+*.font: -*-proggycleansz-medium-r-*-*-13-*-*-*-*-*-*-*
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
 
 ! == URXVT SETTINGS ==
-urxvt*externalBorder:	0
-urxvt*internalBorder:	2
-urxvt*scrollBar:	false
-urxvt*depth:	32
-urxvt*cursorBlink:	true
-urxvt*inheritPixmap:	false
-urxvt*termName:	xterm
-urxvt*saveLines:	10000
-urxvt*scrollTtyOutput:	false
-urxvt*scrollTtyKeypress:	true
-urxvt*mouseWheelScrollPage:	false
-urxvt*urlLauncher:	uzbl
-urxvt.urgentOnBell:	true
-urxvt.background:	COLOR_BG
-urxvt.foreground:	COLOR_FG
+URxvt*externalBorder:	0
+URxvt*internalBorder:	2
+URxvt*scrollBar:	false
+URxvt*depth:	32
+URxvt*cursorBlink:	true
+URxvt*inheritPixmap:	false
+URxvt*termName:	xterm
+URxvt*saveLines:	10000
+URxvt*scrollTtyOutput:	false
+URxvt*scrollTtyKeypress:	true
+URxvt*mouseWheelScrollPage:	false
+URxvt*urlLauncher:	chromium
+URxvt.urgentOnBell:	true
+*rxvt.background:	#000000
+*rxvt.foreground:	#B2B2B2
 
-*color0:  COLOR_TERM_BLACK
-*color1:  COLOR_TERM_DARK_RED 
-*color2:  COLOR_TERM_DARK_GREEN 
-*color3:  COLOR_TERM_DARK_YELLOW 
-*color4:  COLOR_TERM_DARK_BLUE
-*color5:  COLOR_TERM_DARK_MAGENTA
-*color6:  COLOR_TERM_DARK_CYAN
-*color7:  COLOR_TERM_DARK_GRAY
-*color8:  COLOR_TERM_DARK_GRAY
-*color9:  COLOR_TERM_LIGHT_RED
-*color10: COLOR_TERM_LIGHT_GREEN
-*color11: COLOR_TERM_LIGHT_YELLOW
-*color12: COLOR_TERM_LIGHT_BLUE
-*color13: COLOR_TERM_LIGHT_MAGENTA 
-*color14: COLOR_TERM_LIGHT_CYAN
-*color15: COLOR_TERM_WHITE
+! color scheme by jwr
+*color0:  #000000
+*color1:  #8C4565
+*color2:  #287373 
+*color3:  #8A769F 
+*color4:  #395573
+*color5:  #5D458C
+*color6:  #31668C
+*color7:  #899CA1
+*color8:  #3D3D3D
+*color9:  #BF4D80
+*color10: #52A6A6
+*color11: #C4ABDB
+*color12: #477BB3
+*color13: #7D62B3 
+*color14: #6097BF
+*color15: #C0C0C0
