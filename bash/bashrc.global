@@ -31,10 +31,19 @@ parse_svn_repository_root() {
   svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
 }
 
-# PS1 looks like this:
-# ┌─[ aj@macbook : ~/src/dotfiles (git::master) ]
-# └─╼ 
-export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
+if [ $TERM = 'xterm' -o $TERM = 'linux' ] ; then
+    # Full-color, unicode. PS1 looks like this:
+    # ┌─[ aj@macbook : ~/src/dotfiles (git::master) ]
+    # └─╼ 
+    export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
+elif [ $TERM = 'mrxvt' ] ; then
+    # Full-color, no unicode.
+    # export PS1="[\h] \W > "
+    export PS1="\n[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n> "
+else
+    # No color, no unicode.
+    export PS1="\n[ \u@\h : \w \$(parse_git_branch)\$(parse_svn_branch) ]\n> "
+fi
 
 # == ALIASES ===================================================================
 
@@ -101,7 +110,7 @@ alias ffeh='feh -FZ'
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
-# EG to renam foo.shp (et al) to bar.shp (et al), do:
+# EG to rename foo.shp (et al) to bar.shp (et al), do:
 # shpmv foo bar
 
 shpmv() {
