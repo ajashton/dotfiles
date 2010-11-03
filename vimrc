@@ -58,19 +58,31 @@ set fo=croqnvt
 
 
 
-"" == GVIM/MACVIM ONLY ====================================
+"" == TERMINAL/GUI SETUP ==================================
+
+au VimEnter *
+                \ if &term == 'xterm'           |
+                \       set t_Co=256            |
+                \ endif
 
 if has("gui_running")
-    :colorscheme ir_black
+    colo ir_black
     set guifont=Liberation\ Mono\ 8
     set guioptions=i
     set columns=100
     set lines=52
+else
+	" Select colormap: 'soft', 'softlight', 'standard' or 'allblue'
+	let xterm16_colormap	= 'allblue'
+	" Select brightness: 'low', 'med', 'high', 'default' or custom levels.
+	let xterm16_brightness	= 'default'
+    let xterm16bg_Normal = 'none'
+	colo xterm16
 endif
 
 "" == PLUGIN OPTIONS =======================================
 
-let g:NERDTreeWinSize=30
+let g:NERDTreeWinSize=25
 
 
 "" == SEARCH (AND REPLACE) OPTIONS =========================
