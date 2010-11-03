@@ -113,9 +113,9 @@ alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
 # Start, stop, & restart daemons in /etc/rc.d
 
-restart() { sudo /etc/rc.d/$1 restart }
-start()   { sudo /etc/rc.d/$1 start }
-stop()    { sudo /etc/rc.d/$1 stop }
+restart() { sudo /etc/rc.d/${1} restart; }
+start() { sudo /etc/rc.d/${1} start; }
+stop() { sudo /etc/rc.d/${1} stop; }
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
