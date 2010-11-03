@@ -1,9 +1,9 @@
 xcursor.theme: neutral
 
 ! == FONT SETTINGS ==
-!*.font: -*-proggytinysz-medium-r-normal-*-10-*-96-*-*-*-*-*
+*.font: -*-proggytinysz-medium-r-normal-*-10-*-96-*-*-*-*-*
 !*.font: -*-proggysquaresz-medium-r-*-*-11-*-96-*-*-*-*-*
-*.font: -*-proggycleansz-medium-r-*-*-13-*-*-*-*-*-*-*
+!*.font: -*-proggycleansz-medium-r-*-*-13-*-*-*-*-*-*-*
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -24,8 +24,9 @@ URxvt*scrollTtyKeypress:	true
 URxvt*mouseWheelScrollPage:	false
 URxvt*urlLauncher:	chromium
 URxvt.urgentOnBell:	true
-*rxvt.background:	#000000
-*rxvt.foreground:	#B2B2B2
+!URxvt.perl-ext-common: default,tabbed
+URxvt.background: rgba:0000/0000/0000/cccc
+URxvt.foreground: #B2B2B2
 
 ! color scheme by jwr
 *color0:  #000000
