@@ -99,8 +99,6 @@ alias reboot='sudo shutdown -r now'
 alias suspend='sudo pm-suspend'
 alias hibernate='sudo pm-hibernate'
 
-# daemons
-alias lamp='sudo /etc/rc.d/httpd start && sudo /etc/rc.d/mysqld start'
 
 alias ffeh='feh -FZ'
 
@@ -111,11 +109,14 @@ alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
 # == FUNCTIONS =================================================================
 
-# Start, stop, & restart daemons in /etc/rc.d
-
-restart() { sudo /etc/rc.d/${1} restart; }
-start() { sudo /etc/rc.d/${1} start; }
-stop() { sudo /etc/rc.d/${1} stop; }
+# Check which distro we're on & set appropriat daemon location
+if   grep -i arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
+elif grep -i ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
+# Control daemons slightly more easily & consistently
+# TODO: bash completion configuration
+restart() { sudo $DAEMON_DIR/$1 restart; }
+start()   { sudo $DAEMON_DIR/$1 start; }
+stop()    { sudo $DAEMON_DIR/$1 stop; }
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
