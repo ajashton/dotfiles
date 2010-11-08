@@ -110,8 +110,9 @@ alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 # == FUNCTIONS =================================================================
 
 # Check which distro we're on & set appropriat daemon location
-if   grep -i arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
-elif grep -i ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
+if   grep -iq arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
+elif grep -iq ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
+fi
 # Control daemons slightly more easily & consistently
 # TODO: bash completion configuration
 restart() { sudo $DAEMON_DIR/$1 restart; }
