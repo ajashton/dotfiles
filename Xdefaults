@@ -25,7 +25,7 @@ URxvt*mouseWheelScrollPage:	false
 URxvt*urlLauncher:	chromium
 URxvt.urgentOnBell:	true
 URxvt.perl-ext-common: default,tabbed
-URxvt.background: rgba:0000/0000/0000/cccc
+URxvt.background: rgba:0000/0000/0000/dddd
 URxvt.foreground: #B2B2B2
 
 ! color scheme by jwr
