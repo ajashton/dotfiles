@@ -115,9 +115,17 @@ elif grep -iq ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
 fi
 # Control daemons slightly more easily & consistently
 # TODO: bash completion configuration
-restart() { sudo $DAEMON_DIR/$1 restart; }
-start()   { sudo $DAEMON_DIR/$1 start; }
-stop()    { sudo $DAEMON_DIR/$1 stop; }
+manage_daemons() {
+  ACTION=$1
+  shift
+  DAEMONS="$*"
+  for DAEMON in $DAEMONS; do
+    sudo $DAEMON_DIR/$DAEMON $ACTION
+  done
+}
+restart() { manage_daemons restart $@; }
+start()   { manage_daemons start $@; }
+stop()    { manage_daemons stop $@; }
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
