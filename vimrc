@@ -11,10 +11,10 @@ set showcmd
 "" show matching braces/parens
 set showmatch
 set showtabline=1
-" set spell
+set spell
 set title
-"" visual bell
-set vb
+"" disables both audio & visual bell
+set vb t_vb=
 
 "" wrap like I'm used to
 set wrap
@@ -67,7 +67,7 @@ au VimEnter *
 
 if has("gui_running")
     colo ir_black
-    set guifont=Liberation\ Mono\ 8
+    set guifont=DejaVu\ Sans\ Mono\ 9
     set guioptions=i
     set columns=100
     set lines=52
