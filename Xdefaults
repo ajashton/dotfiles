@@ -1,7 +1,7 @@
 xcursor.theme: neutral
 
 ! == FONT SETTINGS ==
-*.font: -*-proggytinysz-medium-r-normal-*-10-*-96-*-*-*-*-*
+!*.font: -*-proggytinysz-medium-r-normal-*-10-*-96-*-*-*-*-*
 !*.font: -*-proggysquaresz-medium-r-*-*-11-*-96-*-*-*-*-*
 !*.font: -*-proggycleansz-medium-r-*-*-13-*-*-*-*-*-*-*
 Xft.dpi: 96
@@ -11,6 +11,7 @@ Xft.hintstyle: hintslight
 Xft.rgba: rgb
 
 ! == URXVT SETTINGS ==
+URxvt*font: xft:DejaVu Sans Mono:size=8
 URxvt*externalBorder:	0
 URxvt*internalBorder:	2
 URxvt*scrollBar:	false
@@ -25,7 +26,8 @@ URxvt*mouseWheelScrollPage:	false
 URxvt*urlLauncher:	chromium
 URxvt.urgentOnBell:	true
 URxvt.perl-ext-common: default,tabbed
-URxvt.background: rgba:0000/0000/0000/dddd
+!URxvt.background: rgba:0000/0000/0000/dddd
+URxvt.background: #000000
 URxvt.foreground: #B2B2B2
 
 ! color scheme by jwr
