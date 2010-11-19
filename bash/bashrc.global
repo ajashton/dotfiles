@@ -151,22 +151,12 @@ cpf() { cp "$@" && follow "$_"; }
 mvf() { mv "$@" && follow "$_"; }
 
 # Make one or more directories, and cd to the last one in the list
-mcd() { mkdir -p "$@" && goto "$_"; }
+mkcd() { mkdir -p "$@" && cd "$_"; }
 
 # TODO: Make these more robust, ie, work on files in subdirs
 function hide() { for file in "$@"; do mv -i "$file" ".$file"; done }
 
 function unhide() { for file in "$@"; do mv -i "$file" "`echo $file | sed 's/^\.//'`"; done }
-
-function cnik {
-  # compiles a Cascadenik file into a map.xml
-  # @TODO: 
-  #   - option for custom output file
-  #   - option for custom output directory (-d)
-  
-  outfile=`basename $1 .mml`.map.xml
-  cascadenik-compile.py $1 > $outfile
-}
 
 function xt() {
   # xt = eXTract, a wrapper to extract many different archive formats
