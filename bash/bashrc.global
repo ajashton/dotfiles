@@ -106,10 +106,12 @@ alias mp3name='eyeD3 --rename="%n. %t"'
 
 alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
+alias postgis="psql -h localhost -p 5433 -U gis --password gis"
 
-# == FUNCTIONS =================================================================
 
-# Check which distro we're on & set appropriat daemon location
+# == FUNCTIONS ========================================================
+
+# Check which distro we're on & set appropriate daemon location
 if   grep -iq arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
 elif grep -iq ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
 fi
@@ -120,7 +122,15 @@ manage_daemons() {
   shift
   DAEMONS="$*"
   for DAEMON in $DAEMONS; do
-    sudo $DAEMON_DIR/$DAEMON $ACTION
+    MATCHES=`find $DAEMON_DIR -type f -perm /u+x | grep $DAEMON`
+    if [ `echo $MATCHES | wc -w` = '1' ]; then
+      sudo $MATCHES $ACTION
+    elif [ `echo $MATCHES | wc -w` = '0' ]; then
+      echo "No service found matching \"$DAEMON\""
+    else
+      echo "Ambiguous matches for \"$DAEMON\""
+      echo $MATCHES
+    fi
   done
 }
 restart() { manage_daemons restart $@; }
