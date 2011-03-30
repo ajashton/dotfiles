@@ -1,15 +1,15 @@
-# == ENVIRONMENT ===============================================================
+# == ENVIRONMENT ======================================================
 
 export EDITOR=vim
 export GREP_COLOR="1;33"
-export PATH=$PATH:/usr/local/bin:$HOME/bin
+export PATH=$PATH:/usr/local/bin:$HOME/bin:/var/lib/gems/1.8/bin
 
 shopt -s checkwinsize
 
 # let autocomplete work with sudo
 complete -cf sudo
 
-# ---- History -----------------------------------------------------------------
+# ---- History --------------------------------------------------------
 
 shopt -s histappend
 export PROMPT_COMMAND="history -w;$PROMPT_COMMAND"
@@ -18,7 +18,7 @@ export HISTFILE=$HOME/.bash/history
 export HISTSIZE=50000
 export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
-# ---- Shell Prompt ------------------------------------------------------------
+# ---- Shell Prompt ---------------------------------------------------
 
 # Functions to tell me whether I am in a git or svn working copy, + which branch
 parse_git_branch() {
@@ -46,19 +46,19 @@ else
     # Default: Full-color in unicode. PS1 looks like this:
     # ┌─[ aj@macbook : ~/src/dotfiles (git::master) ]
     # └─╼ 
-    export PS1="\n┌─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n└─╼ "
+    export PS1="\n╭─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n╰─╼ "
 fi
 
-# == ALIASES ===================================================================
+# == ALIASES ==========================================================
 
-# ---- Alternatives ------------------------------------------------------------
+# ---- Alternatives ---------------------------------------------------
 
 test -x /usr/bin/colordiff && alias diff='colordiff'
 test -x /usr/bin/most && alias less='most'
 test -x /usr/bin/pacman-color && alias pacman='pacman-color'
 alias vi='vim'
 
-# ---- Preferred Default Options -----------------------------------------------
+# ---- Preferred Default Options --------------------------------------
 
 alias cp='cp -v'
 alias df='df -h'
@@ -68,7 +68,7 @@ alias mv='mv -vi'
 alias rm='rm -v'
 alias vlc='vlc --extraintf http'
 
-# ---- Shortcuts  --------------------------------------------------------------
+# ---- Shortcuts  -----------------------------------------------------
 
 # ls
 alias ls='ls -F --color=auto'            # a couple good defaults
