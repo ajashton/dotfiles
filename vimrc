@@ -28,18 +28,11 @@ filetype plugin indent on
 "" == TABS & FORMATTING ===================================
 
 "" default options
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab
 
-autocmd FileType css setlocal shiftwidth=2 tabstop=2
-
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-
-autocmd FileType map setlocal shiftwidth=2 tabstop=2
-autocmd FileType map setlocal noexpandtab
-
-autocmd FileType php setlocal shiftwidth=2 tabstop=2
+autocmd FileType js,txt,mkd setlocal shiftwidth=4 tabstop=4
 
 set nolist
 "set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
