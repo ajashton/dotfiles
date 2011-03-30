@@ -47,35 +47,30 @@ set lcs=tab:│┈,trail:·,extends:»,precedes:«,nbsp:&
 " n - recon numbered lists
 " v - wrap on blanks
 " t - autowrap TEXT using textwidth
-set fo=croqnvt
+set formatoptions=croqnvt
 
 
 
 "" == TERMINAL/GUI SETUP ==================================
 
-au VimEnter *
-                \ if &term == 'xterm'           |
-                \       set t_Co=256            |
-                \ endif
+if &term == 'xterm' || &term == 'screen'
+  au VimEnter * set t_Co=256
+endif
 
 if has("gui_running")
-    colo ir_black
-    set guifont=DejaVu\ Sans\ Mono\ 9
-    set guioptions=i
-    set columns=100
-    set lines=52
+  colorscheme tutticolori
+  set guifont=Liberation\ Mono\ 8
+  set guioptions=aeim
+  set columns=105
+  set lines=52
 else
 	" Select colormap: 'soft', 'softlight', 'standard' or 'allblue'
 	let xterm16_colormap	= 'allblue'
 	" Select brightness: 'low', 'med', 'high', 'default' or custom levels.
 	let xterm16_brightness	= 'default'
-    let xterm16bg_Normal = 'none'
+  let xterm16bg_Normal = 'none'
 	colo xterm16
 endif
-
-"" == PLUGIN OPTIONS =======================================
-
-let g:NERDTreeWinSize=25
 
 
 "" == SEARCH (AND REPLACE) OPTIONS =========================
@@ -91,12 +86,14 @@ set smartcase
 syntax on
 
 augroup mkd
-  autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
+  autocmd BufRead,BufNewFile *.mkd set ai formatoptions=tcroqn2 comments=n:> textwidth=72
 augroup END
 
 "" == PLUGIN OPTIONS =======================================
 
 let g:miniBufExplMapWindowNavVim = 1
+
+let g:NERDTreeWinSize=25
 
 "" == KEYBINDINGS ==========================================
 
