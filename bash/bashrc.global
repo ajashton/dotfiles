@@ -41,12 +41,14 @@ if [ $TERM = 'dumb' ] ; then
 elif [ $TERM = 'mrxvt' ] ; then
     # Mrxvt supports color, but not unicode.
     # export PS1="[\h] \W > "
-    export PS1="\n[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n> "
+    #export PS1="\n[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n> "
+    export PS1="\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] > "
 else
     # Default: Full-color in unicode. PS1 looks like this:
     # ┌─[ aj@macbook : ~/src/dotfiles (git::master) ]
     # └─╼ 
-    export PS1="\n╭─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n╰─╼ "
+    #export PS1="\n╭─[ \[\033[00m\]\u@\h : \[\033[01;34m\]\w \[\033[31m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ]\n╰─╼ "
+    export PS1="\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_svn_branch)\[\033[00m\] ▶ "
 fi
 
 # == ALIASES ==========================================================
