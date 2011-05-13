@@ -24,6 +24,12 @@ set lbr
 "" change indent settings according to filetype
 filetype plugin indent on
 
+"" Swap files & Dropbox are an annoying combo,
+"" so keep them in another place instead
+set directory^=$HOME/.vim/swap// 
+
+call pathogen#runtime_append_all_bundles()
+
 
 "" == TABS & FORMATTING ===================================
 
