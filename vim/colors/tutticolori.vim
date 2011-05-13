@@ -3,6 +3,7 @@
 "
 " Jon Raphaelson
 " lygaret@gmail.com
+" Slightly modified by AJ Ashton <aj.ashton@gmail.com>
 
 set background=light
 hi clear
@@ -25,9 +26,9 @@ highlight LineNr                    guifg=#aabbcc guibg=#f2f8ff
 highlight FoldColumn                guifg=#aabbcc guibg=#f2f8ff 
 highlight Folded                    guifg=#667788 guibg=#f2f8ff
 
-highlight StatusLine                guifg=#888888 guibg=#ffffff
-highlight StatusLineNC              guifg=#bbbbbb guibg=#ffffff
-highlight VertSplit                 guifg=#888888 guibg=#ffffff
+highlight StatusLine                guifg=#aabbcc guibg=#ffffff
+highlight StatusLineNC              guifg=#bbccdd guibg=#ffffff
+highlight VertSplit                 guifg=#ddeeff guibg=#ddeeff
 
 highlight Comment                   guifg=#999999 guibg=#eeeeee gui=italic
 highlight Constant                  guifg=#d44950 guibg=NONE
@@ -38,7 +39,7 @@ highlight PreProc                   guifg=#222222 guibg=#eeeeee
 highlight Special                   guifg=#2f6f9f guibg=NONE              
 highlight Statement                 guifg=#2f6f9f guibg=#f4faff gui=NONE
 highlight Type                      guifg=#699d36 guibg=NONE    gui=NONE
-highlight Title                     guifg=#000000 guibg=NONE    gui=NONE
+highlight Title                     guifg=#000000 guibg=NONE    gui=bold
 highlight Underlined                guifg=#2f4f6f guibg=NONE    gui=underline
 
 " html/css/javascript
