@@ -12,7 +12,7 @@ complete -cf sudo
 # ---- History --------------------------------------------------------
 
 shopt -s histappend
-export PROMPT_COMMAND="history -w;$PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -n"
 export HISTCONTROL=erasedups
 export HISTFILE=$HOME/.bash/history
 export HISTSIZE=50000
