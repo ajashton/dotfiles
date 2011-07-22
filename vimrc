@@ -65,7 +65,7 @@ endif
 
 if has("gui_running")
   colorscheme tutticolori
-  set guifont=Liberation\ Mono\ 8
+  set guifont=Droid\ Sans\ Mono\ Pro\ 8
   set guioptions=aeim
   set columns=105
   set lines=52
