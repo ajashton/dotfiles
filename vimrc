@@ -36,6 +36,7 @@ call pathogen#runtime_append_all_bundles()
 "" default options
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
 set expandtab
 
 autocmd FileType js,txt,mkd setlocal shiftwidth=4 tabstop=4
