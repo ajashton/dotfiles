@@ -60,10 +60,6 @@ set formatoptions=croqnvt
 
 "" == TERMINAL/GUI SETUP ==================================
 
-if &term == 'xterm' || &term == 'screen'
-  au VimEnter * set t_Co=256
-endif
-
 if has("gui_running")
   colorscheme tutticolori
   set guifont=Droid\ Sans\ Mono\ Pro\ 8
@@ -71,12 +67,7 @@ if has("gui_running")
   set columns=105
   set lines=52
 else
-	" Select colormap: 'soft', 'softlight', 'standard' or 'allblue'
-	let xterm16_colormap	= 'allblue'
-	" Select brightness: 'low', 'med', 'high', 'default' or custom levels.
-	let xterm16_brightness	= 'default'
-  let xterm16bg_Normal = 'none'
-	colo xterm16
+	colo koehler
 endif
 
 
