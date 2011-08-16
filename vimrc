@@ -39,7 +39,7 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 
-autocmd FileType js,txt,mkd setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript,txt,mkd setlocal shiftwidth=4 tabstop=4
 
 set nolist
 "set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
