@@ -63,7 +63,6 @@ alias vi='vim'
 
 # ---- Preferred Default Options --------------------------------------
 
-alias cp='cp -v'
 alias df='df -h'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
