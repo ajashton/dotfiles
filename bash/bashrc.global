@@ -114,6 +114,9 @@ alias postgis="psql -h localhost -p 5433 -U gis --password gis"
 
 # == FUNCTIONS ========================================================
 
+py2plz() { sudo sh -c "cd /usr/bin && ln -fs python2 python"; }
+py3plz() { sudo sh -c "cd /usr/bin && ln -fs python3 python"; }
+
 # Check which distro we're on & set appropriate daemon location
 if   grep -iq arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
 elif grep -iq ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
