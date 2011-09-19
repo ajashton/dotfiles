@@ -37,7 +37,8 @@ parse_svn_repository_root() {
 # The prompt itself
 if [ $TERM = 'dumb' ] ; then
     # Vim: No color, no unicode.
-    export PS1="\n[ \u@\h : \w \$(parse_git_branch)\$(parse_svn_branch) ]\n> "
+    #export PS1="\n[ \u@\h : \w \$(parse_git_branch)\$(parse_svn_branch) ]\n> "
+    export PS1="\w \$(parse_git_branch)\$(parse_svn_branch) > "
 elif [ $TERM = 'mrxvt' ] ; then
     # Mrxvt supports color, but not unicode.
     # export PS1="[\h] \W > "
