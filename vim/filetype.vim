@@ -4,8 +4,8 @@ endif
 
 augroup filetypes
   au!
-  " Cascadenik
-  au! BufRead,BufNewFile *.mss        setf mss
+  " Cascadenik & Carto
+  au! BufRead,BufNewFile *.mss        setf carto
   " Handlebar
   au! BufRead,BufNewFile *.hbs        setf html
   " JSON
@@ -19,12 +19,17 @@ augroup filetypes
   au! BufRead,BufNewFile *.md         setf mkd
   au! BufRead,BufNewFile *.txt        setf mkd
   " Moustache
-  au BufNewFile,BufRead  *.mustache   setf mustache
+  au! BufNewFile,BufRead *.mustache   setf mustache
 	" Drupal!
 	au! BufRead,BufNewFile *.inc        setf php
 	au! BufRead,BufNewFile *.module     setf php
 	au! BufRead,BufNewFile *.profile    setf php
   " MapServer config file
-  au BufNewFile,BufRead *.map         setf map
+  au! BufNewFile,BufRead *.map        setf map
+  " Mixed HTML and MarkDown
+  au! BufRead,BufNewFile *.html       setf html
+  " Underscore templates
+  au! BufRead,BufNewFile *._          setf html
+  
 augroup END
 
