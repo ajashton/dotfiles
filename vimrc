@@ -7,11 +7,12 @@ set history=100
 "" show line numbers
 set number
 set ruler
+set colorcolumn=80
 set showcmd
 "" show matching braces/parens
 set showmatch
 set showtabline=1
-set spell
+set nospell
 set title
 "" disables both audio & visual bell
 set vb t_vb=
@@ -39,12 +40,13 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 
-autocmd FileType javascript,txt,mkd setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType javascript,txt,mkd,cpp setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType mkd setlocal spell
 
 set nolist
-"set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:└─,trail:·,extends:>,precedes:<,nbsp:&
-set lcs=tab:│┈,trail:·,extends:»,precedes:«,nbsp:&
+"" note: lcs does nothing with nolist
+"set lcs=tab:│┈,trail:·,extends:»,precedes:«,nbsp:&
+set lcs=tab:│\ ,trail:·,extends:»,precedes:«,nbsp:&
 
 " formatoptions:
 " c - autowrap COMMENTS using textwidth
@@ -61,13 +63,14 @@ set formatoptions=croqnvt
 "" == TERMINAL/GUI SETUP ==================================
 
 if has("gui_running")
-  colorscheme tutticolori
-  set guifont=Droid\ Sans\ Mono\ Pro\ 8
-  set guioptions=aeim
-  set columns=105
-  set lines=52
+  colorscheme vylight
+  set guifont=Droid\ Sans\ Mono\ Pro\ 9
+  set guioptions=ai
+  set columns=90
+  set lines=50
 else
-	colo koehler
+  set t_Co=16
+	colo myterm
 endif
 
 
@@ -114,7 +117,7 @@ function! UnQuote()
     normal `z
 endfunction
 
-inoremap <Tab> <C-R>=SuperCleverTab()<cr>
+"inoremap <Tab> <C-R>=SuperCleverTab()<cr>
 
 function! DeleteFile(...)
   if(exists('a:1'))
