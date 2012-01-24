@@ -35,12 +35,12 @@ call pathogen#runtime_append_all_bundles()
 "" == TABS & FORMATTING ===================================
 
 "" default options
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 set expandtab
 
-autocmd FileType javascript,txt,mkd,cpp setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType css,carto setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType mkd setlocal spell
 
 set nolist
