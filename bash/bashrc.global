@@ -92,10 +92,6 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-# drush
-alias dcc='druch cache-clear all'
-alias dfu='drush features-update'
-
 # power management
 alias shutdown='sudo shutdown -h now'
 alias reboot='sudo shutdown -r now'
@@ -109,39 +105,11 @@ alias mp3name='eyeD3 --rename="%n. %t"'
 
 alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
-alias postgis="psql -h localhost -p 5433 -U gis --password gis"
-
 
 # == FUNCTIONS ========================================================
 
 py2plz() { sudo sh -c "cd /usr/bin && ln -fs python2 python"; }
 py3plz() { sudo sh -c "cd /usr/bin && ln -fs python3 python"; }
-
-# Check which distro we're on & set appropriate daemon location
-if   grep -iq arch /proc/version ;   then DAEMON_DIR=/etc/rc.d
-elif grep -iq ubuntu /proc/version ; then DAEMON_DIR=/etc/init.d
-fi
-# Control daemons slightly more easily & consistently
-# TODO: bash completion configuration
-manage_daemons() {
-  ACTION=$1
-  shift
-  DAEMONS="$*"
-  for DAEMON in $DAEMONS; do
-    MATCHES=`find $DAEMON_DIR -type f -perm /u+x | grep $DAEMON`
-    if [ `echo $MATCHES | wc -w` = '1' ]; then
-      sudo $MATCHES $ACTION
-    elif [ `echo $MATCHES | wc -w` = '0' ]; then
-      echo "No service found matching \"$DAEMON\""
-    else
-      echo "Ambiguous matches for \"$DAEMON\""
-      echo $MATCHES
-    fi
-  done
-}
-restart() { manage_daemons restart $@; }
-start()   { manage_daemons start $@; }
-stop()    { manage_daemons stop $@; }
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
