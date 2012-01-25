@@ -108,6 +108,11 @@ alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
 # == FUNCTIONS ========================================================
 
+nwd() {
+  $*
+  notify-send "$1 is done!"
+}
+
 py2plz() { sudo sh -c "cd /usr/bin && ln -fs python2 python"; }
 py3plz() { sudo sh -c "cd /usr/bin && ln -fs python3 python"; }
 
