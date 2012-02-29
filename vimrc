@@ -95,6 +95,8 @@ augroup END
 let g:miniBufExplMapWindowNavVim = 1
 
 let g:NERDTreeWinSize=25
+let g:NERDTreeDirArrows=1
+let g:NERDTreeMinimalUI=1
 
 "" == KEYBINDINGS ==========================================
 
