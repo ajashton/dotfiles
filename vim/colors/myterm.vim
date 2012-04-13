@@ -13,10 +13,10 @@ hi ErrorMsg		  term=standout  cterm=bold  ctermfg=Grey
 hi Search		  term=reverse  ctermfg=White  ctermbg=Red
 hi MoreMsg		  term=bold  cterm=bold  ctermfg=DarkGreen
 hi ModeMsg		  term=bold  cterm=bold
-hi LineNr		  term=underline  cterm=bold  ctermfg=DarkCyan
+hi LineNr		  ctermfg=DarkCyan ctermbg=Black
 hi Question		  term=standout  cterm=bold  ctermfg=darkgreen
-hi StatusLine	  term=reverse  cterm=reverse ctermfg=LightGreen ctermbg=Black
-hi StatusLineNC   term=reverse	cterm=reverse ctermfg=DarkGreen ctermbg=Black
+hi StatusLine	  term=none cterm=none ctermfg=Cyan ctermbg=Black
+hi StatusLineNC   term=none cterm=none ctermfg=DarkCyan ctermbg=Black
 hi Title		  term=bold  cterm=bold  ctermfg=DarkMagenta
 hi Visual		  term=reverse	cterm=reverse
 hi WarningMsg	  term=standout  cterm=bold  ctermfg=DarkRed
@@ -36,7 +36,7 @@ hi MatchParen	  term=reverse  ctermfg=4
 hi TabLine		  term=underline cterm=underline ctermfg=DarkGreen ctermbg=Black
 hi TabLineFill	  term=underline cterm=underline ctermfg=DarkGreen ctermbg=Black
 hi TabLineSel	  term=bold,reverse cterm=bold,reverse ctermfg=Red ctermbg=Black
-hi VertSplit      ctermfg=DarkGreen ctermbg=DarkGreen 
+hi VertSplit      ctermfg=Black ctermbg=Black
 hi link IncSearch		Visual
 hi link String			Constant
 hi link Character		Constant
