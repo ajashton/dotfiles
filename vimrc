@@ -70,7 +70,7 @@ if has("gui_running")
   set lines=50
 else
   set t_Co=16
-	colo myterm
+	colo sweet16
 endif
 
 
