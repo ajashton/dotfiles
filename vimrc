@@ -146,3 +146,13 @@ endfunction
 com! Rm call DeleteFile()
 "delete the file and quit the buffer (quits vim if this was the last file)
 com! RM call DeleteFile() <Bar> q!
+
+" Show syntax highlighting groups for word under cursor
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+noremap   <F3> :call <SID>SynStack()<CR>
+inoremap  <F3> :call <SID>SynStack()<CR>
