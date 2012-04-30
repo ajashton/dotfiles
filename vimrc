@@ -100,6 +100,8 @@ let g:NERDTreeMinimalUI=1
 
 "" == KEYBINDINGS ==========================================
 
+nmap <F8> :TagbarToggle<CR>
+
 " navigate apparent lines, not actual ones
 nmap <silent> j gj
 nmap <silent> k gk
