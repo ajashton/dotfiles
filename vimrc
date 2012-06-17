@@ -4,6 +4,7 @@ set nocompatible
 "" backspace/delete like I'm used to
 set backspace=indent,eol,start
 set history=100
+set mouse=a
 "" show line numbers
 set number
 set ruler
