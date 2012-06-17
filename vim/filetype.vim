@@ -20,16 +20,14 @@ augroup filetypes
   au! BufRead,BufNewFile *.txt        setf mkd
   " Moustache
   au! BufNewFile,BufRead *.mustache   setf mustache
-	" Drupal!
-	au! BufRead,BufNewFile *.inc        setf php
-	au! BufRead,BufNewFile *.module     setf php
-	au! BufRead,BufNewFile *.profile    setf php
   " MapServer config file
   au! BufNewFile,BufRead *.map        setf map
   " Mixed HTML and MarkDown
   au! BufRead,BufNewFile *.html       setf html
   " Underscore templates
   au! BufRead,BufNewFile *._          setf html
+  " XML
+  au! BufRead,BufNewFile *.vrt        setf xml
   
 augroup END
 
