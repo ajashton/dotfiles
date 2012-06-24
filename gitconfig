@@ -1,29 +1,34 @@
 [core]
-  excludesfile = /home/aj/.gitignore
+    excludesfile = /home/aj/.gitignore
 
 [user]
-	email = aj@developmentseed.org
-	name = AJ Ashton
+    email = aj@developmentseed.org
+    name = AJ Ashton
 
 [color]
-  branch = auto
-  diff = auto
-  status = auto
+    branch = auto
+    diff = auto
+    status = auto
 
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
 
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
+
 [merge]
-	tool = meld
+    tool = meld
+
+[alias]
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
