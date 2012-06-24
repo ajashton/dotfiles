@@ -89,25 +89,6 @@ alias ......='cd ../../../../..'
 
 alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
-
-# ESRI shapefiles are a series of files with the same basename but different 
-# file extensions. This function makes moving/copying them much easier.
-# EG to rename foo.shp (et al) to bar.shp (et al), do:
-# shpmv foo bar
-# Note that these are extremely fragile and easily broken by, eg. spaces.
-
-shpmv() {
-  for infile in ${1}*; do
-    mv $infile `echo $infile | sed "s/$1/$2/"`
-  done
-}
-
-shpcp() {
-  for infile in ${1}*; do
-    cp $infile `echo $infile | sed "s/$1/$2/"`
-  done
-}
-
 # Follow copied and moved files to destination directory (courtesy jwr)
 follow() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
 cpf() { cp "$@" && follow "$_"; }
