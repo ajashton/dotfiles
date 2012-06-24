@@ -55,7 +55,6 @@ fi
 
 test -x /usr/bin/colordiff && alias diff='colordiff'
 test -x /usr/bin/most && alias less='most'
-test -x /usr/bin/pacman-color && alias pacman='pacman-color'
 alias vi='vim'
 
 # ---- Preferred Default Options --------------------------------------
@@ -66,7 +65,6 @@ alias mkdir='mkdir -p'
 alias mv='mv -vi'
 alias rm='rm -v'
 alias vlc='vlc --extraintf http'
-alias xclip='xclip -selection c'
 
 # ---- Shortcuts  -----------------------------------------------------
 
@@ -89,29 +87,8 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-# power management
-alias shutdown='sudo shutdown -h now'
-alias reboot='sudo shutdown -r now'
-alias suspend='sudo pm-suspend'
-alias hibernate='sudo pm-hibernate'
-
-
-alias ffeh='feh -FZ'
-
-alias mp3name='eyeD3 --rename="%n. %t"'
-
 alias otf2ttf="fontforge -script $HOME/bin/otf2ttf.sh"
 
-
-# == FUNCTIONS ========================================================
-
-nwd() {
-  $*
-  notify-send "$1 is done!"
-}
-
-py2plz() { sudo sh -c "cd /usr/bin && ln -fs python2 python"; }
-py3plz() { sudo sh -c "cd /usr/bin && ln -fs python3 python"; }
 
 # ESRI shapefiles are a series of files with the same basename but different 
 # file extensions. This function makes moving/copying them much easier.
