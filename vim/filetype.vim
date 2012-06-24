@@ -10,6 +10,7 @@ augroup filetypes
   au! BufRead,BufNewFile *.hbs        setf html
   " JSON
   au! BufRead,BufNewFile *.json       setf json 
+  au! BufRead,BufNewFile *.mml        setf json
   " JavaScript
   au! BufRead,BufNewFile *.bones      setf javascript
 	" Markdown
