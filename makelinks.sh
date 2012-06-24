@@ -1,24 +1,25 @@
 #!/bin/bash
 set -e -u
 
-dotfilesdir=$HOME/src/dotfiles
-thisscript=$(basename $0)
+# Symlinks all the files in this dotfiles repository to there proper
+# locations in $HOME.
 
-for f in $dotfilesdir/*; do
+for f in $(dirname $0)/*; do
   
   # don't link this script
-  if [ $(basename $f) = $thisscript ]; then
+  if [ $(basename $f) = $(basename $0) ]; then
     continue;
   fi
 
-  destlink="$HOME/.$(basename $f)"
+  linksrc="$(readlink -f $f)"
+  linkdst="$HOME/.$(basename $f)"
   
-  if [ -h $destlink ]; then
+  if [ -h $linkdst ]; then
     # if the destination already exists as a symlink, replace it without asking
-    ln -sf $f $destlink 
+    ln -sf "$linksrc" "$linkdst"
   else
     # otherwise ask what to do if the file is already there, or just link it if not
-    ln -si $f $destlink
+    ln -si "$linksrc" "$linkdst"
   fi
 
 done
