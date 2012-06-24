@@ -97,10 +97,17 @@ mvf() { mv "$@" && follow "$_"; }
 # Make one or more directories, and cd to the last one in the list
 mkcd() { mkdir -p "$@" && cd "$_"; }
 
-# TODO: Make these more robust, ie, work on files in subdirs
-function hide() { for file in "$@"; do mv -i "$file" ".$file"; done }
-
-function unhide() { for file in "$@"; do mv -i "$file" "`echo $file | sed 's/^\.//'`"; done }
+# Easily hide/unhide files (via dot-prefix)
+hide() {
+    for f in "$@"; do
+        mv -i "$f" $(dirname "$f")/".$(basename "$f")"
+    done
+}
+unhide() {
+    for f in "$@"; do
+        mv -i "$f" $(dirname "$f")/"$(basename "$f" | sed 's/^\.//')"
+    done
+}
 
 function xt() {
   # xt = eXTract, a wrapper to extract many different archive formats
