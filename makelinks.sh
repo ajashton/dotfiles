@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u
 
-# Symlinks all the files in this dotfiles repository to there proper
+# Symlinks all the files in this dotfiles repository to their proper
 # locations in $HOME.
 
 for f in $(dirname $0)/*; do
