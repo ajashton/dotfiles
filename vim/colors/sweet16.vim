@@ -26,6 +26,7 @@ hi clear SpellBad
 hi SpellBad         term=underline cterm=underline
 hi Title            term=bold  cterm=bold  ctermfg=Yellow
 
-hi String           ctermfg=DarkRed
+hi String           ctermfg=Red
+hi Label            ctermfg=Blue
 
 " vim: tw=0 ts=4 sw=4
