@@ -6,10 +6,9 @@ set -e -u
 
 for f in $(dirname $0)/*; do
   
-  # don't link this script
-  if [ $(basename $f) = $(basename $0) ]; then
-    continue;
-  fi
+  # don't link this script or the readme
+  if [ $(basename $f) = $(basename $0) ]; then continue; fi
+  if [ $(basename $f) = 'README.md' ]; then continue; fi
 
   linksrc="$(readlink -f $f)"
   linkdst="$HOME/.$(basename $f)"
