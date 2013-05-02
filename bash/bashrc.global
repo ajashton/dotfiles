@@ -2,7 +2,6 @@
 
 export EDITOR=vim
 export GREP_COLOR="1;33"
-export PATH=$PATH:/usr/local/bin:$HOME/bin:/var/lib/gems/1.8/bin
 
 shopt -s checkwinsize
 
