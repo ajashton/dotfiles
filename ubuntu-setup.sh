@@ -1,12 +1,27 @@
 #!/bin/bash
 
+# add additional package sources
+sudo apt-add-repository -y ppa:mapnik/nightly-trunk
+sudo apt-get update -y
+
 # install additional packages
 sudo apt-get install \
     curl \
     exuberant-ctags \
+    libmapnik \
+    libmapnik-dev\
+    mapnik-utils \
     most \
     postgresql \
+    postgis \
+    protobuf-compiler libprotobuf-dev \
+    python-dev \
+    python-pip \
+    python-lxml \
+    s3cmd \
+    sqlite3 \
     tmux \
+    unzip \
     vim
 
 # install, activate nvm & node
