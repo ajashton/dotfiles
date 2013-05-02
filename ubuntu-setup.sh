@@ -12,11 +12,13 @@ sudo apt-get install \
     inkscape \
     libmapnik \
     libmapnik-dev\
+    libprotobuf-dev \
     mapnik-utils \
     most \
     postgresql \
+    postgresql-contrib \
     postgis \
-    protobuf-compiler libprotobuf-dev \
+    protobuf-compiler \
     python-dev \
     python-pip \
     python-lxml \
