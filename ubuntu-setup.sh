@@ -8,8 +8,10 @@ sudo apt-get update -y
 sudo apt-get install \
     curl \
     exuberant-ctags \
+    gcolor2 \
     gimp \
     inkscape \
+    irssi \
     libjemalloc1 \
     libmapnik \
     libmapnik-dev\
