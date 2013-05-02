@@ -8,6 +8,8 @@ sudo apt-get update -y
 sudo apt-get install \
     curl \
     exuberant-ctags \
+    gimp \
+    inkscape \
     libmapnik \
     libmapnik-dev\
     mapnik-utils \
