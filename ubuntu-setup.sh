@@ -31,6 +31,9 @@ sudo apt-get install \
 # postgres: trust 'postgres' user locally
 sudo sed -i 's/\(local *all *postgres *\)peer/\1trust/' /etc/postgresql/*/main/pg_hba.conf
 
+# python packages
+sudo pip install unidecode
+
 # install, activate nvm & node
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 . ~/.nvm/nvm.sh
