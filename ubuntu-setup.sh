@@ -10,6 +10,7 @@ sudo apt-get install \
     exuberant-ctags \
     gimp \
     inkscape \
+    libjemalloc1 \
     libmapnik \
     libmapnik-dev\
     libprotobuf-dev \
