@@ -10,6 +10,7 @@ sudo apt-get install \
     exuberant-ctags \
     gcolor2 \
     gimp \
+    htop \
     inkscape \
     irssi \
     libjemalloc1 \
