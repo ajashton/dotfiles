@@ -53,4 +53,4 @@ $gs org.gnome.desktop.interface                     font-name               'Ope
 $gs org.gnome.desktop.media-handling                automount-open          false
 $gs org.gnome.desktop.wm.preferences                mouse-button-modifier   '<Mod4>'
 $gs org.gnome.desktop.wm.preferences                titlebar-font           'Open Sans Bold 9'
-
+$gs org.gnome.nautilus.preferences                  enable-delete           true
