@@ -30,7 +30,8 @@ sudo apt-get install \
     sqlite3 \
     tmux \
     unzip \
-    vim
+    vim \
+    xclip
 
 # postgres: trust 'postgres' user locally
 sudo sed -i 's/\(local *all *postgres *\)peer/\1trust/' /etc/postgresql/*/main/pg_hba.conf
