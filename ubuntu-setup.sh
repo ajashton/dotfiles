@@ -5,6 +5,8 @@ sudo apt-add-repository -y ppa:mapnik/nightly-trunk
 sudo apt-get update -y
 
 # install additional packages
+# - libreoffice-base is necessary for DBF support in LibreOffice Calc
+# - exuberant-ctags is for Vim
 sudo apt-get install \
     curl \
     exuberant-ctags \
@@ -17,6 +19,7 @@ sudo apt-get install \
     libmapnik \
     libmapnik-dev\
     libprotobuf-dev \
+    libreoffice-base \
     mapnik-utils \
     most \
     postgresql \
@@ -29,7 +32,6 @@ sudo apt-get install \
     s3cmd \
     sqlite3 \
     tmux \
-    unzip \
     vim \
     xclip
 
