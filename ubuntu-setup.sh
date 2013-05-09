@@ -24,6 +24,7 @@ sudo apt-get install \
     meld \
     most \
     optipng \
+    pngquant \
     postgresql \
     postgresql-contrib \
     postgis \
