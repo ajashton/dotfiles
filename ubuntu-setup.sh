@@ -21,6 +21,7 @@ sudo apt-get install \
     libprotobuf-dev \
     libreoffice-base \
     mapnik-utils \
+    meld \
     most \
     postgresql \
     postgresql-contrib \
