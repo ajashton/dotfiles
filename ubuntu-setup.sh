@@ -23,6 +23,7 @@ sudo apt-get install \
     mapnik-utils \
     meld \
     most \
+    optipng \
     postgresql \
     postgresql-contrib \
     postgis \
