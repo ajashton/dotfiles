@@ -682,7 +682,7 @@
        value="1" />
     <group
        id="nudgedistance"
-       value="2" />
+       value="0.25" />
     <group
        id="rotationsnapsperpi"
        value="12" />
@@ -926,13 +926,13 @@
      id="desktop"
      style="">
     <group
-       width="462"
-       height="389"
-       x="906"
-       y="24"
+       width="800"
+       height="600"
+       x="100"
+       y="50"
        fullscreen="0"
        id="geometry"
-       maximized="0" />
+       maximized="1" />
     <group
        id="XYfront" />
     <group
