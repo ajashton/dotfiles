@@ -1,27 +1,27 @@
-[submodule "vim/bundle/fugitive"]
-	path = vim/bundle/fugitive
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/nerdtree"]
-	path = vim/bundle/nerdtree
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
+[submodule ".vim/bundle/supertab"]
+	path = .vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule "vim/bundle/vim-javascript"]
-	path = vim/bundle/vim-javascript
+[submodule ".vim/bundle/vim-javascript"]
+	path = .vim/bundle/vim-javascript
 	url = https://github.com/tmcw/vim-javascript.git
-[submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp
+[submodule ".vim/bundle/ctrlp"]
+	path = .vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/pasta"]
-	path = vim/bundle/pasta
+[submodule ".vim/bundle/pasta"]
+	path = .vim/bundle/pasta
 	url = https://github.com/sickill/vim-pasta.git
-[submodule "vim/bundle/tagbar"]
-	path = vim/bundle/tagbar
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "vim/bundle/json"]
-	path = vim/bundle/json
+[submodule ".vim/bundle/json"]
+	path = .vim/bundle/json
 	url = https://github.com/elzr/vim-json.git
