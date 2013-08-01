@@ -25,6 +25,8 @@ augroup filetypes
   au! BufNewFile,BufRead *.map        setf map
   " Mixed HTML and MarkDown
   au! BufRead,BufNewFile *.html       setf html
+  " Puppet
+  au! BufRead,BufNewFile *.pp         setf puppet
   " Underscore templates
   au! BufRead,BufNewFile *._          setf html
   " XML
