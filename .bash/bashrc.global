@@ -17,6 +17,15 @@ export HISTFILE=$HOME/.bash/history
 export HISTSIZE=50000
 export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
+# ---- Window Title ---------------------------------------------------
+
+# Sets title to an abbreviated form of the current working directory.
+# eg: '/home/aj/foo/bar/baz' => 'f/b/baz'
+pwd_abbr () {
+    echo -ne "\ek$(pwd | sed s#$HOME/## | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
+}
+export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
+
 # ---- Shell Prompt ---------------------------------------------------
 
 # Functions to tell me whether I am in a git or svn working copy, + which branch
