@@ -3,33 +3,34 @@ distrib_supported=(raring)
 apt_sources=(
     # these should be source lines as understood by `apt-add-repository`
     ppa:mapnik/nightly-trunk
-    "deb http://qgis.org/debian $DISTRIB_CODENAME main"
+    "'deb http://qgis.org/debian $DISTRIB_CODENAME main'"
 )
 
 apt_packages=(
 
-    ## basic utils
+    ## Basic utils
     curl
     htop
     most
+    tmux
     xclip
 
-    ## development
+    ## Basic dev
     vim
     exuberant-ctags
     meld
 
-    ## web / chat
+    ## Web / chat
     irssi
 
-    ## graphics
+    ## Graphics
     gcolor2
     gimp
     inkscape
     optipng
     pngquant
 
-    ## MapBox dev
+    ## MapBox / OSM dev
     libjemalloc1
     libmapnik
     libmapnik-dev
@@ -40,7 +41,7 @@ apt_packages=(
     python-unidecode
     s3cmd
 
-    ## desktop GIS
+    ## Desktop GIS
     libreoffice-base  # enables DBF support in Calc
     qgis
 

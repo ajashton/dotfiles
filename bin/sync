@@ -1,9 +1,24 @@
 #!/usr/bin/env bash
+
 cd "$(dirname "${BASH_SOURCE}")/.."
+
+source /etc/lsb-release
+source ./bin/ubuntu-packages.sh
+# TODO: check if $DISRIB_CODENAME is OK
+
+function initialize() {
+    echo "Setting up apt sources..."
+    for source in "${apt_sources[@]}"; do
+        sudo apt-add-repository "$source"
+    done
+
+    # make sure aptitude is installed
+    sudo apt-get install -y aptitude
+}
 
 function sync_all() {
 
-    aptitude install ${apt_packages[@]}
+    sudo aptitude install ${apt_packages[@]}
 
     rsync \
         --exclude ".git/" \
@@ -18,6 +33,7 @@ function sync_all() {
 
 }
 
+# TODO: replace with getopts
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
     sync_all
 else
