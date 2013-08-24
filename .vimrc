@@ -1,22 +1,24 @@
 " == BASIC INTERFACE PREFERENCES ==========================
 
 set nocompatible
-"" backspace/delete like I'm used to
+"" backspace/delete like I'm used to:
 set backspace=indent,eol,start
 set history=100
 set mouse=a
-"" show line numbers
-set number
+"" show relative line numbers:
+set relativenumber
 set ruler
 set colorcolumn=80
 set showcmd
-"" show matching braces/parens
+"" show matching braces/parens:
 set showmatch
 set showtabline=1
 set nospell
 set title
-"" disables both audio & visual bell
+"" disables both audio & visual bell:
 set vb t_vb=
+"" makes airline always visible:
+set laststatus=2
 
 "" wrap like I'm used to
 set wrap
@@ -70,7 +72,7 @@ if has("gui_running")
   set columns=90
   set lines=50
 else
-  set t_Co=16
+  set t_Co=256
 	colo sweet16
 endif
 
@@ -98,6 +100,13 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:NERDTreeWinSize=25
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+
+let g:airline_theme='powerlineish'
+let g:airline_powerline_fonts=0
+"let g:airline_left_sep='▒'
+"let g:airline_right_sep='▒'
+let g:airline_enable_tagbar=0
+let g:airline_detect_whitespace=0
 
 "" == KEYBINDINGS ==========================================
 
