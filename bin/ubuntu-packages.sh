@@ -21,6 +21,7 @@ apt_packages=(
     meld
 
     ## Web / chat
+    chromium-browser
     irssi
 
     ## Graphics
