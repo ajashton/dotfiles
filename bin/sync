@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${BASH_SOURCE}")/.."
+
+source /etc/lsb-release
+source ./bin/ubuntu-packages.sh
+# TODO: check if $DISRIB_CODENAME is OK
+
+function sync_init() {
+    echo "Setting up apt sources..."
+    for source in "${apt_sources[@]}"; do
+        sudo apt-add-repository "$source"
+    done
+
+    # make sure aptitude is installed
+    sudo apt-get install -y aptitude
+}
+
+function sync_apt() {
+
+    sudo aptitude install ${apt_packages[@]}
+
+}
+
+function sync_conf() {
+
+    rsync \
+        --exclude ".git" \
+        --exclude ".gitmodules" \
+        --exclude ".DS_Store" \
+        --exclude "*.swp" \
+        --exclude "README.md" \
+        --exclude "bin" \
+        -av --no-perms . ~
+
+    ./bin/gsettings.sh
+
+}
+
+# TODO: replace with getopts
+
+SYNC_INIT=false
+SYNC_APT=false
+SYNC_CONF=false
+
+if [ -n $@ ]; then
+    # default if no command line options:
+    SYNC_APT=true
+    SYNC_CONF=true
+else
+    for opt in $@; do
+        case $opt in
+            --init ) SYNC_INIT=true;;
+            --apt ) SYNC_APT=true;;
+            --conf ) SYNC_CONF=true;;
+        esac
+    done
+fi
+
+$SYNC_INIT && sync_init
+$SYNC_APT && sync_apt
+$SYNC_CONF && sync_conf
+
+unset sync_init
+unset sync_apt
+unset sync_conf
+
+source ~/.profile
