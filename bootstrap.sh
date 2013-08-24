@@ -8,6 +8,7 @@ function doIt() {
         --exclude "*.swp" \
         --exclude "bootstrap.sh" \
         --exclude "README.md" \
+        --exclude "sh" \
         -av --no-perms . ~
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
