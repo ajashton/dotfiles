@@ -13,6 +13,7 @@ apt_packages=(
     htop
     most
     tmux
+    ubuntuone-control-panel-qt
     xclip
 
     ## Basic dev
