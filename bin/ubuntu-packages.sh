@@ -9,6 +9,7 @@ apt_sources=(
 apt_packages=(
 
     ## Basic utils
+    cpufrequtils
     curl
     htop
     most
