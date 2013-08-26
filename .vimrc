@@ -108,6 +108,8 @@ let g:airline_powerline_fonts=0
 let g:airline_enable_tagbar=0
 let g:airline_detect_whitespace=0
 
+let g:SuperTabDefaultCompletionType = "context"
+
 "" == KEYBINDINGS ==========================================
 
 nmap <F8> :TagbarToggle<CR>
