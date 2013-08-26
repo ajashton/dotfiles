@@ -37,6 +37,7 @@ apt_packages=(
     libjemalloc1
     libmapnik
     libmapnik-dev
+    libprotobuf-dev
     postgresql
     postgresql-contrib
     postgis
