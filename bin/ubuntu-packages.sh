@@ -3,6 +3,7 @@ distrib_supported=(raring)
 apt_sources=(
     # these should be source lines as understood by `apt-add-repository`
     ppa:mapnik/nightly-trunk
+    ppa:mizuno-as/silversearcher-ag
     "'deb http://qgis.org/debian $DISTRIB_CODENAME main'"
 )
 
@@ -12,7 +13,8 @@ apt_packages=(
     cpufrequtils
     curl
     htop
-    most
+    most  # like more / less
+    silversearcher-ag  # like ack / grep
     tmux
     trash-cli
     ubuntuone-control-panel-qt
