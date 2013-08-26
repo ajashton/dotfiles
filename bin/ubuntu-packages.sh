@@ -14,6 +14,7 @@ apt_packages=(
     htop
     most
     tmux
+    trash-cli
     ubuntuone-control-panel-qt
     xclip
 
