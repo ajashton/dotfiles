@@ -25,6 +25,9 @@ apt_packages=(
     exuberant-ctags
     meld
 
+    ## Desktop
+    font-roboto
+
     ## Web / chat
     chromium-browser
     irssi
