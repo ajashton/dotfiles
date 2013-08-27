@@ -39,6 +39,7 @@ apt_packages=(
     pngquant
 
     ## MapBox / OSM dev
+    jekyll
     libjemalloc1
     libmapnik
     libmapnik-dev
@@ -48,6 +49,7 @@ apt_packages=(
     postgis
     protobuf-compiler
     python-unidecode
+    ruby-rdiscount  # alternative Markdown parser for jekyll
     s3cmd
 
     ## Desktop GIS
