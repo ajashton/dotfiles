@@ -15,6 +15,7 @@ apt_packages=(
     curl
     htop
     most  # like more / less
+    ranger  # command-line file manager
     silversearcher-ag  # like ack / grep
     tmux
     trash-cli
