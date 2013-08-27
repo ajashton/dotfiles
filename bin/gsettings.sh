@@ -7,6 +7,7 @@ $gs org.gnome.settings-daemon.peripherals.touchpad  natural-scroll          true
 $gs org.gnome.settings-daemon.peripherals.touchpad  scroll-method           two-finger-scrolling
 $gs org.gnome.settings-daemon.peripherals.touchpad  tap-to-click            false
 $gs org.gnome.desktop.interface                     font-name               'Roboto 10'
+$gs org.gnome.desktop.interface                     icon-theme              'Moka'
 $gs org.gnome.desktop.media-handling                automount-open          false
 $gs org.gnome.desktop.screensaver                   lock-enabled            false
 $gs org.gnome.desktop.wm.preferences                mouse-button-modifier   '<Mod4>'
