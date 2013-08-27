@@ -2,6 +2,7 @@ distrib_supported=(raring)
 
 apt_sources=(
     # these should be source lines as understood by `apt-add-repository`
+    ppa:snwh/moka-icon-theme-daily
     ppa:mapnik/nightly-trunk
     ppa:mizuno-as/silversearcher-ag
     "'deb http://qgis.org/debian $DISTRIB_CODENAME main'"
@@ -51,5 +52,8 @@ apt_packages=(
     ## Desktop GIS
     libreoffice-base  # enables DBF support in Calc
     qgis
+
+    ## Misc
+    moka-icon-theme-dark
 
 )
