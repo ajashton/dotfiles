@@ -20,6 +20,7 @@ apt_packages=(
     tmux
     trash-cli
     ubuntuone-control-panel-qt
+    ubuntuone-client-gnome  # file manager integration, etc
     xclip
 
     ## Basic dev
