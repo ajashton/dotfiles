@@ -24,6 +24,8 @@ apt_packages=(
     xclip
 
     ## Basic dev
+    autoconf
+    clang
     vim
     exuberant-ctags
     meld
@@ -44,14 +46,20 @@ apt_packages=(
 
     ## MapBox / OSM dev
     jekyll
+    libbz2-dev  # for building osm2pgsql
+    libgeos++-dev  # for building osm2pgsql
     libjemalloc1
     libmapnik
     libmapnik-dev
     libprotobuf-dev
     postgresql
+    #postgresql-9.1-postgis
     postgresql-contrib
-    postgis
+    postgresql-plpython
+    postgresql-server-dev-9.1
     protobuf-compiler
+    python-mapnik
+    python-psycopg2
     python-unidecode
     ruby-rdiscount  # alternative Markdown parser for jekyll
     s3cmd
