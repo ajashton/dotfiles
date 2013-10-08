@@ -2,9 +2,11 @@ distrib_supported=(raring)
 
 apt_sources=(
     # these should be source lines as understood by `apt-add-repository`
-    ppa:snwh/moka-icon-theme-daily
+    ppa:developmentseed/mapbox-streets
     ppa:mapnik/nightly-trunk
     ppa:mizuno-as/silversearcher-ag
+    ppa:snwh/moka-icon-theme-daily
+    ppa:yorba/ppa
     "'deb http://qgis.org/debian $DISTRIB_CODENAME main'"
 )
 
@@ -32,6 +34,7 @@ apt_packages=(
 
     ## Desktop
     font-roboto
+    geary
 
     ## Web / chat
     chromium-browser
