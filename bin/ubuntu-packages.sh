@@ -26,7 +26,7 @@ apt_packages=(
     ## Basic dev
     autoconf
     clang
-    vim
+    vim-gnome  # gnome version provides clipboard support, even in terminal
     exuberant-ctags
     meld
 
