@@ -61,6 +61,7 @@ apt_packages=(
     postgresql-plpython
     postgresql-server-dev-9.1
     protobuf-compiler
+    python-magic  # for s3cmd filetype detection
     python-mapnik
     python-psycopg2
     python-unidecode
