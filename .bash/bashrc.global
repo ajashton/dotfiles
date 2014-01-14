@@ -19,12 +19,15 @@ export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
 # ---- Window Title ---------------------------------------------------
 
-# Sets title to the current working directory, abbreviated similarly to
-# Vim tabs, eg: '/home/aj/foo/bar/baz' => '~/f/b/baz'
-pwd_abbr () {
+# If we're inside a tmux or screen session, set title to the current 
+# working directory abbreviated similarly to Vim tabs, eg:
+# '/home/aj/foo/bar/baz' => '~/f/b/baz'
+function pwd_abbr () {
     echo -ne "\ek$(pwd | sed s#$HOME#~# | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
 }
-export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
+if [[ "$TERM" = "screen" ]]; then
+    export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
+fi
 
 # ---- Shell Prompt ---------------------------------------------------
 
