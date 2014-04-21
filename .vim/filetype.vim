@@ -30,6 +30,8 @@ augroup filetypes
   " Underscore templates
   au! BufRead,BufNewFile *._          setf html
   " XML
+  au! BufRead,BufNewFile *.osc        setf xml
+  au! BufRead,BufNewFile *.osm        setf xml
   au! BufRead,BufNewFile *.vrt        setf xml
   
 augroup END
