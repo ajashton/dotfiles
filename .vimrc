@@ -43,7 +43,7 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-autocmd FileType css,carto setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css,carto,json,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType mkd setlocal spell
 
 set nolist
