@@ -23,6 +23,7 @@ apt_packages=(
     trash-cli
     ubuntuone-control-panel-qt
     ubuntuone-client-gnome  # file manager integration, etc
+    unrar
     xclip
 
     ## Basic dev
