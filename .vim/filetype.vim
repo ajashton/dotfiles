@@ -9,11 +9,11 @@ augroup filetypes
   " Handlebar
   au! BufRead,BufNewFile *.hbs        setf html
   " JSON
-  au! BufRead,BufNewFile *.json       setf json 
-  au! BufRead,BufNewFile *.mml        setf json
+  au! BufRead,BufNewFile *.json       setf javascript
+  au! BufRead,BufNewFile *.mml        setf javascript
   " JavaScript
   au! BufRead,BufNewFile *.bones      setf javascript
-	" Markdown
+  " Markdown
   au! BufRead,BufNewFile *.markdown   setf ghmarkdown
   au! BufRead,BufNewFile *.mdown      setf ghmarkdown
   au! BufRead,BufNewFile *.mkd        setf ghmarkdown
