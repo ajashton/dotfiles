@@ -28,3 +28,5 @@ fi
 
 export PGUSER=postgres
 export PATH="/usr/lib/postgresql/9.1/bin/:$PATH"
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
