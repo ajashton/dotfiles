@@ -15,8 +15,8 @@ set showmatch
 set showtabline=1
 set nospell
 set title
-"" disables both audio & visual bell:
-set vb t_vb=
+"" disables audio & visual bell:
+set visualbell t_vb=
 "" makes airline always visible:
 set laststatus=2
 
@@ -43,7 +43,7 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-autocmd FileType css,carto setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css,carto,json,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType mkd setlocal spell
 
 set nolist
@@ -65,9 +65,11 @@ set formatoptions=croqnvt
 
 "" == TERMINAL/GUI SETUP ==================================
 
+autocmd GUIEnter * set visualbell t_vb=
+
 if has("gui_running")
-  colorscheme vylight
-  set guifont=Droid\ Sans\ Mono\ Pro\ 9
+  colorscheme codeschool
+  set guifont=PragmataPro\ 11
   set guioptions=ai
   set columns=90
   set lines=50
@@ -103,8 +105,8 @@ let g:NERDTreeMinimalUI=1
 
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts=1
-let g:airline_left_sep='▒'
-let g:airline_right_sep='▒'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 let g:airline_detect_whitespace=0
 
 let g:SuperTabDefaultCompletionType = "context"
