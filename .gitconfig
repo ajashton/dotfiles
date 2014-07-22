@@ -34,6 +34,7 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     s = status -s
     wdiff = diff --color-words
+    ls = ls-tree -r --name-only HEAD
 
 [push]
     default = simple
