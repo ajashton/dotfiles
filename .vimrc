@@ -97,6 +97,8 @@ augroup END
 
 "" == PLUGIN OPTIONS =======================================
 
+let g:syntastic_sh_shellcheck_args = "-e SC2086"
+
 let g:miniBufExplMapWindowNavVim = 1
 
 let g:NERDTreeWinSize=25
