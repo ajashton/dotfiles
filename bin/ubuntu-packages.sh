@@ -2,11 +2,7 @@ distrib_supported=(raring)
 
 apt_sources=(
     # these should be source lines as understood by `apt-add-repository`
-    ppa:developmentseed/mapbox-streets
     ppa:mapnik/nightly-trunk
-    ppa:mizuno-as/silversearcher-ag
-    ppa:snwh/moka-icon-theme-daily
-    ppa:yorba/ppa
     "'deb http://qgis.org/debian $DISTRIB_CODENAME main'"
 )
 
@@ -21,21 +17,19 @@ apt_packages=(
     silversearcher-ag  # like ack / grep
     tmux
     trash-cli
-    ubuntuone-control-panel-qt
-    ubuntuone-client-gnome  # file manager integration, etc
     unrar
     xclip
 
     ## Basic dev
     autoconf
     clang
-    vim-gnome  # gnome version provides clipboard support, even in terminal
+    vim-gtk  # gui version provides clipboard support, even in terminal
     exuberant-ctags
     meld
+    shellcheck
 
     ## Desktop
-    font-roboto
-    geary
+    fonts-roboto
 
     ## Web / chat
     chromium-browser
@@ -57,23 +51,18 @@ apt_packages=(
     libmapnik-dev
     libprotobuf-dev
     postgresql
-    #postgresql-9.1-postgis
     postgresql-contrib
     postgresql-plpython
-    postgresql-server-dev-9.1
+    postgresql-server-dev-9.3
+    postgis
     protobuf-compiler
-    python-magic  # for s3cmd filetype detection
     python-mapnik
     python-psycopg2
     python-unidecode
     ruby-rdiscount  # alternative Markdown parser for jekyll
-    s3cmd
 
     ## Desktop GIS
     libreoffice-base  # enables DBF support in Calc
     qgis
-
-    ## Misc
-    moka-icon-theme-dark
 
 )
