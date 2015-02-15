@@ -30,6 +30,8 @@ if [[ -e $(npm root -g)/mapbox-cli/mapbox.sh ]]; then
     source $(npm root -g)/mapbox-cli/mapbox.sh
 fi
 
+export TMP=/tmp
+export TMPDIR=/tmp
 export PGUSER=postgres
 export PATH="/usr/lib/postgresql/9.1/bin/:$PATH"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
