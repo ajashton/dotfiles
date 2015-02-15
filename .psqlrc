@@ -1,0 +1,6 @@
+\set QUIET 1
+
+\x auto
+\timing
+
+\set QUIET 0
