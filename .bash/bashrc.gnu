@@ -5,9 +5,16 @@
 
 # ---- Alternatives ---------------------------------------------------
 
-alias open='xdg-open'
-alias xclip='xclip -selection c'
 test -x /usr/bin/pacman-color && alias pacman='pacman-color' # Arch
+
+# OS X compatibility
+alias open='xdg-open'
+alias pbcopy='xclip -in -selection clipboard'
+alias pbpaste='xclip -out -selection clipboard'
+
+# ---- Preferred Default Options --------------------------------------
+
+alias xclip='xclip -selection c'
 
 # power management
 alias shutdown='sudo shutdown -h now'
