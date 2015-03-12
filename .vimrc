@@ -1,38 +1,28 @@
 " == BASIC INTERFACE PREFERENCES ==========================
 
 set nocompatible
-"" backspace/delete like I'm used to:
-set backspace=indent,eol,start
+set backspace=indent,eol,start  " backspace/delete like most other editors
 set history=100
 set mouse=a
-"" show relative line numbers:
-set relativenumber
+set relativenumber              " line numbers relative to current line
 set ruler
 set colorcolumn=80
 set showcmd
-"" show matching braces/parens:
-set showmatch
+set showmatch                   " show matching braces/parens:
 set showtabline=1
 set nospell
 set title
-"" disables audio & visual bell:
-set visualbell t_vb=
-"" makes airline always visible:
-set laststatus=2
-
-"" wrap like I'm used to
+set visualbell t_vb=            " disables audio & visual bell
+set laststatus=2                " makes airline always visible
 set wrap
 set formatoptions=l
 set lbr
 
-"" change indent settings according to filetype
-filetype plugin indent on
+syntax on
 
 "" Swap files & Dropbox are an annoying combo,
 "" so keep them in another place instead
-set directory^=$HOME/.vim/swap// 
-
-call pathogen#runtime_append_all_bundles()
+set directory^=$HOME/.vim/swap//
 
 
 "" == TABS & FORMATTING ===================================
@@ -43,13 +33,13 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-autocmd FileType css,carto,json,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+"" change indent settings according to filetype
+filetype plugin indent on
+
 autocmd FileType mkd setlocal spell
 
-set nolist
-"" note: lcs does nothing with nolist
-"set lcs=tab:│┈,trail:·,extends:»,precedes:«,nbsp:&
-set lcs=tab:│\ ,trail:·,extends:»,precedes:«,nbsp:&
+set list
+set lcs=tab:│┈,trail:▓,extends:»,precedes:«,nbsp:&
 
 " formatoptions:
 " c - autowrap COMMENTS using textwidth
@@ -60,7 +50,6 @@ set lcs=tab:│\ ,trail:·,extends:»,precedes:«,nbsp:&
 " v - wrap on blanks
 " t - autowrap TEXT using textwidth
 set formatoptions=croqnvt
-
 
 
 "" == TERMINAL/GUI SETUP ==================================
@@ -87,17 +76,14 @@ set ignorecase
 set smartcase
 
 
-"" == SYNTAX HIGHLIGHTING ==================================
-
-syntax on
-
-augroup mkd
-  autocmd BufRead,BufNewFile *.mkd set ai formatoptions=tcroqn2 comments=n:> textwidth=72
-augroup END
-
 "" == PLUGIN OPTIONS =======================================
 
+"" Load bundled plugins with Pathogen
+call pathogen#runtime_append_all_bundles()
+
+let g:syntastic_enable_signs = 1
 let g:syntastic_sh_shellcheck_args = "-e SC2086"
+let g:syntastic_javascript_checkers = ['eslint']
 
 let g:miniBufExplMapWindowNavVim = 1
 
@@ -112,6 +98,7 @@ let g:airline_right_sep=''
 let g:airline_detect_whitespace=0
 
 let g:SuperTabDefaultCompletionType = "context"
+
 
 "" == KEYBINDINGS ==========================================
 
@@ -143,6 +130,19 @@ nmap <C-j> ]e
 vmap <C-k> [egv
 vmap <C-j> ]egv
 
+" Show syntax highlighting groups for word under cursor
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+noremap   <F3> :call <SID>SynStack()<CR>
+inoremap  <F3> :call <SID>SynStack()<CR>
+
+
+"" == COMMANDS =============================================
+
 function! DeleteFile(...)
   if(exists('a:1'))
     let theFile=a:1
@@ -168,13 +168,3 @@ endfunction
 com! Rm call DeleteFile()
 "delete the file and quit the buffer (quits vim if this was the last file)
 com! RM call DeleteFile() <Bar> q!
-
-" Show syntax highlighting groups for word under cursor
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-noremap   <F3> :call <SID>SynStack()<CR>
-inoremap  <F3> :call <SID>SynStack()<CR>
