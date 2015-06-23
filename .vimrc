@@ -99,10 +99,13 @@ let g:airline_detect_whitespace=0
 
 let g:SuperTabDefaultCompletionType = "context"
 
+let g:Tlist_Inc_Winwidth=0
+
 
 "" == KEYBINDINGS ==========================================
 
-nmap <F8> :TagbarToggle<CR>
+"nmap <F8> :TagbarToggle<CR>
+nmap <F8> :TlistToggle<CR>
 
 " navigate apparent lines, not actual ones
 nmap <silent> j gj

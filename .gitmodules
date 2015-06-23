@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/vim-flavored-markdown"]
 	path = .vim/bundle/vim-flavored-markdown
 	url = git@github.com:jtratner/vim-flavored-markdown.git
+[submodule ".vim/bundle/taglist"]
+	path = .vim/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim
