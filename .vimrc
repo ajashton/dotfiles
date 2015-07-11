@@ -4,7 +4,7 @@ set nocompatible
 set backspace=indent,eol,start  " backspace/delete like most other editors
 set history=100
 set mouse=a
-set relativenumber              " line numbers relative to current line
+set nonumber
 set ruler
 set colorcolumn=80
 set showcmd
