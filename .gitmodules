@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/unimpaired"]
 	path = .vim/bundle/unimpaired
 	url = https://github.com/vim-scripts/unimpaired.vim.git
-[submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = https://github.com/bling/vim-airline.git
 [submodule ".vim/bundle/mw-utils"]
 	path = .vim/bundle/mw-utils
 	url = git@github.com:MarcWeber/vim-addon-mw-utils.git
