@@ -13,7 +13,7 @@ endif
 hi ColorColumn      ctermbg=Black
 hi CursorColumn     term=underline cterm=underline
 hi Visual           term=bold cterm=bold ctermfg=white ctermbg=DarkBlue
-hi LineNr           ctermfg=DarkBlue ctermbg=Black
+hi LineNr           ctermfg=DarkGrey ctermbg=Black
 hi StatusLine       term=none cterm=none ctermfg=White ctermbg=Black
 hi StatusLineNC     term=none cterm=none ctermfg=DarkBlue ctermbg=Black
 hi TabLine          term=underline cterm=underline ctermfg=DarkBlue ctermbg=Black
@@ -21,12 +21,22 @@ hi TabLineFill      term=underline cterm=underline ctermfg=DarkBlue ctermbg=Blac
 hi TabLineSel       term=underline,bold cterm=underline,bold
 hi VertSplit        term=none cterm=none ctermfg=Black ctermbg=Black
 hi NonText          term=none  cterm=none  ctermfg=Black
-
-hi clear SpellBad
-hi SpellBad         term=underline cterm=underline
 hi Title            term=bold  cterm=bold  ctermfg=Yellow
 
-hi String           ctermfg=Red
+if has("spell")
+    hi clear SpellBad
+    hi SpellBad         term=underline cterm=underline
+endif
+
+"" == General Syntax ==
+hi Normal           ctermfg=LightGrey
+hi Character        ctermfg=Blue
+hi Comment          ctermfg=DarkGrey
+hi Conditional      ctermfg=Green
 hi Label            ctermfg=Blue
+hi Number           ctermfg=Red
+hi Statement        ctermfg=Green
+hi String           ctermfg=Blue
+hi Identifier       ctermfg=Magenta cterm=bold
 
 " vim: tw=0 ts=4 sw=4
