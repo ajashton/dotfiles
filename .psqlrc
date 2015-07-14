@@ -2,5 +2,6 @@
 
 \x auto
 \timing
+\pset linestyle unicode
 
 \set QUIET 0
