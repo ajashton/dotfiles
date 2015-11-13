@@ -9,11 +9,14 @@ set lcs=tab:├─,trail:░,extends:»,precedes:«,nbsp:&
 set nottimeout
 set ruler
 set shiftwidth=4
+set showcmd
 set smartindent
 set smartcase
 set softtabstop=4
 
-syntax on
+if (exists('g:syntax_enable'))
+    syntax on
+endif
 colorscheme sweet16
 filetype off
 filetype plugin indent on
@@ -35,11 +38,13 @@ call plug#begin('~/.nvim/plugged')
 Plug 'ervandew/supertab'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/SyntaxAttr.vim'
 
 " Interface
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -55,6 +60,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
+let g:syntastic_loc_list_height = 5
 
 "" NERDTree
 let g:NERDTreeDirArrows=1
@@ -62,8 +68,8 @@ let g:NERDTreeMinimalUI=1
 nmap <F9> :NERDTreeTabsToggle<CR>
 
 "" indentLine
-let g:indentLine_char = '┆'
-let g:indentLine_color_dark = 254
+let g:indentLine_char = '▏'
+let g:indentLine_color_term = 234
 
 
 "" == KEYBINDINGS ==========================================
