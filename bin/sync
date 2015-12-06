@@ -35,7 +35,7 @@ function sync_conf() {
         --exclude "bin" \
         -av --no-perms . ~
 
-    ./bin/gsettings.sh
+#    ./bin/gsettings.sh
 
 }
 

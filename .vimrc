@@ -36,6 +36,7 @@ call plug#begin('~/.nvim/plugged')
 Plug 'ervandew/supertab'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/SyntaxAttr.vim'
 
 " Interface
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
