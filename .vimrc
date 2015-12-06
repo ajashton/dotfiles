@@ -9,6 +9,7 @@ set lcs=tab:├─,trail:░,extends:»,precedes:«,nbsp:&
 set nottimeout
 set ruler
 set shiftwidth=4
+set showcmd
 set smartindent
 set smartcase
 set softtabstop=4
@@ -55,6 +56,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
+let g:syntastic_loc_list_height = 5
 
 "" NERDTree
 let g:NERDTreeDirArrows=1
@@ -62,8 +64,8 @@ let g:NERDTreeMinimalUI=1
 nmap <F9> :NERDTreeTabsToggle<CR>
 
 "" indentLine
-let g:indentLine_char = '┆'
-let g:indentLine_color_dark = 254
+let g:indentLine_char = '│'
+let g:indentLine_color_dark = 4
 
 
 "" == KEYBINDINGS ==========================================
