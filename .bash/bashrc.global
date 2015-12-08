@@ -2,11 +2,33 @@
 
 export EDITOR=vim
 export GREP_COLOR="1;33"
+export TMP=/tmp
+export TMPDIR=/tmp
+export PGUSER=postgres
+
+if [[ -n "$(which most)" ]]; then
+    export PAGER=most
+fi
 
 shopt -s checkwinsize
 
 # let autocomplete work with sudo
 complete -cf sudo
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ]; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [[ -e "$HOME/.nvm/nvm.sh" ]]; then
+    source "$HOME/.nvm/nvm.sh"
+    nvm use 0.10 > /dev/null
+fi
+
+if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
+    source "$(npm root -g)/mbxcli/mapbox.sh"
+fi
+
 
 # ---- History --------------------------------------------------------
 
