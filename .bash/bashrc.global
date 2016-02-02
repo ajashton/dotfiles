@@ -47,7 +47,7 @@ export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 function pwd_abbr () {
     echo -ne "\ek$(pwd | sed s#$HOME#~# | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
 }
-if [[ "$TERM" = "screen" ]]; then
+if (grep -qe '\(screen\|tmux\)' <<< "$TERM"); then
     export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
 fi
 
@@ -55,31 +55,19 @@ fi
 
 # Functions to tell me whether I am in a git or svn working copy, + which branch
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 parse_hg_branch() {
-  hg summary 2> /dev/null | grep ^branch | sed -e 's/.*: \(.*\)/(hg::\1)/'
-}
-parse_svn_branch() {
-  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "(svn::"$1 "/" $2 ")"}'
-}
-parse_svn_url() {
-  svn info 2>/dev/null | grep -e '^URL*' | sed -e 's#^URL: *\(.*\)#\1#g '
-}
-parse_svn_repository_root() {
-  svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '
+  hg summary 2> /dev/null | grep ^branch | sed -e 's/.*: \(.*\)/\1/'
 }
 
 # The prompt itself
 if [ $TERM = 'dumb' ] ; then
     # No color, no unicode (eg, Vim shell)
-    export PS1="\[\033[G\]\w \$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch) > "
-elif [ $TERM = 'mrxvt' ] ; then
-    # Mrxvt supports color, but not unicode.
-    export PS1="\[\033[G\]\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch)\[\033[00m\] > "
+    export PS1="\$(date +%H:%M) \[\033[G\]\w \$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch) $ "
 else
     # Default: Full-color, Unicode
-    export PS1="\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch)\[\033[00m\] ➤ "
+    export PS1="\[\033[31m\]\$(date +%H:%M) \[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\[\033[00m\] $ "
 fi
 
 # == ALIASES ==========================================================
