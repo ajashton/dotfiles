@@ -4,6 +4,7 @@ set backspace=indent,eol,start
 set colorcolumn=80
 set expandtab
 set ignorecase
+set linebreak
 set list
 set lcs=tab:├─,trail:░,extends:»,precedes:«,nbsp:&
 set nottimeout
@@ -14,10 +15,8 @@ set smartindent
 set smartcase
 set softtabstop=4
 
-if (exists('g:syntax_enable'))
-    syntax on
-endif
-colorscheme sweet16
+syntax on
+colorscheme evolution
 filetype off
 filetype plugin indent on
 
@@ -25,9 +24,14 @@ filetype plugin indent on
 "" == FILE TYPES ===========================================
 
 autocmd BufNewFile,BufReadPost *.md     set filetype=markdown
+autocmd BufNewFile,BufReadPost *.mkd    set filetype=markdown
+autocmd BufNewFile,BufReadPost *.txt    set filetype=markdown
+
 autocmd BufNewFile,BufReadPost *.osc    set filetype=xml
 autocmd BufNewFile,BufReadPost *.osm    set filetype=xml
 autocmd BufNewFile,BufReadPost *.vrt    set filetype=xml
+
+autocmd BufNewFile,BufReadPost *.js     set shiftwidth=2 softtabstop=2
 
 
 "" == PLUGINS ==============================================
@@ -44,7 +48,8 @@ Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
-Plug 'chriskempson/base16-vim'
+
+Plug 'gerw/vim-HiLinkTrace'
 
 call plug#end()
 
@@ -68,8 +73,9 @@ let g:NERDTreeMinimalUI=1
 nmap <F9> :NERDTreeTabsToggle<CR>
 
 "" indentLine
-let g:indentLine_char = '▏'
-let g:indentLine_color_term = 234
+"let g:indentLine_char = '▏'
+let g:indentLine_char = '┊'
+let g:indentLine_color_term = 236
 
 
 "" == KEYBINDINGS ==========================================
@@ -131,6 +137,15 @@ function! <SID>SynStack()
 endfunc
 noremap   <F3> :call <SID>SynStack()<CR>
 inoremap  <F3> :call <SID>SynStack()<CR>
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 
 "" == COMMANDS =============================================
