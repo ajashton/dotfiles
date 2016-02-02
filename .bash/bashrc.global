@@ -15,6 +15,10 @@ shopt -s checkwinsize
 # let autocomplete work with sudo
 complete -cf sudo
 
+if [[ -d "$HOME/.gem/ruby/2.3.0/bin" ]]; then
+    PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
+fi
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
