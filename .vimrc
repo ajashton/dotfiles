@@ -20,6 +20,9 @@ colorscheme evolution
 filetype off
 filetype plugin indent on
 
+" automatically enter insert mode when opening/focusing terminal buffers
+autocmd BufEnter term://* startinsert
+
 
 "" == FILE TYPES ===========================================
 
@@ -29,6 +32,7 @@ autocmd BufNewFile,BufReadPost *.txt    set filetype=markdown
 
 autocmd BufNewFile,BufReadPost *.osc    set filetype=xml
 autocmd BufNewFile,BufReadPost *.osm    set filetype=xml
+autocmd BufNewFile,BufReadPost *.qml    set filetype=xml
 autocmd BufNewFile,BufReadPost *.vrt    set filetype=xml
 
 autocmd BufNewFile,BufReadPost *.js     set shiftwidth=2 softtabstop=2
@@ -47,6 +51,7 @@ Plug 'vim-scripts/SyntaxAttr.vim'
 " Interface
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'Yggdroot/indentLine'
 
 Plug 'gerw/vim-HiLinkTrace'
@@ -66,10 +71,14 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
 let g:syntastic_loc_list_height = 5
+let g:syntastic_sh_shellcheck_args='-x'
+let g:syntastic_sql_checkers=['pgsanity']
 
 "" NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+let g:NERDTreeMouseMode=2 " single click to expand directories, double-click to open files
+let g:NERDTreeWinSize=40
 nmap <F9> :NERDTreeTabsToggle<CR>
 
 "" indentLine
@@ -77,8 +86,14 @@ nmap <F9> :NERDTreeTabsToggle<CR>
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 236
 
+"" JSON
+let g:vim_json_syntax_conceal = 0 " don't hide quotation marks
+
 
 "" == KEYBINDINGS ==========================================
+
+" Insert literal tab (regardless of indent/expansion/autocomplete settings)
+inoremap <S-Tab> <C-V><Tab>
 
 " Copy
 noremap <T-c> "+y
