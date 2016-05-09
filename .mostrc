@@ -1,0 +1,4 @@
+setkey up "k"
+setkey down "j"
+setkey bob "g"
+setkey eob "G"
