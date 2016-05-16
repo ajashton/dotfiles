@@ -1,0 +1,17 @@
+rofi.fuzzy:true
+
+! THEMING
+rofi.font:Emoji\ One\ Color\ 28
+rofi.color-enabled:true
+rofi.separator-style:none
+rofi.bw:16 !border-width
+rofi.scrollbar-width:5
+rofi.padding:0
+
+! COLORS
+! Window          !bg       !border
+rofi.color-window:#FFFFFFFF,#33000000
+! Rows            !bg       !fg       !bgalt    !hlbg     !hlfg
+rofi.color-normal:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF
+rofi.color-urgent:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF
+rofi.color-active:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF
