@@ -1,5 +1,11 @@
 # For things that only make sense on GNU/Linux systems
 
+export GDK_BACKEND='wayland,x11'
+
+if [[ -n "$(which keychain)" ]]; then
+    eval $(keychain --eval --quiet --noask id_rsa)
+fi
+
 
 # == ALIASES ==========================================================
 
