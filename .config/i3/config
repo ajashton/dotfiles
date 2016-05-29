@@ -40,15 +40,15 @@ bindsym Mod4+Return exec mate-terminal
 bindsym Mod4+Shift+q kill
 
 # program launchers
-bindsym Mod4+space exec ~/bin/appmenu
+bindsym Mod4+space exec ~/.local/bin/appmenu
 bindsym Mod4+d exec rofi -show run -modi run
 bindsym Mod4+Tab exec rofi -show window -modi window
-bindsym Mod4+p exec ~/bin/passmenu
+bindsym Mod4+p exec ~/.local/bin/passmenu
 #bindsym --release Mod4+i exec scrot -s "$HOME/Pictures/%Y-%m-%d-%X.png" -e 'echo -n $f | xclip -selection clipboard'
 #bindsym --release Mod4+i \
 #    exec scrot -s "$HOME/Pictures/%Y-%m-%d-%X.png" \
 #    -e 'xclip -i -selection clipboard -t image/png $f && paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga'
-bindsym Mod4+i exec ~/bin/screenshot.sh
+bindsym Mod4+i exec ~/.local/bin/screenshot
 
 # change focus
 bindsym Mod4+$left focus left
