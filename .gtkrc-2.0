@@ -1,0 +1,9 @@
+gtk-icon-theme-name = "breeze"
+gtk-theme-name = "Arc"
+
+style "user-font"
+{
+        font_name="Roboto 9"
+}
+widget_class "*" style "user-font"
+gtk-font-name = "Roboto 9"
