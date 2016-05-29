@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu -o pipefail
+
+maim -s -c 0.25,0.25,0.25,0.75 -b 2560 --format png /dev/stdout \
+    | xclip -i -selection clipboard -t image/png \
+    && paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga
+

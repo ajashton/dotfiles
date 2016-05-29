@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function main() {
+
+    set -eu -o pipefail
+    shopt -s nullglob globstar
+
+    local prefix=${PASSWORD_STORE_DIR-~/.password-store}
+    local password_files
+    local selection
+
+    password_files=( "$prefix"/**/*.gpg )
+    password_files=( "${password_files[@]#"$prefix"/}" )
+    password_files=( "${password_files[@]%.gpg}" )
+
+    selection="$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -i -p '🔐 ' -mesg '<span font_size="x-small" color="#888">Password Store Search</span>')"
+
+    pass show --clip "$selection"
+
+    notify-send \
+        -i security-medium \
+        "Password copied for $selection" \
+        "$(pass show $selection | tail -n +2)"
+
+}
+
+main
