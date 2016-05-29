@@ -1,5 +1,6 @@
 [core]
     excludesfile = /home/aj/.gitignore
+    pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
 
 [user]
     email = aj.ashton@gmail.com
@@ -21,6 +22,12 @@
     old = red bold
     new = green bold
 
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
 [color "status"]
     added = yellow
     changed = green
@@ -29,15 +36,15 @@
 [merge]
     tool = meld
 
+[push]
+    default = simple
+
+[github]
+    user = ajashton
+
 [alias]
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     s = status -s
     wdiff = diff --color-words
     ls = ls-tree -r --name-only HEAD
-
-[push]
-    default = simple
-
-[github]
-    user = ajashton
