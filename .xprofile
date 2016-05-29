@@ -1,0 +1,21 @@
+# Check whether the screen is HiDPI, using the same rules as GNOME: screen
+# is 1200+ pixels tall and least 192 DPI (aka 7488 pixels per meter, which is
+# easier to calculate with the limited data and shell math available).
+read -r w_px h_px w_mm h_mm < <(xdpyinfo | grep dimensions | sed "s/[^0-9]/ /g")
+if [[ $h_px -ge 1200 ]] && [[ $((w_px * 1000 / w_mm)) -ge 7488 ]]; then
+    export GDK_SCALE=2
+    xrandr --dpi 192 &
+fi
+
+export BROWSER=/usr/bin/firefox
+export QT_STYLE_OVERRIDE=gtk
+
+xbindkeys &
+setxkbmap -option caps:escape -option compose:ralt &  # see `man xkeyboard-config`
+
+compton --config ~/.config/compton.conf &
+nm-applet &
+dropbox &
+dunst &
+xscreensaver -no-splash &
+redshift-gtk &
