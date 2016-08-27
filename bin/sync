@@ -9,7 +9,7 @@ rsync \
     --exclude ".DS_Store" \
     --exclude "*.swp" \
     --exclude "README.md" \
-    --exclude "bin" \
+    --exclude "./bin" \
     -av --no-perms . ~
 
 source ~/.profile
