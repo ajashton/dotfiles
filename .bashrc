@@ -21,6 +21,9 @@ if [[ -x /usr/bin/most ]]; then
     export PAGER=most
 fi
 
+eval "$(keychain --eval --quiet --quick --confhost --noask --nogui \
+    --timeout 43200 --agents ssh,gpg ~/.ssh/id_rsa 251886EF)"
+
 if [[ -d "$HOME/.gem/ruby/2.3.0/bin" ]]; then
     PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 fi
@@ -40,17 +43,28 @@ fi
 
 if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
     source "$(npm root -g)/mbxcli/mapbox.sh"
+    function mbxc() {
+        mbx auth $* --account china
+    }
 fi
+
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 
 # ---- History --------------------------------------------------------
 
 shopt -s histappend
-export PROMPT_COMMAND="history -a; history -n"
+export PROMPT_COMMAND="history -a; history -n;"
 export HISTCONTROL=erasedups
 export HISTFILE="$HOME/.bash_history"
 export HISTSIZE=50000
 export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
+
+# ---- Remember last CWD ----------------------------------------------
+PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
+if [[ -e "$HOME/.cache/lwd" ]]; then
+    cd "$(< ${HOME}/.cache/lwd)"
+fi
 
 # ---- Window Title ---------------------------------------------------
 
@@ -61,7 +75,7 @@ function pwd_abbr () {
     echo -ne "\ek$(pwd | sed s#$HOME#~# | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
 }
 if (grep -qe '\(screen\|tmux\)' <<< "$TERM"); then
-    export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
+    PROMPT_COMMAND+=" pwd_abbr;"
 fi
 
 # ---- Shell Prompt ---------------------------------------------------
@@ -90,6 +104,7 @@ fi
 if [[ -x /usr/bin/colordiff ]]; then alias diff='colordiff'; fi
 if [[ -x /usr/bin/most ]]; then alias less='most'; fi
 if [[ -x /usr/bin/pacman-color ]]; then alias pacman='pacman-color'; fi
+alias todo='todo.sh'
 
 # ---- Preferred Default Options --------------------------------------
 
@@ -166,8 +181,8 @@ unhide() {
 
 function xt() {
   # xt = eXTract, a wrapper to extract many different archive formats
-  if [ -f $1 ] ; then
-    case $1 in
+  if [ -f "$1" ] ; then
+    case "$1" in
       *.tar.bz2)   tar xvjf "$1"   ;;
       *.tar.gz)    tar xvzf "$1"   ;;
       *.tar.xz)    tar xzJf "$1"   ;;

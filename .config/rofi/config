@@ -1,17 +1,18 @@
-rofi.fuzzy:true
+rofi.case-sensitive:false
 
 ! THEMING
-rofi.font:Emoji\ One\ Color\ 28
+rofi.font:mononoki\ 18
 rofi.color-enabled:true
 rofi.separator-style:none
-rofi.bw:16 !border-width
+rofi.bw:0 !border-width
 rofi.scrollbar-width:5
-rofi.padding:0
+rofi.width:600
+rofi.lines:10
+rofi.padding:10
 
-! COLORS
-! Window          !bg       !border
-rofi.color-window:#FFFFFFFF,#33000000
+! Window          !bg       !border/scrollbar
+rofi.color-window:#FF303038,#FF808080
 ! Rows            !bg       !fg       !bgalt    !hlbg     !hlfg
-rofi.color-normal:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF
+rofi.color-normal:#00000000,#FFFFFFFF,#00000000,#FF5294E2,#FFFFFFFF
 rofi.color-urgent:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF
 rofi.color-active:#00000000,#FF000000,#00000000,#FF5294E2,#FFFFFFFF

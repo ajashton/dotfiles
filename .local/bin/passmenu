@@ -20,7 +20,7 @@ function main() {
     notify-send \
         -i security-medium \
         "Password copied for $selection" \
-        "$(pass show $selection | tail -n +2)"
+        "$(pass show "$selection" | tail -n +2)"
 
 }
 
