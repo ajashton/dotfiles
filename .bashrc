@@ -48,6 +48,8 @@ if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
     }
 fi
 
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
+
 
 # ---- History --------------------------------------------------------
 
