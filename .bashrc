@@ -102,6 +102,7 @@ fi
 if [[ -x /usr/bin/colordiff ]]; then alias diff='colordiff'; fi
 if [[ -x /usr/bin/most ]]; then alias less='most'; fi
 if [[ -x /usr/bin/pacman-color ]]; then alias pacman='pacman-color'; fi
+alias todo='todo.sh'
 
 # ---- Preferred Default Options --------------------------------------
 
