@@ -43,17 +43,26 @@ fi
 
 if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
     source "$(npm root -g)/mbxcli/mapbox.sh"
+    function mbxc() {
+        mbx auth $* --account china
+    }
 fi
 
 
 # ---- History --------------------------------------------------------
 
 shopt -s histappend
-export PROMPT_COMMAND="history -a; history -n"
+export PROMPT_COMMAND="history -a; history -n;"
 export HISTCONTROL=erasedups
 export HISTFILE="$HOME/.bash_history"
 export HISTSIZE=50000
 export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
+
+# ---- Remember last CWD ----------------------------------------------
+PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
+if [[ -e "$HOME/.cache/lwd" ]]; then
+    cd "$(< ${HOME}/.cache/lwd)"
+fi
 
 # ---- Window Title ---------------------------------------------------
 
@@ -64,7 +73,7 @@ function pwd_abbr () {
     echo -ne "\ek$(pwd | sed s#$HOME#~# | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
 }
 if (grep -qe '\(screen\|tmux\)' <<< "$TERM"); then
-    export PROMPT_COMMAND="$PROMPT_COMMAND; pwd_abbr;"
+    PROMPT_COMMAND+=" pwd_abbr;"
 fi
 
 # ---- Shell Prompt ---------------------------------------------------
