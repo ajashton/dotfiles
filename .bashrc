@@ -21,6 +21,9 @@ if [[ -x /usr/bin/most ]]; then
     export PAGER=most
 fi
 
+eval "$(keychain --eval --quiet --quick --confhost --noask --nogui \
+    --timeout 43200 --agents ssh,gpg ~/.ssh/id_rsa 251886EF)"
+
 if [[ -d "$HOME/.gem/ruby/2.3.0/bin" ]]; then
     PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 fi
