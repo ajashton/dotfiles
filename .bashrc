@@ -179,8 +179,8 @@ unhide() {
 
 function xt() {
   # xt = eXTract, a wrapper to extract many different archive formats
-  if [ -f $1 ] ; then
-    case $1 in
+  if [ -f "$1" ] ; then
+    case "$1" in
       *.tar.bz2)   tar xvjf "$1"   ;;
       *.tar.gz)    tar xvzf "$1"   ;;
       *.tar.xz)    tar xzJf "$1"   ;;
