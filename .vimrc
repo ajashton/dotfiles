@@ -16,7 +16,6 @@ set smartcase
 set softtabstop=4
 
 syntax on
-colorscheme evolution
 filetype off
 filetype plugin indent on
 
@@ -53,6 +52,7 @@ Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'petelewis/vim-evolution'
 
 Plug 'gerw/vim-HiLinkTrace'
 
@@ -60,6 +60,8 @@ call plug#end()
 
 
 "" == PLUGIN CONFIG ========================================
+
+colorscheme evolution
 
 "" Syntastic
 set statusline+=%#warningmsg#
