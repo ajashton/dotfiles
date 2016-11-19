@@ -73,7 +73,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
 let g:syntastic_loc_list_height = 5
-let g:syntastic_sh_shellcheck_args='-x'
+let g:syntastic_sh_shellcheck_args='--exclude=SC1015,SC1016,SC2016'
 let g:syntastic_sql_checkers=['pgsanity']
 
 "" NERDTree
