@@ -47,6 +47,9 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/SyntaxAttr.vim'
 
+" Syntax
+Plug 'tkztmk/vim-vala'
+
 " Interface
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
