@@ -207,3 +207,20 @@ nwd() {
   "$@"
   notify-send "$1 is done!"
 }
+
+function osmfilter() {
+    # transparently handles pbf→o5m→pbf conversion
+    if [[ $1 == *.osm.pbf ]]; then
+        local original="$1"
+        shift
+        local in_o5m="${original//.osm.pbf/.o5m}"
+        local out_o5m="${in_o5m//.o5m/_filtered.o5m}"
+        local out_pbf="${out_o5m//.o5m/.osm.pbf}"
+        osmconvert "$original" --out-o5m > "$in_o5m"
+        $(which osmfilter) "$in_o5m" "$@" --out-o5m > "$out_o5m"
+        osmconvert "$out_o5m" --out-pbf > "$out_pbf"
+    else
+        $(which osmfilter) "$@"
+    fi
+}
+
