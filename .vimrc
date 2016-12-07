@@ -56,20 +56,26 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'petelewis/vim-evolution'
+Plug 'dikiaap/minimalist'
 
 Plug 'gerw/vim-HiLinkTrace'
 
 call plug#end()
 
+"" == STATUS LINE ==========================================
+
+" file name + flags:
+set statusline=%t\ %h%m%r
+" syntastic warnings:
+set statusline+=\ %#warningmsg#%{SyntasticStatuslineFlag()}%*
+" spacer, ruler
+set statusline+=%=↧\ %l\ ┆\ ↦\ %c\ ┆\ %P
 
 "" == PLUGIN CONFIG ========================================
 
-colorscheme evolution
+colorscheme minimalist
 
 "" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1

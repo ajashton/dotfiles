@@ -68,15 +68,18 @@ fi
 
 # ---- Window Title ---------------------------------------------------
 
-# If we're inside a tmux or screen session, set title to the current 
-# working directory abbreviated similarly to Vim tabs, eg:
-# '/home/aj/foo/bar/baz' => '~/f/b/baz'
+# Set window/tab title to the current working directory, abbreviated
+# similarly to Vim tabs, eg: '/home/aj/foo/bar/baz' => '~/f/b/baz'
 function pwd_abbr () {
-    echo -ne "\ek$(pwd | sed s#$HOME#~# | sed 's#\([^/]\)[^/]*/#\1/#g')\e\\"
+    case "$MAPBOX_CLI_BUCKET" in
+        mapbox-cn-north-1) mbxauth='🈶';;
+        mapbox) mbxauth='🌐';;
+        *) mbxauth='';;
+    esac
+    dirname="$(pwd | sed -e "s#$HOME#~#" -e 's#\([^/]\)[^/]*/#\1/#g')"
+    echo -en "\033]2;$dirname $mbxauth\007"
 }
-if (grep -qe '\(screen\|tmux\)' <<< "$TERM"); then
-    PROMPT_COMMAND+=" pwd_abbr;"
-fi
+PROMPT_COMMAND+=" pwd_abbr;"
 
 # ---- Shell Prompt ---------------------------------------------------
 
