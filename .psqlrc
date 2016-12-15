@@ -1,7 +1,13 @@
 \set QUIET 1
 
+-- Automatically display in "extented" mode when there is too much output
+-- for regular table mode:
 \x auto
+
+-- Show how many milliseconds each query took:
 \timing
+
+-- Fancy unicode lines:
 \pset linestyle unicode
 
 \set QUIET 0
