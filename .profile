@@ -1,6 +1,5 @@
-WAYLAND=$(ps -aux | head -n -1 | grep "/usr/bin/gnome-shell --wayland")
+export N_PREFIX="$HOME/.local"
 
-if [ -n "$WAYLAND" ]; then
-    export GDK_BACKEND=wayland
-    export CLUTTER_BACKEND=wayland
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
