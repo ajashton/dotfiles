@@ -121,6 +121,17 @@ noremap <T-c> "+y
 noremap <T-v> "+p
 inoremap <T-v> <C-O>"+P
 
+if (has('nvim'))
+    tnoremap <Esc><Esc> <C-\><C-n>
+endif
+
+" Cycle through windows
+noremap <M-Tab> <C-w>w
+inoremap <M-Tab> <C-w>w
+if (has('nvim'))
+    tnoremap <M-Tab> <C-\><C-n><C-w>w
+endif
+
 " Jump to tabs by number
 noremap <M-1> 1gt
 noremap <M-2> 2gt
