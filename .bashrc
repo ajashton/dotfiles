@@ -24,6 +24,10 @@ fi
 eval "$(keychain --eval --quiet --quick --confhost --noask --nogui \
     --timeout 43200 --agents ssh,gpg ~/.ssh/id_rsa 251886EF)"
 
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
 if [[ -d "$HOME/.gem/ruby/2.3.0/bin" ]]; then
     PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 fi
@@ -33,53 +37,57 @@ if [[ -e "$HOME/.python/bin/activate" ]]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ]; then
+if [[ -d "$HOME/.local/bin" ]]; then
     PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [[ -e "$HOME/.nvm/nvm.sh" ]]; then
-    source "$HOME/.nvm/nvm.sh"
 fi
 
 if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
     source "$(npm root -g)/mbxcli/mapbox.sh"
     function mbxc() {
-        mbx auth $* --account china
+        mbx auth "$@" --account china
     }
 fi
 
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
+if [[ -f "$HOME/.travis/travis.sh" ]]; then
+    source "$HOME/.travis/travis.sh"
+fi
 
 
 # ---- History --------------------------------------------------------
 
+PROMPT_COMMAND="history -a; history -n; history -r;"
+HISTCONTROL=erasedups:erasedups
+HISTFILE="$HOME/.bash_history"
+HISTSIZE=-1
+HISTFILESIZE=-1
+HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
-export PROMPT_COMMAND="history -a; history -n;"
-export HISTCONTROL=erasedups
-export HISTFILE="$HOME/.bash_history"
-export HISTSIZE=50000
-export HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 
 # ---- Remember last CWD ----------------------------------------------
 PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
 if [[ -e "$HOME/.cache/lwd" ]]; then
-    cd "$(< ${HOME}/.cache/lwd)"
+    cd "$(< "${HOME}/.cache/lwd")"
 fi
 
 # ---- Window Title ---------------------------------------------------
 
 # Set window/tab title to the current working directory, abbreviated
 # similarly to Vim tabs, eg: '/home/aj/foo/bar/baz' => '~/f/b/baz'
-function pwd_abbr () {
-    case "$MAPBOX_CLI_BUCKET" in
-        mapbox-cn-north-1) mbxauth='🈶';;
-        mapbox) mbxauth='🌐';;
-        *) mbxauth='';;
-    esac
+# Also include a relevant emoji if mbx-authed.
+function set_window_title () {
+    local mbxauth=''
+    local dirname
+    if [[ $((MAPBOX_CLI_AUTH_TIME/1000)) -gt $(date +%s) ]]; then
+        case "$MAPBOX_AWS_ACCOUNT" in
+            ch*) mbxauth=' 🈶';;
+            pr*) mbxauth=' 🌐';;
+            *) ;;
+        esac
+    fi
     dirname="$(pwd | sed -e "s#$HOME#~#" -e 's#\([^/]\)[^/]*/#\1/#g')"
-    echo -en "\033]2;$dirname $mbxauth\007"
+    echo -en "\033]2;${dirname}${mbxauth}\007"
 }
-PROMPT_COMMAND+=" pwd_abbr;"
+PROMPT_COMMAND+=" set_window_title;"
 
 # ---- Shell Prompt ---------------------------------------------------
 
@@ -92,7 +100,7 @@ parse_hg_branch() {
 }
 
 # The prompt itself
-if [ $TERM = 'dumb' ] ; then
+if [[ $TERM = 'dumb' ]]; then
     # No color, no unicode (eg, Vim shell)
     export PS1="\$(date +%H:%M) \[\033[G\]\w \$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch) $ "
 else
@@ -116,8 +124,6 @@ alias gist='gist -p'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
 alias mv='mv -vi'
-alias rm='rm -v'
-alias vlc='vlc --extraintf http'
 
 # ---- Shortcuts  -----------------------------------------------------
 
@@ -163,7 +169,13 @@ function bak() {
 }
 
 # Follow copied and moved files to destination directory (courtesy jwr)
-follow() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
+follow() {
+    if [[ -d "$1" ]]; then
+        cd "$1"
+    else
+        cd "$(dirname "$1")"
+    fi
+}
 cpf() { cp "$@" && follow "$_"; }
 mvf() { mv "$@" && follow "$_"; }
 
@@ -173,12 +185,12 @@ mkcd() { mkdir -p "$@" && cd "$_"; }
 # Easily hide/unhide files (via dot-prefix)
 hide() {
     for f in "$@"; do
-        mv -i "$f" $(dirname "$f")/".$(basename "$f")"
+        mv -i "$f" "$(dirname "$f")/.$(basename "$f")"
     done
 }
 unhide() {
     for f in "$@"; do
-        mv -i "$f" $(dirname "$f")/"$(basename "$f" | sed 's/^\.//')"
+        mv -i "$f" "$(dirname "$f")/$(basename "$f" | sed 's/^\.//')"
     done
 }
 
@@ -186,19 +198,19 @@ function xt() {
   # xt = eXTract, a wrapper to extract many different archive formats
   if [ -f "$1" ] ; then
     case "$1" in
-      *.tar.bz2)   tar xvjf "$1"   ;;
-      *.tar.gz)    tar xvzf "$1"   ;;
-      *.tar.xz)    tar xzJf "$1"   ;;
-      *.bz2)       bunzip2 "$1"    ;;
-      *.rar)       unrar x "$1"    ;;
-      *.gz)        gunzip "$1"     ;;
-      *.tar)       tar xvf "$1"    ;;
-      *.tbz2)      tar xvjf "$1"   ;;
-      *.tgz)       tar xvzf "$1"   ;;
-      *.zip)       unzip "$1"      ;;
-      *.Z)         uncompress "$1" ;;
-      *.7z)        7z x "$1"       ;;
-      *)           echo "'$1' cannot be extracted via >extract<" ;;
+      *.tar.bz2)   tar xvjf "$1";;
+      *.tar.gz)    tar xvzf "$1";;
+      *.tar.xz)    tar xzJf "$1";;
+      *.bz2)       bunzip2 "$1";;
+      *.rar)       unrar x "$1";;
+      *.gz)        gunzip "$1";;
+      *.tar)       tar xvf "$1";;
+      *.tbz2)      tar xvjf "$1";;
+      *.tgz)       tar xvzf "$1";;
+      *.zip)       unzip "$1";;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1";;
+      *)           echo "'$1' cannot be extracted by xt";;
     esac
   else
     echo "'$1' is not a valid file"
