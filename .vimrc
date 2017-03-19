@@ -49,6 +49,8 @@ Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'w0rp/ale'
 
 " Syntax
+Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
 Plug 'tkztmk/vim-vala'
 
 " Interface
