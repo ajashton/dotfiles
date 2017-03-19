@@ -1,6 +1,5 @@
 [core]
     excludesfile = /home/aj/.gitignore
-    pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
 
 [user]
     email = aj.ashton@gmail.com
