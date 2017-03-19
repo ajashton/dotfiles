@@ -35,6 +35,7 @@ autocmd BufNewFile,BufReadPost *.qml    set filetype=xml
 autocmd BufNewFile,BufReadPost *.vrt    set filetype=xml
 
 autocmd BufNewFile,BufReadPost *.js     set shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufReadPost *.template set filetype=js shiftwidth=2 softtabstop=2
 
 
 "" == PLUGINS ==============================================
