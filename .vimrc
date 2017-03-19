@@ -43,9 +43,9 @@ call plug#begin('~/.nvim/plugged')
 
 " Editing
 Plug 'ervandew/supertab'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/SyntaxAttr.vim'
+Plug 'w0rp/ale'
 
 " Syntax
 Plug 'tkztmk/vim-vala'
@@ -74,6 +74,12 @@ set statusline+=%=↧\ %l\ ┆\ ↦\ %c\ ┆\ %P
 "" == PLUGIN CONFIG ========================================
 
 colorscheme minimalist
+
+"" Ale
+let g:ale_lint_delay = 1000
+let g:ale_sign_error = '▸▸'
+let g:ale_sign_warning = '▹▹'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 "" Syntastic
 let g:syntastic_always_populate_loc_list = 1
