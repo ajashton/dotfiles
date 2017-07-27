@@ -131,7 +131,7 @@ alias todo='todo.sh'
 
 # ---- Preferred Default Options --------------------------------------
 
-alias df='df -h'
+alias df='df --human-readable --print-type'
 alias gist='gist -p'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
