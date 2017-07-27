@@ -99,13 +99,18 @@ parse_hg_branch() {
   hg summary 2> /dev/null | grep ^branch | sed -e 's/.*: \(.*\)/\1/'
 }
 
+if [[ -n "$SSH_CONNECTION" ]]; then
+    # Show user/host only when SSH'd in
+    sshinfo="\[\033[01;33m\]\u@\h:"
+fi
+
 # The prompt itself
 if [[ $TERM = 'dumb' ]]; then
     # No color, no unicode (eg, Vim shell)
     export PS1="\$(date +%H:%M) \[\033[G\]\w \$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch) $ "
 else
     # Default: Full-color, Unicode
-    export PS1="\[\033[31m\]\$(date +%H:%M) \[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\[\033[00m\] $ "
+    export PS1="\[\033[31m\]\$(date +%H:%M) ${sshinfo:-}\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\[\033[00m\] $ "
 fi
 
 # == ALIASES ==========================================================
