@@ -28,10 +28,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [[ -d "$HOME/.gem/ruby/2.3.0/bin" ]]; then
-    PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
-fi
-
 if [[ -e "$HOME/.python/bin/activate" ]]; then
     source "$HOME/.python/bin/activate"
 fi
@@ -102,9 +98,6 @@ PROMPT_COMMAND+=" set_window_title;"
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
-parse_hg_branch() {
-  hg summary 2> /dev/null | grep ^branch | sed -e 's/.*: \(.*\)/\1/'
-}
 
 if [[ -n "$SSH_CONNECTION" ]]; then
     # Show user/host only when SSH'd in
@@ -114,10 +107,10 @@ fi
 # The prompt itself
 if [[ $TERM = 'dumb' ]]; then
     # No color, no unicode (eg, Vim shell)
-    export PS1="\$(date +%H:%M) \[\033[G\]\w \$(parse_git_branch)\$(parse_hg_branch)\$(parse_svn_branch) $ "
+    export PS1="\$(date +%H:%M) \[\033[G\]\w \$(parse_git_branch) $ "
 else
     # Default: Full-color, Unicode
-    export PS1="\[\033[31m\]\$(date +%H:%M) ${sshinfo:-}\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\$(parse_hg_branch)\[\033[00m\] $ "
+    export PS1="\[\033[31m\]\$(date +%H:%M) ${sshinfo:-}\[\033[01;34m\]\w \[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 fi
 
 # == ALIASES ==========================================================
