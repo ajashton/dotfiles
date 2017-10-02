@@ -205,6 +205,7 @@ function xt() {
     case "$1" in
       *.tar.bz2)   tar xvjf "$1";;
       *.tar.gz)    tar xvzf "$1";;
+      *.tar.lz4)   tar -I lz4 -xf "$1";;
       *.tar.xz)    tar xzJf "$1";;
       *.bz2)       bunzip2 "$1";;
       *.rar)       unrar x "$1";;
