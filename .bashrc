@@ -58,7 +58,6 @@ fi
 
 # ---- History --------------------------------------------------------
 
-PROMPT_COMMAND="history -a; history -n; history -r;"
 HISTCONTROL=erasedups:erasedups
 HISTFILE="$HOME/.bash_history"
 HISTSIZE=-1
