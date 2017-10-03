@@ -47,3 +47,4 @@
     s = status -s
     wdiff = diff --color-words
     ls = ls-tree -r --name-only HEAD
+    pushf = push --force-with-lease
