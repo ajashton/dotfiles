@@ -1,12 +1,15 @@
 "" == SETTINGS =============================================
 
 set backspace=indent,eol,start
+" y/p/d/etc will use system primary selection:
+set clipboard=unnamed
 set colorcolumn=80
 set expandtab
 set ignorecase
 set linebreak
 set list
 set lcs=tab:├─,trail:░,extends:»,precedes:«,nbsp:&
+set mouse=a
 set nottimeout
 set ruler
 set shiftwidth=4
@@ -14,6 +17,7 @@ set showcmd
 set smartindent
 set smartcase
 set softtabstop=4
+set termguicolors
 
 syntax on
 filetype off
@@ -24,6 +28,9 @@ autocmd BufEnter term://* startinsert
 
 
 "" == FILE TYPES ===========================================
+
+autocmd BufNewFile,BufReadPost *.json       set filetype=json conceallevel=0
+autocmd BufNewFile,BufReadPost *.geojson    set filetype=json conceallevel=0
 
 autocmd BufNewFile,BufReadPost *.md     set filetype=markdown
 autocmd BufNewFile,BufReadPost *.mkd    set filetype=markdown
@@ -47,6 +54,8 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'w0rp/ale'
+Plug 'reedes/vim-pencil'
+Plug 'editorconfig/editorconfig-vim'
 
 " Syntax
 Plug 'rust-lang/rust.vim'
@@ -60,6 +69,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'petelewis/vim-evolution'
 Plug 'dikiaap/minimalist'
+Plug 'whatyouhide/vim-gotham'
 
 Plug 'gerw/vim-HiLinkTrace'
 
@@ -72,11 +82,15 @@ set statusline=%t\ %h%m%r
 " syntastic warnings:
 set statusline+=\ %#warningmsg#%{SyntasticStatuslineFlag()}%*
 " spacer, ruler
-set statusline+=%=↧\ %l\ ┆\ ↦\ %c\ ┆\ %P
+set statusline+=%=↧\ %l\ ▎\ ↦\ %c\ ▎\ %P
 
 "" == PLUGIN CONFIG ========================================
 
-colorscheme minimalist
+colorscheme gotham
+
+" let that 1337 h@x0r terminal transparency shine:
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
 
 "" Ale
 let g:ale_lint_delay = 1000
@@ -102,9 +116,9 @@ let g:NERDTreeWinSize=40
 nmap <F9> :NERDTreeTabsToggle<CR>
 
 "" indentLine
-"let g:indentLine_char = '▏'
-let g:indentLine_char = '┊'
-let g:indentLine_color_term = 236
+let g:indentLine_char = '▏'
+"let g:indentLine_char = '┊'
+let g:indentLine_color_term = 4
 
 "" JSON
 let g:vim_json_syntax_conceal = 0 " don't hide quotation marks
@@ -114,12 +128,6 @@ let g:vim_json_syntax_conceal = 0 " don't hide quotation marks
 
 " Insert literal tab (regardless of indent/expansion/autocomplete settings)
 inoremap <S-Tab> <C-V><Tab>
-
-" Copy
-noremap <T-c> "+y
-" Paste
-noremap <T-v> "+p
-inoremap <T-v> <C-O>"+P
 
 if (has('nvim'))
     tnoremap <Esc><Esc> <C-\><C-n>
