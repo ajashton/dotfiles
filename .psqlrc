@@ -10,4 +10,7 @@
 -- Fancy unicode lines:
 \pset linestyle unicode
 
+\set HISTFILE ~/.history/psql/ :DBNAME
+\set HISTSIZE 100000
+
 \set QUIET 0
