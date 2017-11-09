@@ -147,6 +147,12 @@ if (has('nvim'))
     tnoremap <M-Tab> <C-\><C-n><C-w>w
 endif
 
+" Swap apparent/actual line navigation
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
 " Jump to tabs by number
 noremap <M-1> 1gt
 noremap <M-2> 2gt
