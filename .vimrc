@@ -109,6 +109,12 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_sh_shellcheck_args='--exclude=SC1015,SC1016,SC2016'
 let g:syntastic_sql_checkers=['pgsanity']
 
+"" GitGutter
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '╍'
+let g:gitgutter_sign_removed = '▁'
+let g:gitgutter_sign_removed_first_line = '▔'
+
 "" NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
