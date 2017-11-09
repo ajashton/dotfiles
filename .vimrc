@@ -70,6 +70,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'petelewis/vim-evolution'
 Plug 'dikiaap/minimalist'
 Plug 'whatyouhide/vim-gotham'
+Plug 'junegunn/goyo.vim' " distraction-free prose writing mode
 
 Plug 'gerw/vim-HiLinkTrace'
 
