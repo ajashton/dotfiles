@@ -58,12 +58,14 @@ fi
 
 # ---- History --------------------------------------------------------
 
-HISTCONTROL=erasedups:erasedups
+#PROMPT_COMMAND="history -a; history -n; history -r;"
 HISTFILE="$HOME/.bash_history"
-HISTSIZE=-1
-HISTFILESIZE=-1
+HISTCONTROL=ignoredups:erasedups
+HISTSIZE=5000
+HISTFILESIZE=500000
 HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
 # ---- Remember last CWD ----------------------------------------------
 PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
