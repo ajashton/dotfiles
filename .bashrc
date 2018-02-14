@@ -41,7 +41,7 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
     export NVM_DIR="$HOME/.nvm"
     \. "$NVM_DIR/nvm.sh"  # This loads nvm
     \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    nvm use v4.4.2
+    nvm use v6
 fi
 
 if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
