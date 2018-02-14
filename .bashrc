@@ -246,3 +246,10 @@ function osmfilter() {
     fi
 }
 
+function tcalc() {
+    local query="select interval '"
+    query+="$(sed $'s,\(\\s*[-+]\\s*\),\' \\1\ interval \',g' <<< "$@")"
+    query+="';"
+    psql -AqtX -c "$query"
+}
+
