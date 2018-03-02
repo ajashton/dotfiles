@@ -12,12 +12,14 @@ set lcs=tab:├─,trail:░,extends:»,precedes:«,nbsp:&
 set mouse=a
 set nottimeout
 set ruler
-set shiftwidth=4
+set shiftwidth=2
 set showcmd
 set smartindent
 set smartcase
-set softtabstop=4
-set termguicolors
+set softtabstop=2
+if (has('nvim'))
+  set termguicolors
+endif
 
 syntax on
 filetype off
@@ -29,20 +31,23 @@ autocmd BufEnter term://* startinsert
 
 "" == FILE TYPES ===========================================
 
+autocmd BufNewFile,BufReadPost *.json       IndentLinesDisable
+autocmd BufNewFile,BufReadPost *.ldjson     IndentLinesDisable
+autocmd BufNewFile,BufReadPost *.geojson    IndentLinesDisable
 autocmd BufNewFile,BufReadPost *.json       set filetype=json conceallevel=0
+autocmd BufNewFile,BufReadPost *.ldjson     set filetype=json conceallevel=0
 autocmd BufNewFile,BufReadPost *.geojson    set filetype=json conceallevel=0
 
-autocmd BufNewFile,BufReadPost *.md     set filetype=markdown
-autocmd BufNewFile,BufReadPost *.mkd    set filetype=markdown
-autocmd BufNewFile,BufReadPost *.txt    set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md     set filetype=markdown sw=4 sts=4
+autocmd BufNewFile,BufReadPost *.mkd    set filetype=markdown sw=4 sts=4
+autocmd BufNewFile,BufReadPost *.txt    set filetype=markdown sw=4 sts=4
 
 autocmd BufNewFile,BufReadPost *.osc    set filetype=xml
 autocmd BufNewFile,BufReadPost *.osm    set filetype=xml
 autocmd BufNewFile,BufReadPost *.qml    set filetype=xml
 autocmd BufNewFile,BufReadPost *.vrt    set filetype=xml
 
-autocmd BufNewFile,BufReadPost *.js     set shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufReadPost *.template set filetype=js shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufReadPost *.template set filetype=js
 
 
 "" == PLUGINS ==============================================
@@ -81,7 +86,7 @@ call plug#end()
 " file name + flags:
 set statusline=%t\ %h%m%r
 " syntastic warnings:
-set statusline+=\ %#warningmsg#%{SyntasticStatuslineFlag()}%*
+"set statusline+=\ %#warningmsg#%{SyntasticStatuslineFlag()}%*
 " spacer, ruler
 set statusline+=%=↧\ %l\ ▎\ ↦\ %c\ ▎\ %P
 
@@ -92,6 +97,10 @@ colorscheme gotham
 " let that 1337 h@x0r terminal transparency shine:
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
+
+" cleaner vertical split lines
+hi! VertSplit ctermbg=NONE ctermfg=0 guibg=NONE guifg=#000000
+set fillchars=vert:▕
 
 "" Ale
 let g:ale_lint_delay = 1000
@@ -110,10 +119,20 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC1015,SC1016,SC2016'
 let g:syntastic_sql_checkers=['pgsanity']
 
 "" GitGutter
-let g:gitgutter_sign_added = '✚'
-let g:gitgutter_sign_modified = '╍'
-let g:gitgutter_sign_removed = '▁'
-let g:gitgutter_sign_removed_first_line = '▔'
+"let g:gitgutter_sign_added = '✚'
+"let g:gitgutter_sign_modified = '╍'
+"let g:gitgutter_sign_removed = '▁'
+"let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_added = '▏'
+let g:gitgutter_sign_modified = '▏'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_modified_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '⎺'
+"let g:gitgutter_sign_added = '▍'
+"let g:gitgutter_sign_modified = '▍'
+"let g:gitgutter_sign_removed = '▍'
+"let g:gitgutter_sign_modified_removed = '▍'
+"let g:gitgutter_sign_removed_first_line = '▔'
 
 "" NERDTree
 let g:NERDTreeDirArrows=1
@@ -129,6 +148,12 @@ let g:indentLine_color_term = 4
 
 "" JSON
 let g:vim_json_syntax_conceal = 0 " don't hide quotation marks
+
+"" Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 
 "" == KEYBINDINGS ==========================================
