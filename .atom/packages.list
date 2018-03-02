@@ -1,0 +1,15 @@
+atom-ide-ui@0.9.2
+busy-signal@1.4.3
+editorconfig@2.2.2
+ide-typescript@0.7.5
+intentions@1.1.5
+language-docker@1.1.8
+language-markdown@0.25.1
+language-vala-modern@0.3.2
+linter@2.2.0
+linter-docker@0.3.0
+linter-shellcheck@1.4.6
+linter-ui-default@1.7.0
+sort-lines@0.18.0
+vim-mode-plus@1.30.0
+

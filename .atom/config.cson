@@ -1,0 +1,29 @@
+"*":
+  core:
+    autoHideMenuBar: true
+    disabledPackages: [
+      "atom-ide-ui"
+      "dev-live-reload"
+      "archive-view"
+      "background-tips"
+      "welcome"
+      "language-gfm"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
+  editor: {}
+  "exception-reporting":
+    userId: "1b3e5565-d212-472a-bb2d-64eedce002a0"
+  "linter-ui-default":
+    panelHeight: 140
+  "platformio-ide-terminal":
+    style:
+      theme: "one-dark"
+  "vim-mode-plus":
+    hideCommandsFromCommandPalette: true
+    useSmartcaseForSearch: true
+  welcome:
+    showOnStartup: false
