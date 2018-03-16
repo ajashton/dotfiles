@@ -35,6 +35,12 @@
 [merge]
     tool = meld
 
+[mergetool]
+    prompt = false
+
+[mergetool "meld"]
+    trustExitCode = true
+
 [push]
     default = simple
 
@@ -42,9 +48,9 @@
     user = ajashton
 
 [alias]
+	  pushf = push --force-with-lease
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-tree -r --name-only HEAD
     s = status -s
     wdiff = diff --color-words
-    ls = ls-tree -r --name-only HEAD
-    pushf = push --force-with-lease
