@@ -43,11 +43,8 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
     \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-if [[ -e "$(npm root -g)/mbxcli/mapbox.sh" && -n "$(which node)" ]]; then
-    source "$(npm root -g)/mbxcli/mapbox.sh"
-    function mbxc() {
-        mbx auth "$@" --account china
-    }
+if [[ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]]; then
+  source "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh"
 fi
 
 if [[ -f "$HOME/.travis/travis.sh" ]]; then
