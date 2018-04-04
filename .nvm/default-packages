@@ -1,7 +1,10 @@
 @mapbox/vt2geojson
 diff-highlight
 diff-so-fancy
+eslint
+eslint-plugin-node
 faucet
+json-diff
 npm
 serve
 tldr
