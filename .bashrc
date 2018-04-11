@@ -242,6 +242,9 @@ function osmfilter() {
     fi
 }
 
+# Basic time interval calculations by hooking into Postgres. Examples:
+# `tcalc 3:00 + 2h15m` → 05:15:00
+# `tcalc 04:30:30 - 93s` → 04:28:57
 function tcalc() {
     local query="select interval '"
     query+="$(sed $'s,\(\\s*[-+]\\s*\),\' \\1\ interval \',g' <<< "$@")"
