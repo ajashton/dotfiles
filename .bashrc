@@ -218,7 +218,7 @@ function xt() {
       *.tar)       tar xvf "$1";;
       *.tbz2)      tar xvjf "$1";;
       *.tgz)       tar xvzf "$1";;
-      *.zip)       unzip "$1";;
+      *.zip)       unzip "$1" -x '__MACOSX/*';;
       *.Z)         uncompress "$1";;
       *.7z)        7z x "$1";;
       *)           echo "'$1' cannot be extracted by xt";;
