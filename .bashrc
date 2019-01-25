@@ -129,6 +129,12 @@ alias mv='mv -vi'
 
 # ---- Shortcuts  -----------------------------------------------------
 
+# aws
+alias s3cp='aws s3 cp'
+alias s3ls='aws s3 ls --human-readable'
+alias s3mv='aws s3 mv'
+alias s3rm='aws s3 rm'
+
 # ls
 alias ls='ls -F --color=auto'            # a couple good defaults
 alias l='ls -F --color=auto'             # 50% less typing!
