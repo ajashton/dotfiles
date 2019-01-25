@@ -10,9 +10,9 @@ complete -cf sudo
 
 # == ENVIRONMENT ======================================================
 
-if [[ -x /usr/bin/nvim ]]; then
+if (which nvim &> /dev/null); then
     export EDITOR=nvim
-elif [[ -x /usr/bin/vim ]]; then
+elif (which vim &> /dev/null); then
     export EDITOR=vim
 fi
 export GREP_COLOR="1;33"
