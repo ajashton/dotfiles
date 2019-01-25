@@ -1,3 +1,5 @@
+# vim: set ts=4 sw=4 sts=4 :
+
 # If not running interactively, don't do anything
 if [[ -z "${PS1:-}" ]]; then return; fi
 
