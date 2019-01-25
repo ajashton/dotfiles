@@ -260,3 +260,16 @@ function tcalc() {
     psql -AqtX -c "$query"
 }
 
+function docker_latest() {
+    docker ps --format "{{.ID}}" || head -n1
+}
+
+function dock() {
+    # Connect to a bash session in the latest running docker container
+    docker exec -it "$(docker_latest)" bash
+}
+
+function dkill() {
+    docker kill "$(docker_latest)"
+}
+
