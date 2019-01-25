@@ -170,7 +170,7 @@ alias hibernate='sudo pm-hibernate'
 
 # file management
 alias ffeh='feh -FZ'
-alias mp3name='eyeD3 --rename="%n. %t"'
+alias mp3name="eyeD3 --rename='\$track:num. \$title'"
 
 function bak() {
     for file in "$@"; do
