@@ -90,7 +90,7 @@ function set_window_title () {
             *) ;;
         esac
     fi
-    dirname="$(pwd | sed -e "s#$HOME#~#" -e 's#\([^/]\)[^/]*/#\1/#g')"
+    dirname="$(pwd | sed -e "s|$HOME|~|" -e 's|\([^/]\)[^/]*/|\1/|g')"
     echo -en "\033]2;${dirname}${mbxauth}\007"
 }
 PROMPT_COMMAND+=" set_window_title;"
