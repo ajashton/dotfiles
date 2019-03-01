@@ -53,17 +53,21 @@ if [[ -f "$HOME/.travis/travis.sh" ]]; then
     source "$HOME/.travis/travis.sh"
 fi
 
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 
 # ---- History --------------------------------------------------------
 
 #PROMPT_COMMAND="history -a; history -n; history -r;"
 HISTFILE="$HOME/.bash_history"
 HISTCONTROL=ignoredups:erasedups
-HISTSIZE=5000
+HISTSIZE=50000
 HISTFILESIZE=500000
 HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
-PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # ---- Remember last CWD ----------------------------------------------
 PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
