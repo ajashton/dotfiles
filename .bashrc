@@ -140,6 +140,7 @@ alias s3cp='aws s3 cp'
 alias s3ls='aws s3 ls --human-readable'
 alias s3mv='aws s3 mv'
 alias s3rm='aws s3 rm'
+alias aparallel='parallel --env AWS_SECRET_ACCESS_KEY --env AWS_SESSION_TOKEN --env AWS_ACCESS_KEY_ID'
 
 # ls
 alias ls='ls -F --color=auto'            # a couple good defaults
