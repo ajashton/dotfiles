@@ -69,29 +69,14 @@ HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-# ---- Remember last CWD ----------------------------------------------
-PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
-if [[ -e "$HOME/.cache/lwd" ]]; then
-    cd "$(< "${HOME}/.cache/lwd")"
-fi
-
 # ---- Window Title ---------------------------------------------------
 
 # Set window/tab title to the current working directory, abbreviated
 # similarly to Vim tabs, eg: '/home/aj/foo/bar/baz' => '~/f/b/baz'
-# Also include a relevant emoji if mbx-authed.
 function set_window_title () {
-    local mbxauth=''
     local dirname
-    if [[ $((MAPBOX_CLI_AUTH_TIME/1000)) -gt $(date +%s) ]]; then
-        case "$MAPBOX_AWS_ACCOUNT" in
-            ch*) mbxauth=' 🈶';;
-            pr*) mbxauth=' 🌐';;
-            *) ;;
-        esac
-    fi
     dirname="$(pwd | sed -e "s|$HOME|~|" -e 's|\([^/]\)[^/]*/|\1/|g')"
-    echo -en "\033]2;${dirname}${mbxauth}\007"
+    echo -en "\033]2;${dirname}\007"
 }
 PROMPT_COMMAND+=" set_window_title;"
 
