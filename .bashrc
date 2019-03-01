@@ -260,6 +260,8 @@ function tcalc() {
     psql -AqtX -c "$query"
 }
 
+# Docker
+
 function docker_latest() {
     docker ps --format "{{.ID}}" || head -n1
 }
@@ -273,3 +275,6 @@ function dkill() {
     docker kill "$(docker_latest)"
 }
 
+function docker_ip() {
+    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$(docker_latest)"
+}
