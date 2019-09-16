@@ -30,8 +30,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [[ -e "$HOME/.python/bin/activate" ]]; then
-    source "$HOME/.python/bin/activate"
+if [[ -e "$HOME/.python3/bin/activate" ]]; then
+    source "$HOME/.python3/bin/activate"
 fi
 
 # set PATH so it includes user's private bin if it exists
