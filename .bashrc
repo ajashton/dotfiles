@@ -253,7 +253,7 @@ function tcalc() {
 # Docker
 
 function docker_latest() {
-    docker ps --format "{{.ID}}" || head -n1
+    docker ps --format "{{.ID}}" | head -n1
 }
 
 function dock() {
