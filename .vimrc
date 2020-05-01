@@ -1,5 +1,8 @@
 "" == SETTINGS =============================================
 
+let g:python_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
+
 " Workaround for https://github.com/daa84/neovim-gtk/issues/209
 set runtimepath+=,/usr/local/share/nvim-gtk/runtime
 
@@ -13,7 +16,7 @@ set hidden  " needed for project-wide search & replace in coc.vim
 set ignorecase
 set linebreak
 set list  " show non-visible characters as defined in listchars
-set listchars=tab:├─,trail:·,extends:»,precedes:«,nbsp:&
+set listchars=tab:├-┤,trail:·,extends:»,precedes:«,nbsp:▂
 set mouse=a
 set nobackup
 set nowritebackup
@@ -72,16 +75,17 @@ call plug#begin('~/.nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
 
 " Syntax
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'tkztmk/vim-vala'
+Plug 'mechatroner/rainbow_csv'
 
 " Interface
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine' " displays thin vertical line at indentation levels
@@ -89,6 +93,9 @@ Plug 'APZelos/blamer.nvim' " inline git blame
 Plug 'majutsushi/tagbar'
 
 " Color schemes
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'noahfrederick/vim-noctu'
+Plug 'jeffkreeftmeijer/vim-dim'
 Plug 'AlessandroYorba/Alduin'
 Plug 'arzg/vim-colors-xcode'
 Plug 'dikiaap/minimalist'
@@ -105,30 +112,20 @@ call plug#end()
 "" == COLORS / UI ==========================================
 
 function! ColorOverrides()
-  highlight SignColumn guibg=NONE
-  highlight LineNr guibg=NONE
-  highlight GitGutterAdd          guifg=#66cc00 guibg=NONE
-  highlight GitGutterChange       guifg=#3388ff guibg=NONE
-  highlight GitGutterDelete       guifg=#ff3344 guibg=NONE
-  highlight GitGutterChangeDelete guifg=#cc33ff guibg=NONE
   if (has('ttyout'))
     " let that 1337 h@x0r terminal transparency shine:
     hi! Normal ctermbg=NONE guibg=NONE
     hi! NonText ctermbg=NONE guibg=NONE
-  elseif (&background == 'light')
-    highlight Conceal guifg=#dddddd
-  elseif (&background == 'dark')
-    highlight Conceal guifg=#444444
   endif
 endfunction
 
 function! DarkUI()
   set background=dark
-  colorscheme tender
+  colorscheme dracula
   if exists(':AirlineTheme')
-    AirlineTheme tender
+    AirlineTheme elem
   endif
-  if exists(':NGPreferDarkTheme')
+  if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme on
   endif
   call ColorOverrides()
@@ -137,22 +134,16 @@ command! DarkUI call DarkUI()
 
 function! LightUI()
   set background=light
-  colorscheme xcodelight
+  colorscheme elem
   if exists(':AirlineTheme')
-    AirlineTheme edge
+    AirlineTheme elem
   endif
-  if exists(':NGPreferDarkTheme')
+  if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme off
   endif
   call ColorOverrides()
 endfunction
 command! LightUI call LightUI()
-
-if (has('ttyout'))
-  call DarkUI()
-else
-  call LightUI()
-end
 
 " Highlight certain keywords, but only in comments
 augroup vimrc_todo
@@ -166,9 +157,9 @@ hi def link MyTodo Todo
 "" == PLUGIN CONFIG ========================================
 
 "" Blamer
-let g:blamer_enabled = 1
+let g:blamer_enabled = 0
 let g:blamer_prefix = ' » '
-let g:blamer_show_in_visual_modes = 0
+" let g:blamer_show_in_visual_modes = 0
 
 "" COC
 " Use tab for trigger completion with characters ahead and navigate.
@@ -196,6 +187,7 @@ function! s:show_documentation()
 endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+set statusline^=%{coc#status()}
 
 "" Commentary
 imap <C-/> <Esc>gcci
@@ -212,23 +204,28 @@ let g:gitgutter_override_sign_column_highlight = 0
 
 "" IndentLine
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
+let g:indentLine_fileTypeExclude = ['json', 'markdown']
 let g:indentLine_char = '▏'
+" let g:indentLine_conceallevel = 0
+let g:indentLine_setColors = 0
+" let g:indentLine_setConceal = 0
 
 "" JSON
 let g:vim_json_syntax_conceal = 0  " don't hide quotation marks
 
 "" Markdown
 let g:vim_markdown_conceal = 0
-let g:vim_markdown_folding_level = 6
+" let g:vim_markdown_folding_level = 6
+let g:vim_markdown_folding_disabled = 0
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_toc_autofit = 1
 
 "" NCM2
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+"set completeopt=noinsert,menuone,noselect
+"set shortmess+=c
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Start insert mode and disable line numbers on terminal buffer.
 augroup terminalsettings
@@ -267,10 +264,10 @@ if (has('nvim'))
 endif
 
 " Swap apparent/actual line navigation
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
+nnoremap <silent> k gk
+nnoremap <silent> j gj
+nnoremap <silent> gk k
+nnoremap <silent> gj j
 
 " Jump to tabs by number
 noremap <M-1> 1gt
@@ -376,3 +373,10 @@ if has('nvim')
     endif
   endfunction
 endif
+
+"" Load color schemes last since they may rely on plugins & other settings
+if (has('ttyout'))
+  call DarkUI()
+else
+  call LightUI()
+end
