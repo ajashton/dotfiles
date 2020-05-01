@@ -23,6 +23,14 @@ if [[ -x /usr/bin/most ]]; then
     export PAGER=most
 fi
 
+# Disable ElementaryOS process completion notifications if we are in a (Neo)Vim terminal.
+# TODO: Figure out why PANTHEON_TERMINAL_ID is getting set in this environment at all
+# TODO: Is the presence of VIMRUNTIME the best indicator that we are in a vim terminal?
+if [[ -n "${VIMRUNTIME:-}" ]]; then
+    unset PANTHEON_TERMINAL_ID
+fi
+
+# Keep GPG keys unlocked for 12 hours
 eval "$(keychain --eval --quiet --quick --confhost --noask --nogui \
     --timeout 43200 --agents ssh,gpg ~/.ssh/id_rsa 251886EF)"
 
@@ -30,9 +38,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [[ -e "$HOME/.python3/bin/activate" ]]; then
-    source "$HOME/.python3/bin/activate"
-fi
+# if [[ -e "$HOME/.python3/bin/activate" ]]; then
+#     source "$HOME/.python3/bin/activate"
+# fi
 
 # set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.local/bin" ]]; then
@@ -47,6 +55,7 @@ fi
 
 if [[ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]]; then
   source "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh"
+  alias mbxe="mbx env -a default"
 fi
 
 if [[ -f "$HOME/.travis/travis.sh" ]]; then
@@ -69,10 +78,17 @@ HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+# ---- Remember last CWD ----------------------------------------------
+#PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
+#if [[ -e "$HOME/.cache/lwd" ]]; then
+#    cd "$(< "${HOME}/.cache/lwd")"
+#fi
+
 # ---- Window Title ---------------------------------------------------
 
 # Set window/tab title to the current working directory, abbreviated
 # similarly to Vim tabs, eg: '/home/aj/foo/bar/baz' => '~/f/b/baz'
+# Also include a relevant emoji if mbx-authed.
 function set_window_title () {
     local dirname
     dirname="$(pwd | sed -e "s|$HOME|~|" -e 's|\([^/]\)[^/]*/|\1/|g')"
@@ -162,6 +178,9 @@ alias hibernate='sudo pm-hibernate'
 alias ffeh='feh -FZ'
 alias mp3name="eyeD3 --rename='\$track:num. \$title'"
 
+# inflate a DEFLATEd file
+alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
+
 function bak() {
     for file in "$@"; do
         mv "$file"{,.bak}
@@ -208,7 +227,7 @@ function xt() {
       *.tar)       tar xvf "$1";;
       *.tbz2)      tar xvjf "$1";;
       *.tgz)       tar xvzf "$1";;
-      *.zip)       unzip "$1" -x '__MACOSX/*';;
+      *.zip)       unzip "$1" -x '__MACOSX/*' '*.DS_Store';;
       *.Z)         uncompress "$1";;
       *.7z)        7z x "$1";;
       *)           echo "'$1' cannot be extracted by xt";;
@@ -240,9 +259,10 @@ function osmfilter() {
     fi
 }
 
-# Basic time interval calculations by hooking into Postgres. Examples:
-# `tcalc 3:00 + 2h15m` → 05:15:00
-# `tcalc 04:30:30 - 93s` → 04:28:57
+function sum() {
+    python -c "import sys; print(sum(map(int, sys.stdin)))"
+}
+
 function tcalc() {
     local query="select interval '"
     query+="$(sed $'s,\(\\s*[-+]\\s*\),\' \\1\ interval \',g' <<< "$@")"
