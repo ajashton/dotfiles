@@ -53,7 +53,9 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
     \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-if [[ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]]; then
+if [[ -n "$(which npm 2> /dev/null)" ]] \
+    && [[ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]]
+then
   source "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh"
   alias mbxe="mbx env -a default"
 fi
