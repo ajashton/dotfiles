@@ -24,7 +24,7 @@ set nottimeout
 set number  " all line numbers on the left
 set ruler  " current line number at the bottom
 set shiftwidth=2
-set signcolumn=yes  " always show the gutter
+set signcolumn=auto:4  " aka the gutter
 set shortmess+=c
 set showcmd
 set smartindent
@@ -72,10 +72,14 @@ autocmd BufNewFile,BufReadPost *.template set filetype=js
 call plug#begin('~/.nvim/plugged')
 
 " Editing
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'w0rp/ale'
 
 " Syntax
 Plug 'plasticboy/vim-markdown'
@@ -94,8 +98,6 @@ Plug 'majutsushi/tagbar'
 
 " Color schemes
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'noahfrederick/vim-noctu'
-Plug 'jeffkreeftmeijer/vim-dim'
 Plug 'AlessandroYorba/Alduin'
 Plug 'arzg/vim-colors-xcode'
 Plug 'dikiaap/minimalist'
@@ -156,43 +158,62 @@ hi def link MyTodo Todo
 
 "" == PLUGIN CONFIG ========================================
 
+" Ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_delay = 1000
+let g:ale_sign_error = '▶'
+let g:ale_sign_warning = '▪'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
+
 "" Blamer
 let g:blamer_enabled = 0
 let g:blamer_prefix = ' » '
 " let g:blamer_show_in_visual_modes = 0
 
 "" COC
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-set statusline^=%{coc#status()}
+if (0)
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Use K to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  set statusline^=%{coc#status()}
+endif
 
 "" Commentary
 imap <C-/> <Esc>gcci
 nmap <C-/> gcc
 vmap <C-/> gc
+
+"" CtrlP
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+  \ 'AcceptSelection("t")': ['<cr>'],
+  \ }
 
 "" GitGutter
 let g:gitgutter_sign_added = '▌'
@@ -221,11 +242,17 @@ let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_toc_autofit = 1
 
 "" NCM2
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-"set completeopt=noinsert,menuone,noselect
-"set shortmess+=c
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+augroup NCM2
+  autocmd!
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " :help Ncm2PopupOpen for more information
+  set completeopt=noinsert,menuone,noselect
+  " Don't show messages when there are / aren't completion matches
+  set shortmess+=c
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+augroup END
 
 " Start insert mode and disable line numbers on terminal buffer.
 augroup terminalsettings
