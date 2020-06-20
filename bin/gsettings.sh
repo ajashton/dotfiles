@@ -15,3 +15,4 @@ $gs org.gnome.desktop.screensaver                   lock-enabled            fals
 $gs org.gnome.desktop.wm.preferences                mouse-button-modifier   '<Mod4>'
 $gs org.gnome.nautilus.preferences                  enable-delete           true
 $gs org.gnome.shell.overrides                       button-layout           'close,maximize:'
+for i in {1..9}; do $gs org.gnome.shell.keybindings switch-to-application-$i "[]"; done
