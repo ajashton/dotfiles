@@ -10,6 +10,7 @@ $gs org.gnome.settings-daemon.peripherals.touchpad  tap-to-click            fals
 $gs org.gnome.settings-daemon.plugins.keyboard      active                  false
 # prevents Mod4+P from switching displays:
 $gs org.gnome.settings-daemon.plugins.xrandr        active                  false
+$gs org.gnome.desktop.input-sources                 xkb-options             "['caps:escape','compose:ralt']"
 $gs org.gnome.desktop.media-handling                automount-open          false
 $gs org.gnome.desktop.screensaver                   lock-enabled            false
 $gs org.gnome.desktop.wm.preferences                mouse-button-modifier   '<Mod4>'
