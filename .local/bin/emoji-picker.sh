@@ -9,7 +9,7 @@ if [[ ! -e "$emojidb" ]]; then
 fi
 
 selection="$(sqlite3 "$emojidb" $'select emoji||\'\t\'||name from emojis order by use_count desc, emoji;' \
-    | rofi -dmenu -i -p "☺ " -mesg '<span font_size="x-small" color="#888">Emoji Search</span>' \
+    | wofi --dmenu -n -i -p "☺ " --width=300 \
     | awk '{print $1}')"
 
 echo -n "$selection" | xclip -selection clipboard
