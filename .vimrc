@@ -6,31 +6,39 @@ let g:python3_host_prog = '/usr/bin/python3'
 " Workaround for https://github.com/daa84/neovim-gtk/issues/209
 set runtimepath+=,/usr/local/share/nvim-gtk/runtime
 
+" Editing functionality
 set backspace=indent,eol,start
-set clipboard=""
+set nobackup
+set expandtab  " insert spaces instead of hard tabs
+set ignorecase
+set shiftwidth=2
+set smartindent
+set smartcase
+set softtabstop=2
+set nottimeout
+set updatetime=300
+set nowritebackup
+
+" Interface & formatting
+set belloff=all
+set breakindent  " keep indentation when soft-wrapping
 set cmdheight=1
 set colorcolumn=80,100,120,140
-set expandtab  " insert spaces instead of hard tabs
 set fillchars=vert:▕
+set guioptions-=T  " disable toolbar in GUI
+set nofoldenable
 set hidden  " needed for project-wide search & replace in coc.vim
-set ignorecase
 set linebreak
 set list  " show non-visible characters as defined in listchars
 set listchars=tab:├-┤,trail:·,extends:»,precedes:«,nbsp:▂
 set mouse=a
-set nobackup
-set nowritebackup
-set nottimeout
-set number  " all line numbers on the left
+set nonumber  " line numbers on the left
 set ruler  " current line number at the bottom
-set shiftwidth=2
-set signcolumn=auto:4  " aka the gutter
+if (has('nvim'))
+  set signcolumn=auto:4  " aka the gutter
+endif
 set shortmess+=c
 set showcmd
-set smartindent
-set smartcase
-set softtabstop=2
-set updatetime=300
 if (has('nvim'))
   set termguicolors
 endif
@@ -42,8 +50,22 @@ syntax on
 filetype off
 filetype plugin indent on
 
-" FIXME: necessary?
-" set omnifunc=syntaxcomplete#Complete
+
+"" == CLIPBOARD BEHAVIOR ===================================
+
+" Copy visual selection to X clipboard with Ctrl-Shift-C
+vnoremap <C-C> "+y
+
+" Cut visual selection to X clipboard with Ctrl-Shift-X
+vnoremap <C-X> "+x
+
+" Paste from X clipboard with Ctrl-Shift-V in all modes
+inoremap <C-V> <C-R>+
+nnoremap <C-V> "+P
+vnoremap <C-V> "+P
+
+" Keep clipboard contents even when Vim exits
+autocmd VimLeave * call system("xclip -selection clipboard -i", getreg('+'))
 
 
 "" == FILE TYPES ===========================================
@@ -66,19 +88,17 @@ autocmd BufNewFile,BufReadPost *.vrt    set filetype=xml
 
 autocmd BufNewFile,BufReadPost *.template set filetype=js
 
+" Disable syntax highlighting for large files
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | setf none | endif
+
 
 "" == PLUGINS ==============================================
 
 call plug#begin('~/.nvim/plugged')
 
 " Editing
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ncm2/ncm2' | Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
 Plug 'w0rp/ale'
 
 " Syntax
@@ -87,26 +107,16 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'tkztmk/vim-vala'
 Plug 'mechatroner/rainbow_csv'
+Plug 'chr4/nginx.vim'
 
 " Interface
-" Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine' " displays thin vertical line at indentation levels
 Plug 'APZelos/blamer.nvim' " inline git blame
 Plug 'majutsushi/tagbar'
 
 " Color schemes
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'AlessandroYorba/Alduin'
 Plug 'arzg/vim-colors-xcode'
-Plug 'dikiaap/minimalist'
-Plug 'jacoborus/tender.vim'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'nanotech/jellybeans.vim'
-Plug 'rakr/vim-one'
-Plug 'rakr/vim-two-firewatch'
-Plug 'sainnhe/edge'
 
 call plug#end()
 
@@ -123,10 +133,8 @@ endfunction
 
 function! DarkUI()
   set background=dark
-  colorscheme dracula
-  if exists(':AirlineTheme')
-    AirlineTheme elem
-  endif
+  colorscheme xcodewwdc
+  set guioptions+=d  " enable GTK dark theme
   if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme on
   endif
@@ -136,10 +144,8 @@ command! DarkUI call DarkUI()
 
 function! LightUI()
   set background=light
-  colorscheme elem
-  if exists(':AirlineTheme')
-    AirlineTheme elem
-  endif
+  colorscheme xcodelight
+  set guioptions-=d  " disable GTK dark theme
   if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme off
   endif
@@ -172,42 +178,6 @@ let g:ale_linters = {'python': ['flake8']}
 "" Blamer
 let g:blamer_enabled = 0
 let g:blamer_prefix = ' » '
-" let g:blamer_show_in_visual_modes = 0
-
-"" COC
-if (0)
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-  " Use K to show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-  set statusline^=%{coc#status()}
-endif
-
-"" Commentary
-imap <C-/> <Esc>gcci
-nmap <C-/> gcc
-vmap <C-/> gc
 
 "" CtrlP
 let g:ctrlp_prompt_mappings = {
@@ -223,36 +193,13 @@ let g:gitgutter_sign_removed = '▁'
 let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_override_sign_column_highlight = 0
 
-"" IndentLine
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
-let g:indentLine_fileTypeExclude = ['json', 'markdown']
-let g:indentLine_char = '▏'
-" let g:indentLine_conceallevel = 0
-let g:indentLine_setColors = 0
-" let g:indentLine_setConceal = 0
-
 "" JSON
 let g:vim_json_syntax_conceal = 0  " don't hide quotation marks
 
 "" Markdown
 let g:vim_markdown_conceal = 0
-" let g:vim_markdown_folding_level = 6
-let g:vim_markdown_folding_disabled = 0
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_toc_autofit = 1
-
-"" NCM2
-augroup NCM2
-  autocmd!
-  " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  " :help Ncm2PopupOpen for more information
-  set completeopt=noinsert,menuone,noselect
-  " Don't show messages when there are / aren't completion matches
-  set shortmess+=c
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-augroup END
 
 " Start insert mode and disable line numbers on terminal buffer.
 augroup terminalsettings
@@ -267,14 +214,10 @@ augroup end
 "" Tagbar
 nnoremap <silent> <F10> :TagbarToggle<CR>
 inoremap <silent> <F10> <Esc>:TagbarToggle<CR>a
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 
 
 "" == KEYBINDINGS ==========================================
 
-" Copy & Paste like in the terminal - ctrl-shift-c/v
-nnoremap <C-C> "+y
-inoremap <C-V> <C-r>*
 
 " Insert literal tab (regardless of indent/expansion/autocomplete settings)
 inoremap <S-Tab> <C-V><Tab>
