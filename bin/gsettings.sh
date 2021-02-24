@@ -2,6 +2,8 @@
 
 gs='gsettings set'
 
+# interpret 1/2/3-finger taps on the touchpad as left/right/middle mouse clicks:
+$gs org.gnome.desktop.peripherals.touchpad          click-method            'fingers'
 $gs org.gnome.settings-daemon.peripherals.touchpad  horiz-scroll-enabled    true
 $gs org.gnome.settings-daemon.peripherals.touchpad  natural-scroll          true
 $gs org.gnome.settings-daemon.peripherals.touchpad  scroll-method           two-finger-scrolling
