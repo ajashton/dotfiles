@@ -10,12 +10,13 @@ complete -cf sudo
 
 # == ENVIRONMENT ======================================================
 
-if (which nvim &> /dev/null); then
+if (command -v nvim &> /dev/null); then
     export EDITOR=nvim
-elif (which vim &> /dev/null); then
+elif (command -v vim &> /dev/null); then
     export EDITOR=vim
 fi
-export GREP_COLOR="1;33"
+# Highlight grep matches in bold (1) with black fg (30) and green bg (42):
+export GREP_COLOR="1;30;42"
 export TMP=/tmp
 export TMPDIR=/tmp
 export PGUSER=postgres
@@ -23,55 +24,34 @@ if [[ -x /usr/bin/most ]]; then
     export PAGER=most
 fi
 
-# Disable ElementaryOS process completion notifications if we are in a (Neo)Vim terminal.
-# TODO: Figure out why PANTHEON_TERMINAL_ID is getting set in this environment at all
-# TODO: Is the presence of VIMRUNTIME the best indicator that we are in a vim terminal?
-if [[ -n "${VIMRUNTIME:-}" ]]; then
-    unset PANTHEON_TERMINAL_ID
-fi
-
-# Keep GPG keys unlocked for 12 hours
-eval "$(keychain --eval --quiet --quick --confhost --noask --nogui \
-    --timeout 43200 --agents ssh,gpg ~/.ssh/id_rsa 251886EF)"
-
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# if [[ -e "$HOME/.python3/bin/activate" ]]; then
-#     source "$HOME/.python3/bin/activate"
-# fi
-
-# set PATH so it includes user's private bin if it exists
-if [[ -d "$HOME/.local/bin" ]]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
+# nvm: node.js version manager
 if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
     export NVM_DIR="$HOME/.nvm"
-    \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    \. "$NVM_DIR/nvm.sh"
+    \. "$NVM_DIR/bash_completion"
 fi
 
-if [[ -n "$(which npm 2> /dev/null)" ]] \
+export PROMPT_COMMAND=""  # Clear default; further additions below
+
+if ! shopt -oq posix; then
+    if [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    elif [ -f /etc/profile.d/bash_completion.sh ]; then
+        . /etc/profile.d/bash_completion.sh
+    fi
+fi
+
+if [[ -n "$(command -v npm 2> /dev/null)" ]] \
     && [[ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]]
+    export AWS_DEFAULT_REGION=us-east-1
 then
   source "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh"
   alias mbxe="mbx env -a default"
 fi
 
-if [[ -f "$HOME/.travis/travis.sh" ]]; then
-    source "$HOME/.travis/travis.sh"
-fi
-
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
 
 # ---- History --------------------------------------------------------
 
-#PROMPT_COMMAND="history -a; history -n; history -r;"
 HISTFILE="$HOME/.bash_history"
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=50000
@@ -79,12 +59,6 @@ HISTFILESIZE=500000
 HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-
-# ---- Remember last CWD ----------------------------------------------
-#PROMPT_COMMAND+=" pwd > $HOME/.cache/lwd;"
-#if [[ -e "$HOME/.cache/lwd" ]]; then
-#    cd "$(< "${HOME}/.cache/lwd")"
-#fi
 
 # ---- Window Title ---------------------------------------------------
 
@@ -100,7 +74,7 @@ PROMPT_COMMAND+=" set_window_title;"
 
 # ---- Shell Prompt ---------------------------------------------------
 
-# Functions to tell me whether I am in a git or svn working copy, + which branch
+# Functions to tell me whether I am in a git repo + which branch
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
@@ -126,7 +100,7 @@ fi
 if [[ -x /usr/bin/colordiff ]]; then alias diff='colordiff'; fi
 if [[ -x /usr/bin/most ]]; then alias less='most'; fi
 if [[ -x /usr/bin/pacman-color ]]; then alias pacman='pacman-color'; fi
-alias todo='todo.sh'
+if (command -v trash &> /dev/null); then alias rm=trash; fi
 
 # ---- Preferred Default Options --------------------------------------
 
@@ -170,19 +144,6 @@ if [[ -x /usr/bin/xclip ]]; then
     alias pbpaste='xclip -out -selection clipboard'
 fi
 
-# power management
-alias shutdown='sudo shutdown -h now'
-alias reboot='sudo shutdown -r now'
-alias suspend='sudo pm-suspend'
-alias hibernate='sudo pm-hibernate'
-
-# file management
-alias ffeh='feh -FZ'
-alias mp3name="eyeD3 --rename='\$track:num. \$title'"
-
-# inflate a DEFLATEd file
-alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
-
 function bak() {
     for file in "$@"; do
         mv "$file"{,.bak}
@@ -203,68 +164,35 @@ mvf() { mv "$@" && follow "$_"; }
 # Make one or more directories, and cd to the last one in the list
 mkcd() { mkdir -p "$@" && cd "$_"; }
 
-# Easily hide/unhide files (via dot-prefix)
-hide() {
-    for f in "$@"; do
-        mv -i "$f" "$(dirname "$f")/.$(basename "$f")"
-    done
-}
-unhide() {
-    for f in "$@"; do
-        mv -i "$f" "$(dirname "$f")/$(basename "$f" | sed 's/^\.//')"
-    done
-}
-
 function xt() {
-  # xt = eXTract, a wrapper to extract many different archive formats
+  # eXTracts many different archive/compression formats
   if [ -f "$1" ] ; then
     case "$1" in
-      *.tar.bz2)   tar xvjf "$1";;
-      *.tar.gz)    tar xvzf "$1";;
-      *.tar.lz4)   tar -I lz4 -xf "$1";;
-      *.tar.xz)    tar xzJf "$1";;
-      *.bz2)       bunzip2 "$1";;
-      *.rar)       unrar x "$1";;
-      *.gz)        gunzip "$1";;
-      *.tar)       tar xvf "$1";;
-      *.tbz2)      tar xvjf "$1";;
-      *.tgz)       tar xvzf "$1";;
-      *.zip)       unzip "$1" -x '__MACOSX/*' '*.DS_Store';;
-      *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1";;
-      *)           echo "'$1' cannot be extracted by xt";;
+      # tar can auto-detect the right compression option
+      # http://www.gnu.org/software/tar/manual/tar.html#auto_002dcompress
+      *.tar.*|*.taz|*.taZ|*.tgz|*.tz2|*.tbz|*.tlz|*.tzst) tar xvaf "$1";;
+      *.7z)     7z x "$1";;
+      *.bz2)    bunzip2 "$1";;
+      *.gz)     gunzip "$1";;
+      *.rar)    unrar xv "$1";;
+      *.tar)    tar xvf "$1";;
+      *.xz)     unxz "$1";;
+      *.Z)      uncompress "$1";;
+      *.zip)    unzip "$1" -x '__MACOSX/*' '*.DS_Store';;
+      *.zst)    unzst "$1";;
+      *) echo "'$1' cannot be extracted by xt";;
     esac
   else
     echo "'$1' is not a valid file"
   fi
 }
 
-# run command, notify when done
-nwd() {
-  "$@"
-  notify-send "$1 is done!"
-}
-
-function osmfilter() {
-    # transparently handles pbf→o5m→pbf conversion
-    if [[ $1 == *.osm.pbf ]]; then
-        local original="$1"
-        shift
-        local in_o5m="${original//.osm.pbf/.o5m}"
-        local out_o5m="${in_o5m//.o5m/_filtered.o5m}"
-        local out_pbf="${out_o5m//.o5m/.osm.pbf}"
-        osmconvert "$original" --out-o5m > "$in_o5m"
-        $(which osmfilter) "$in_o5m" "$@" --out-o5m > "$out_o5m"
-        osmconvert "$out_o5m" --out-pbf > "$out_pbf"
-    else
-        $(which osmfilter) "$@"
-    fi
-}
-
 function sum() {
     python -c "import sys; print(sum(map(int, sys.stdin)))"
 }
 
+# tcalc: a time calculator using PostgreSQL
+# example: `tcalc 10:41:02 + 16h43m` → 27:24:02
 function tcalc() {
     local query="select interval '"
     query+="$(sed $'s,\(\\s*[-+]\\s*\),\' \\1\ interval \',g' <<< "$@")"
@@ -290,3 +218,51 @@ function dkill() {
 function docker_ip() {
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$(docker_latest)"
 }
+
+function s3_undelete() {
+  s3_bucket="$1"
+  if [[ -z "${s3_bucket:-}" ]]; then
+    echo "Missing S3 bucket argument"
+    return
+  fi
+
+  s3_key="$2"
+  if [[ -z "${s3_key:-}" ]]; then
+    echo "Missing S3 key argument"
+    return
+  fi
+
+  if (aws s3 ls "s3://${s3_bucket}/${s3_key}" &> /dev/null); then
+    echo "s3://${s3_bucket}/${s3_key} is already undeleted"
+    return
+  fi
+
+  version_id="$(aws s3api list-object-versions \
+      --bucket "$s3_bucket" --prefix "$s3_key" \
+      --query 'DeleteMarkers[?IsLatest==`true`]' \
+    | jq -r '.[] | select(.IsLatest==true) | .VersionId')"
+
+  aws s3api delete-object \
+    --bucket "$s3_bucket" --key "$s3_key" \
+    --version-id "$version_id"
+
+  aws s3 ls "s3://${s3_bucket}/${s3_key}" \
+    || echo "Failed to restore $s3_key"
+}
+
+# Docker-compatible Podman
+
+if (command -v podman &> /dev/null) && ! (command -v docker &> /dev/null); then
+    function docker() {
+        command="$1"
+        shift
+        if [[ "$command" == "run" ]]; then
+            podman run --security-opt label=disable --rm "$@"
+        elif [[ "$command" == "build" ]]; then
+            podman build --format=docker "$@"
+        else
+            podman $command "$@"
+        fi
+    }
+fi
+
