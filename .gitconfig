@@ -54,3 +54,5 @@
     ls = ls-tree -r --name-only HEAD
     s = status -s
     wdiff = diff --color-words
+[init]
+	defaultBranch = main
