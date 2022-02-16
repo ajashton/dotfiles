@@ -1,6 +1,10 @@
-.gitignore
-.*.swp
+*.log
 *~
+.*.swp
 .directory
-node_modules
+.gitignore
+.mypy_cache
 .thumb.png
+.vim
+.vscode
+node_modules
