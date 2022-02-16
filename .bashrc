@@ -10,11 +10,15 @@ complete -cf sudo
 
 # == ENVIRONMENT ======================================================
 
-if (command -v nvim &> /dev/null); then
+if (command -v kak &> /dev/null); then
+    export EDITOR=kak
+elif (command -v nvim &> /dev/null); then
     export EDITOR=nvim
 elif (command -v vim &> /dev/null); then
     export EDITOR=vim
 fi
+alias e=$EDITOR
+
 # Highlight grep matches in bold (1) with black fg (30) and green bg (42):
 export GREP_COLOR="1;30;42"
 export TMP=/tmp
