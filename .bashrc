@@ -35,6 +35,12 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
     \. "$NVM_DIR/bash_completion"
 fi
 
+if (command -v rg &> /dev/null); then
+    # By default fzf uses `find` - if ripgrep is installed then using
+    # that is a better option.
+    export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git/*"'
+fi
+
 export PROMPT_COMMAND=""  # Clear default; further additions below
 
 if ! shopt -oq posix; then
