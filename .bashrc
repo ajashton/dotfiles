@@ -68,7 +68,7 @@ HISTSIZE=50000
 HISTFILESIZE=500000
 HISTIGNORE='&:ls:cd ~:cd ..:[bf]g:exit:h:history'
 shopt -s histappend
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+PROMPT_COMMAND+=" history -a; "
 
 # ---- Window Title ---------------------------------------------------
 
@@ -80,7 +80,7 @@ function set_window_title () {
     dirname="$(pwd | sed -e "s|$HOME|~|" -e 's|\([^/]\)[^/]*/|\1/|g')"
     echo -en "\033]2;${dirname}\007"
 }
-PROMPT_COMMAND+=" set_window_title;"
+PROMPT_COMMAND+=" set_window_title; "
 
 # ---- Shell Prompt ---------------------------------------------------
 
@@ -119,6 +119,7 @@ alias gist='gist -p'
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
 alias mv='mv -vi'
+alias tree='tree -I .git -I __pycache__'
 
 # ---- Shortcuts  -----------------------------------------------------
 
