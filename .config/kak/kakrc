@@ -115,14 +115,18 @@ plug "lePerdu/kakboard" %{
 
 # smarttab.kak
 plug "andreyorst/smarttab.kak" defer smarttab %{
-    # when `backspace' is pressed, 4 spaces are deleted at once
     set-option global softtabstop 4
 } config %{
-    # expandtab: always insert spaces
-    hook global WinSetOption filetype=(rust|markdown|kak|lisp|scheme|sh|perl) expandtab
-    # noexpandtab: always insert tabs
-    hook global WinSetOption filetype=(makefile|gas) noexpandtab
-    # smarttab: tabs for indentation, spaces for alignment
-    hook global WinSetOption filetype=(c|cpp) smarttab
+    hook global BufCreate .* %{
+        editorconfig-load
+        set-option buffer aligntab false
+        autoconfigtab
+    }
+    # # expandtab: always insert spaces
+    # hook global WinSetOption filetype=(rust|markdown|kak|lisp|scheme|sh|perl) expandtab
+    # # noexpandtab: always insert tabs
+    # hook global WinSetOption filetype=(makefile|gas) noexpandtab
+    # # smarttab: tabs for indentation, spaces for alignment
+    # hook global WinSetOption filetype=(c|cpp) smarttab
 }
 
