@@ -103,6 +103,10 @@ plug "andreyorst/fzf.kak" config %{
     set-option global fzf_file_command 'rg --files --hidden -g "!.git/*"'
 }
 
+plug "lePerdu/kakboard" %{
+    hook global WinCreate .* %{ kakboard-enable }
+}
+
 # auto-pairs.kak
 # plug "alexherbo2/auto-pairs.kak" config % {
 #     set-option global auto_pairs ( ) '{' '}' [ ] '"' '"' "'" "'" ` ` “ ” ‘ ’ « » ‹ ›
