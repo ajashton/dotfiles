@@ -90,9 +90,9 @@ plug "kak-lsp/kak-lsp" do %{
 
         map window normal <F1> ': lsp-hover<ret>'
         map window normal <F2> ': lsp-rename-prompt<ret>'
-        map window normal <F3> ': lsp-references<ret>'
-        map window normal <F7> ': lsp-definition<ret>'
-        map window normal <F12> ': lsp-highlight-references<ret>'
+        map window normal <F3> ': lsp-highlight-references<ret>'
+        map window normal <F12> ': lsp-definition<ret>'
+        map window normal <s-F12> ': lsp-references<ret>'
     }
 }
 
