@@ -4,7 +4,7 @@ set-option global indentwidth 4
 set-option global tabstop 4
 
 set-option global ui_options
-set-option -add global ui_options terminal_assistant=none
+set-option -add global ui_options terminal_assistant=clippy
 set-option -add global ui_options terminal_padding_char=·
 set-option -add global ui_options terminal_set_title=false
 
