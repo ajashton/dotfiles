@@ -9,6 +9,7 @@ set-option -add global ui_options terminal_padding_char=·
 set-option -add global ui_options terminal_set_title=false
 
 map global normal <c-/> ': comment-line<ret>'
+map global insert <s-backspace> '<backspace>'
 
 
 ## VISUAL ##
