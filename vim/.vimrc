@@ -6,6 +6,8 @@ let g:python3_host_prog = '/usr/bin/python3'
 " Workaround for https://github.com/daa84/neovim-gtk/issues/209
 set runtimepath+=,/usr/local/share/nvim-gtk/runtime
 
+set encoding=utf-8
+
 " Editing functionality
 set backspace=indent,eol,start
 set nobackup
@@ -23,21 +25,19 @@ set nowritebackup
 set belloff=all
 set breakindent  " keep indentation when soft-wrapping
 set cmdheight=1
-set colorcolumn=80,100,120,140
+set colorcolumn=80,100,120
 set fillchars=vert:▕
-set guioptions-=T  " disable toolbar in GUI
 set nofoldenable
 set hidden  " needed for project-wide search & replace in coc.vim
 set linebreak
 set list  " show non-visible characters as defined in listchars
-set listchars=tab:├-┤,trail:·,extends:»,precedes:«,nbsp:▂
+set listchars=tab:│┈,trail:·,extends:»,precedes:«,nbsp:▂
 set mouse=a
-set nonumber  " line numbers on the left
+set number  " line numbers on the left
 set ruler  " current line number at the bottom
-if (has('nvim'))
-  set signcolumn=auto:4  " aka the gutter
-endif
+set signcolumn=yes  " aka the gutter
 set shortmess+=c
+set shortmess+=I  " hide Vim's intro message
 set showcmd
 if (has('nvim'))
   set termguicolors
@@ -50,19 +50,27 @@ syntax on
 filetype off
 filetype plugin indent on
 
+" Start insert mode and disable line numbers on terminal buffer.
+augroup terminalsettings
+  autocmd!
+  if has('nvim')
+    autocmd TermOpen *
+      \ setlocal nonumber norelativenumber noruler |
+      \ startinsert
+  endif
+augroup end
+
 
 "" == CLIPBOARD BEHAVIOR ===================================
 
-" Copy visual selection to X clipboard with Ctrl-Shift-C
+" Copy visual selection to X clipboard with Ctrl-C
 vnoremap <C-C> "+y
 
-" Cut visual selection to X clipboard with Ctrl-Shift-X
+" Cut visual selection to X clipboard with Ctrl-X
 vnoremap <C-X> "+x
 
-" Paste from X clipboard with Ctrl-Shift-V in all modes
+" Paste from X clipboard with Ctrl-V in insert mode
 inoremap <C-V> <C-R>+
-nnoremap <C-V> "+P
-vnoremap <C-V> "+P
 
 " Keep clipboard contents even when Vim exits
 autocmd VimLeave * call system("xclip -selection clipboard -i", getreg('+'))
@@ -70,9 +78,6 @@ autocmd VimLeave * call system("xclip -selection clipboard -i", getreg('+'))
 
 "" == FILE TYPES ===========================================
 
-autocmd BufNewFile,BufReadPost *.json       IndentLinesDisable
-autocmd BufNewFile,BufReadPost *.ldjson     IndentLinesDisable
-autocmd BufNewFile,BufReadPost *.geojson    IndentLinesDisable
 autocmd BufNewFile,BufReadPost *.json       set filetype=json
 autocmd BufNewFile,BufReadPost *.ldjson     set filetype=json
 autocmd BufNewFile,BufReadPost *.geojson    set filetype=json
@@ -99,7 +104,7 @@ call plug#begin('~/.nvim/plugged')
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Syntax
 Plug 'plasticboy/vim-markdown'
@@ -117,6 +122,12 @@ Plug 'majutsushi/tagbar'
 
 " Color schemes
 Plug 'arzg/vim-colors-xcode'
+Plug 'sainnhe/edge'
+Plug 'vim-scripts/pyte'
+Plug 'vim-scripts/vylight'
+Plug 'iissnan/tangoX'
+Plug 'albertorestifo/github.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 call plug#end()
 
@@ -133,7 +144,7 @@ endfunction
 
 function! DarkUI()
   set background=dark
-  colorscheme xcodewwdc
+  colorscheme onehalfdark
   set guioptions+=d  " enable GTK dark theme
   if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme on
@@ -144,7 +155,7 @@ command! DarkUI call DarkUI()
 
 function! LightUI()
   set background=light
-  colorscheme xcodelight
+  colorscheme onehalflight
   set guioptions-=d  " disable GTK dark theme
   if (exists(':NGPreferDarkTheme') && exists('g:GtkGuiLoaded'))
     NGPreferDarkTheme off
@@ -164,54 +175,72 @@ hi def link MyTodo Todo
 
 "" == PLUGIN CONFIG ========================================
 
-" Ale
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_delay = 1000
-let g:ale_sign_error = '▶'
-let g:ale_sign_warning = '▪'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8']}
+"" -- Blamer --
 
-"" Blamer
 let g:blamer_enabled = 0
 let g:blamer_prefix = ' » '
 
-"" CtrlP
+"" -- CoC --
+
+nmap <F1> <Plug>(coc-fix-current)
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> <F12> <Plug>(coc-definition)
+nmap <silent> <S-F12> <Plug>(coc-references)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+"" -- CtrlP --
+
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
   \ 'AcceptSelection("t")': ['<cr>'],
   \ }
 
-"" GitGutter
-let g:gitgutter_sign_added = '▌'
-let g:gitgutter_sign_modified = '▌'
-let g:gitgutter_sign_modified_removed = '▌'
-let g:gitgutter_sign_removed = '▁'
-let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_override_sign_column_highlight = 0
+"" -- GitGutter --
 
-"" JSON
+" let g:gitgutter_sign_added = '▌'
+" let g:gitgutter_sign_modified = '▌'
+" let g:gitgutter_sign_modified_removed = '▌'
+" let g:gitgutter_sign_removed = '▁'
+" let g:gitgutter_sign_removed_first_line = '▔'
+" let g:gitgutter_override_sign_column_highlight = 0
+
+"" -- JSON --
+
 let g:vim_json_syntax_conceal = 0  " don't hide quotation marks
 
-"" Markdown
+"" -- Markdown --
+
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_toc_autofit = 1
 
-" Start insert mode and disable line numbers on terminal buffer.
-augroup terminalsettings
-  autocmd!
-  if has('nvim')
-    autocmd TermOpen *
-      \ setlocal nonumber norelativenumber noruler |
-      \ startinsert
-  endif
-augroup end
+"" -- Tagbar --
 
-"" Tagbar
 nnoremap <silent> <F10> :TagbarToggle<CR>
 inoremap <silent> <F10> <Esc>:TagbarToggle<CR>a
 
@@ -273,13 +302,6 @@ if (has('nvim'))
   tnoremap <M-9> <C-\><C-n>9gt
   tnoremap <M-0> <C-\><C-n>10gt
 endif
-
-" Move current line up/down 1 line at a time
-nmap <C-k> ddkP
-nmap <C-j> ddp
-" Move selected text up/down 1 line at a time
-vmap <C-k> xkP`[V`]
-vmap <C-j> xp`[V`]
 
 
 "" == COMMANDS =============================================
