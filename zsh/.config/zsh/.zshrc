@@ -10,6 +10,10 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE="$HOME/.history/zsh"
 
+# Complete current command from history using Page Up/Down
+bindkey "^[[5~" history-beginning-search-backward
+bindkey "^[[6~" history-beginning-search-forward
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
