@@ -14,11 +14,10 @@ if [ -s "$HOME/.go" ]; then
   export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
 fi
 
-# Node.js
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  \. "$NVM_DIR/nvm.sh"
-  \. "$NVM_DIR/bash_completion"
+# Node.js via n
+if [ -s "$HOME/.nodejs" ]; then
+  export N_PREFIX="$HOME/.nodejs"
+  export PATH="$N_PREFIX/bin:$PATH"
 fi
 
 # Rust
