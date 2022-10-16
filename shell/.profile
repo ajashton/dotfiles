@@ -2,6 +2,7 @@ export EDITOR=hx
 export GREP_COLOR="1;30;42"
 export PAGER=most
 export PGUSER=postgres
+export SQLITE_HISTORY="$HOME/.history/sqlite"
 export TMPDIR=/tmp
 export TMP=/tmp
 export ZDOTDIR="$HOME/.config/zsh"
