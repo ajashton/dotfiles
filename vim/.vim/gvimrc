@@ -1,0 +1,10 @@
+" Appearance
+" set guifont=IBM\ Plex\ Mono\ 9
+set guifont=Courier\ Prime\ Code\ 9
+set guioptions-=T  " disable toolbar
+set guioptions-=m  " disable menu
+set guioptions-=rL  " disable scrollbars
+
+" Default window size
+set columns=128
+set lines=80

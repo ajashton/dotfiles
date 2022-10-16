@@ -1,0 +1,6 @@
+{
+  "diagnostic-languageserver.filetypes": {
+    "python": "mypy",
+    "sh": "shellcheck"
+  }
+}
