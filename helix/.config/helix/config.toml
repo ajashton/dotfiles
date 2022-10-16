@@ -1,0 +1,20 @@
+theme = "ayu_dark"
+
+[editor]
+rulers = [80, 100, 120]
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.auto-pairs]
+#'(' = ')'
+#'{' = '}'
+#'[' = ']'
+#'"' = '"'
+#'`' = '`'
+'“' = '”'
+'‘' = '’'
+'«' = '»'
+
+[editor.indent-guides]
+render = true
