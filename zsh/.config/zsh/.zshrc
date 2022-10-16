@@ -8,7 +8,7 @@ bindkey -e
 setopt histignorealldups sharehistory
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE="$ZDOTDIR/history"
+HISTFILE="$HOME/.history/zsh"
 
 # Use modern completion system
 autoload -Uz compinit

@@ -1,6 +1,8 @@
 # shell prompt
 eval "$(starship init bash)"
 
+HISTFILE="$HOME/.history/bash"
+
 # autocompletion
 if ! shopt -oq posix; then
   if [ -f /etc/bash_completion ]; then
