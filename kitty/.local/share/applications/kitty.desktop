@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Kitty
+Comment=Terminal
+Keywords=shell;prompt;command;commandline;cmd;
+TryExec=kitty
+Exec=kitty
+Icon=/home/aj/.local/share/icons/kitty-dark.png
+Type=Application
+Categories=System;TerminalEmulator;
+StartupNotify=true
+X-GNOME-SingleWindow=false
