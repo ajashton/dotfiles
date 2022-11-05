@@ -115,6 +115,6 @@ _note_complete() {
 # Registers custom autocompletion function to be invoked when completing
 # arguments to 'note'. The `-o nospace` option is needed to allow proper
 # completions for directory names.
-if [ "$(basename ${SHELL:-})" = "bash" ]; then
+if [ "$(basename "$0")" = "bash" ]; then
     complete -o nospace -F _note_complete note
 fi
