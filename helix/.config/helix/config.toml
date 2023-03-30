@@ -1,7 +1,8 @@
-theme = "ayu_dark"
+theme = "mellow"
 
 [editor]
 rulers = [80, 100, 120]
+bufferline = "multiple"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -18,3 +19,4 @@ insert = "bar"
 
 [editor.indent-guides]
 render = true
+
