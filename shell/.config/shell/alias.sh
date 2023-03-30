@@ -21,7 +21,11 @@ fi
 
 function e() {
   setopt sh_word_split
-  $EDITOR "$@"
+  if [ "$EDITOR" = "kate -b" ]; then
+    kate "$@"
+  else
+    $EDITOR "$@"
+  fi
 }
 
 alias p="$PAGER"
