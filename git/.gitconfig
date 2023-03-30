@@ -1,9 +1,13 @@
-[core]
-    excludesfile = /home/aj/.gitignore
-
 [user]
     email = aj@ajashton.ca
     name = AJ Ashton
+
+[includeIf "hasconfig:remote.*.url:git@github.com:mapbox/**"]
+    # Use Mapbox email address for Mapbox repos
+    path = ./config/git/mapbox.conf
+
+[core]
+    excludesfile = /home/aj/.gitignore
 
 [color]
     branch = auto
@@ -55,6 +59,7 @@
     ls = ls-tree -r --name-only HEAD
     s = status -s
     wdiff = diff --color-words
+    whoami = config user.email
 
 [init]
     defaultBranch = main
