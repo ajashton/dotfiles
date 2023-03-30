@@ -1,5 +1,8 @@
+#!/bin/sh
+
 export EDITOR=hx
 export GREP_COLOR="1;30;42"
+export HIGHLIGHT_STYLE=bluegreen
 export PAGER=most
 export PGUSER=postgres
 export SQLITE_HISTORY="$HOME/.history/sqlite"
@@ -9,14 +12,22 @@ export ZDOTDIR="$HOME/.config/zsh"
 
 export PATH="$HOME/.local/bin:$PATH"
 
+if [ "$XDG_SESSION_DESKTOP" = "KDE" ]; then
+  export SSH_ASKPASS=/usr/bin/ksshaskpass
+fi
+
+if [ -z "$SSH_AGENT_PID" ]; then
+    eval "$(ssh-agent -s)"
+fi
+
 # Go
-if [ -s "$HOME/.go" ]; then
+if [ -d "$HOME/.go" ]; then
   export GOPATH="$HOME/.go"
   export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
 fi
 
 # Node.js via n
-if [ -s "$HOME/.nodejs" ]; then
+if [ -d "$HOME/.nodejs" ]; then
   export N_PREFIX="$HOME/.nodejs"
   export PATH="$N_PREFIX/bin:$PATH"
 fi

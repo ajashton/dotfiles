@@ -5,8 +5,14 @@ function docker_latest() {
 }
 
 function dock() {
+  local id
+  if [ -n "${1:-}" ]; then
+    id="$1"
+  else
+    id="$(docker_latest)"
+  fi
   # Connect to a bash session in the latest running docker container
-  docker exec -it "$(docker_latest)" bash
+  docker exec -it "$id" bash
 }
 
 function dkill() {

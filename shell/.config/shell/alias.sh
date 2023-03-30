@@ -19,7 +19,11 @@ fi
 
 ## DEFAULTS & SHORTCUTS ##
 
-alias e="$EDITOR"
+function e() {
+  setopt sh_word_split
+  $EDITOR "$@"
+}
+
 alias p="$PAGER"
 
 alias cd..='cd ..'
