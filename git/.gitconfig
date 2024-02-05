@@ -59,6 +59,7 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-tree -r --name-only HEAD
     s = status -s
+    unpushed = log --branches --not --remotes --no-walk --decorate --oneline
     wdiff = diff --color-words
     whoami = config user.email
 
