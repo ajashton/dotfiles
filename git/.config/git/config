@@ -4,10 +4,10 @@
 
 [includeIf "hasconfig:remote.*.url:git@github.com:mapbox/**"]
     # Use Mapbox email address for Mapbox repos
-    path = ./config/git/mapbox.conf
+    path = ~/.config/git/mapbox.conf
 
-[core]
-    excludesfile = /home/aj/.gitignore
+[branch]
+    sort = -committerdate
 
 [color]
     branch = auto
@@ -36,9 +36,24 @@
     changed = green
     untracked = cyan
 
+[commit]
+    verbose = true
+
+[diff]
+    algorithm = histogram
+
+[github]
+    user = ajashton
+
+[help]
+    autocorrect = prompt
+
+[init]
+    defaultBranch = main
+
 [merge]
     tool = meld
-	conflictStyle = diff3
+    conflictStyle = zdiff3
 
 [mergetool]
     prompt = false
@@ -46,11 +61,17 @@
 [mergetool "meld"]
     trustExitCode = true
 
+[protocol "file"]
+    allow = always
+
 [push]
     default = simple
 
-[github]
-    user = ajashton
+[rebase]
+    autosquash = true
+
+[rerere]
+    enabled = true
 
 [alias]
     pushf = push --force-with-lease
@@ -58,10 +79,9 @@
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-tree -r --name-only HEAD
+    recent = ! git branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\" | head -10
     s = status -s
+    smartlog = log --graph --pretty=format:'commit: %C(bold red)%h%Creset %C(red)[%H]%Creset %C(bold magenta)%d %Creset%ndate: %C(bold yellow)%cd %Creset%C(yellow)%cr%Creset%nauthor: %C(bold blue)%an%Creset %C(blue)[%ae]%Creset%n%C(cyan)%s%n%Creset'
     unpushed = log --branches --not --remotes --no-walk --decorate --oneline
     wdiff = diff --color-words
     whoami = config user.email
-
-[init]
-    defaultBranch = main
