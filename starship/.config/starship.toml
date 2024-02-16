@@ -17,6 +17,7 @@ $docker_context\
 $package\
 $buf\
 $nix_shell\
+$python\
 $conda\
 $spack\
 $memory_usage\

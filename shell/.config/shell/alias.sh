@@ -59,3 +59,4 @@ alias mkdir='mkdir -p'
 
 alias tree='tree -I .git -I __pycache__'
 
+alias serve='python3 -m http.server'

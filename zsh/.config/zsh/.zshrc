@@ -1,3 +1,5 @@
+[[ -v AJ_PROFILE_LOADED ]] || . "$HOME/profile"
+
 # Set up the prompt
 eval "$(starship init zsh)"
 
@@ -39,3 +41,9 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 for f in "$HOME/.config/shell/autoload/"*.sh; do
    . "$f"
 done
+
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+   . "$(code --locate-shell-integration-path zsh)"
+   export EDITOR="code"
+   export GIT_EDITOR="code --wait"
+fi
