@@ -39,11 +39,14 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 for f in "$HOME/.config/shell/autoload/"*.sh; do
-   . "$f"
+    . "$f"
 done
 
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-   . "$(code --locate-shell-integration-path zsh)"
-   export EDITOR="code"
-   export GIT_EDITOR="code --wait"
+    . "$(code --locate-shell-integration-path zsh)"
+    export EDITOR="code"
+    export GIT_EDITOR="code --wait"
+elif [[ "$ZED_TERM" == "true" ]]; then
+    export EDITOR="zed"
+    export GIT_EDITOR="zed --wait"
 fi
