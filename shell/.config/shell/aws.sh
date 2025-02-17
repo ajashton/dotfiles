@@ -1,22 +1,3 @@
-if [ -n "$(command -v npm 2> /dev/null)" ] \
-  && [ -e "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh" ]
-  export AWS_DEFAULT_REGION=us-east-1
-then
-  source "$(npm root -g)/@mapbox/mbxcli/bin/mapbox.sh"
-  alias mbxe="mbx env -a default"
-fi
-
-function aws() {
-  local creds_expire
-  creds_expire="$(date -d "${AWS_CREDENTIAL_EXPIRATION:-2020-01-01}" '+%s')"
-  local now
-  now="$(date '+%s')"
-  if [[ "$((creds_expire - now))" -lt 300 ]]; then
-    mbx env
-  fi
-  command aws "$@"
-}
-
 # aws
 alias s3cp='aws s3 cp'
 alias s3ls='aws s3 ls --human-readable'
@@ -78,5 +59,5 @@ function s3restoreversion() {
   aws s3api copy-object \
     --copy-source "${source}?versionId=${version}" \
     --bucket "$dest_bucket" \
-    --key "$dest_key" 
+    --key "$dest_key"
 }

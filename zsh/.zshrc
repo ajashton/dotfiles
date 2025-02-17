@@ -1,4 +1,4 @@
-[[ -v AJ_PROFILE_LOADED ]] || . "$HOME/profile"
+[[ -v AJ_PROFILE_LOADED ]] || . "$HOME/.profile"
 
 # Set up the prompt
 eval "$(starship init zsh)"
@@ -25,7 +25,9 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+if (which dircolors &> /dev/null); then
+    eval "$(dircolors -b)"
+fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -47,6 +49,10 @@ if [[ "$TERM_PROGRAM" == "vscode" ]]; then
     export EDITOR="code"
     export GIT_EDITOR="code --wait"
 elif [[ "$ZED_TERM" == "true" ]]; then
-    export EDITOR="zed"
-    export GIT_EDITOR="zed --wait"
+    if [[ -e "/Applications/Zed.app/Contents/MacOS/cli" ]]; then
+        export EDITOR="/Applications/Zed.app/Contents/MacOS/cli"
+    else
+        export EDITOR="zed"
+    fi
+    export GIT_EDITOR="$EDITOR --wait"
 fi

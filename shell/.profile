@@ -8,7 +8,6 @@ export PGUSER=postgres
 export SQLITE_HISTORY="$HOME/.history/sqlite"
 export TMPDIR=/tmp
 export TMP=/tmp
-export ZDOTDIR="$HOME/.config/zsh"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # Prevent Python venv from modifying $PS1 - Starship handles this
