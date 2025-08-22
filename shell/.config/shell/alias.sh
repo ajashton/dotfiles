@@ -37,7 +37,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-alias df='df --human-readable --print-type'
+alias df='df -h -T'
 
 alias dt='date --utc --rfc-3339=seconds'
 
