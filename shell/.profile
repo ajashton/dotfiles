@@ -24,9 +24,9 @@ if [ -z "$SSH_AGENT_PID" ]; then
 fi
 
 # Go
-if [ -d "$HOME/.go" ]; then
-  export GOPATH="$HOME/.go"
-  export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
+export GOPATH="$HOME/.go"
+if [ -d "/usr/local/go" ]; then
+  export PATH="$HOME/.go/bin:/usr/local/go/bin:$PATH"
 fi
 
 # Node.js via n
