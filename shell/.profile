@@ -40,4 +40,11 @@ if [ -d "$HOME/.cargo/bin" ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# Zig via zvm
+if [ -d "$HOME/.zvm" ]; then
+  export ZVM_INSTALL="$HOME/.zvm/self"
+  export PATH="$HOME/.zvm/bin:$PATH"
+  export PATH="$ZVM_INSTALL:$PATH"
+fi
+
 export AJ_PROFILE_LOADED=1
