@@ -57,6 +57,8 @@
     autosquash = true
 
 [rerere]
+# Reuse Recorded Resolution: remember how you’ve resolved a hunk conflict, so
+# the next time Git sees the same conflict it can resolve it automatically.
     enabled = true
 
 [alias]
