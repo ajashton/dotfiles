@@ -2,10 +2,6 @@
     email = aj@ajashton.ca
     name = AJ Ashton
 
-[includeIf "hasconfig:remote.*.url:git@github.com:mapbox/**"]
-    # Use Mapbox email address for Mapbox repos
-    path = ~/.config/git/mapbox.conf
-
 [branch]
     sort = -committerdate
 
