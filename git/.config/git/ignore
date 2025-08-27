@@ -1,0 +1,60 @@
+## SYSTEM / DESKTOP ##
+
+# general
+*.bak
+*.orig
+*.tmp
+
+# Linux
+.directory
+.Trash-*
+
+# MacOS
+__MACOSX/
+.DS_Store
+._*
+.Trashes
+
+# Windows
+*.lnk
+$RECYCLE.BIN/
+Thumbs.db
+
+
+## EDITORS / UTILITIES ##
+
+# general
+*~
+
+# VS Code
+.vscode
+
+# Zed
+.zed
+
+
+## LANGUAGES / BUILD ENVIRONMENT ##
+
+# general
+*.a
+*.dll
+*.dylib
+*.log
+*.out
+*.so
+build
+
+# JavaScript
+node_modules
+
+# Python
+__pycache__
+.venv
+venv
+
+# Rust
+target
+
+# Zig
+.zig-cache
+zig-out
