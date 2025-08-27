@@ -47,16 +47,6 @@
 [init]
     defaultBranch = main
 
-[merge]
-    tool = meld
-    conflictStyle = zdiff3
-
-[mergetool]
-    prompt = false
-
-[mergetool "meld"]
-    trustExitCode = true
-
 [protocol "file"]
     allow = always
 
