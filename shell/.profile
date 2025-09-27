@@ -47,4 +47,9 @@ if [ -d "$HOME/.zvm" ]; then
   export PATH="$ZVM_INSTALL:$PATH"
 fi
 
+# Postgres.app (MacOS)
+if [ -d "/Applications/Postgres.app/Contents/Versions/latest/bin" ]; then
+  export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+fi
+
 export AJ_PROFILE_LOADED=1
