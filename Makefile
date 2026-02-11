@@ -16,10 +16,10 @@ $(DIRS):
 	mkdir -p $@
 
 $(DEFAULT): $(DIRS)
-	stow $@
+	stow -t "${HOME}" $@
 
 bash: shell starship
-	stow $@
+	stow -t "${HOME}" $@
 
 zsh: shell starship
-	stow $@
+	stow -t "${HOME}" $@
