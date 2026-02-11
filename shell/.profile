@@ -23,6 +23,11 @@ if [ -z "$SSH_AGENT_PID" ]; then
     eval "$(ssh-agent -s)"
 fi
 
+# Homebrew on Linux
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+  export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
+fi
+
 # Go
 export GOPATH="$HOME/.go"
 if [ -d "/usr/local/go" ]; then
