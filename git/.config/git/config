@@ -73,3 +73,5 @@
     unpushed = log --branches --not --remotes --no-walk --decorate --oneline
     wdiff = diff --color-words
     whoami = config user.email
+[pull]
+	rebase = true
