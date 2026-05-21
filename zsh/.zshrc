@@ -16,6 +16,9 @@ HISTFILE="$HOME/.history/zsh"
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
 
+# Make delete key... delete
+bindkey "^[[3~" delete-char
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
