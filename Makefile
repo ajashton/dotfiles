@@ -1,4 +1,4 @@
-DEFAULT = fontconfig git postgresql ranger shell ssh starship tmux vim
+DEFAULT = fontconfig git maki postgresql ranger shell ssh starship tmux vim
 CUSTOM = bash zsh
 
 # These directories must exist before stow runs otherwise the symlinks

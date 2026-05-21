@@ -27,6 +27,9 @@ Thumbs.db
 # general
 *~
 
+# Maki
+.maki
+
 # VS Code
 .vscode
 

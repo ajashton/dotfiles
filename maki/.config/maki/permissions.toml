@@ -1,0 +1,12 @@
+[write]
+allow = [
+    "/home/aj/.local/state/maki/plans/**",
+]
+
+[bash]
+allow = [
+    "cmake *",
+    "ctest *",
+    "python -m py_compile *",
+    "python3 -m py_compile *",
+]
