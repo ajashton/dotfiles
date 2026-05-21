@@ -1,3 +1,5 @@
+[[ -v AJ_PROFILE_LOADED ]] || . "$HOME/.profile"
+
 # shell prompt
 eval "$(starship init bash)"
 
